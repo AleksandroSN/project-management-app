@@ -1,0 +1,24 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button aria-label="Burger menu" class="header__burger">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Project Management App</span>
+  <div class="header__links">
+    <button *ngIf="isAuth" mat-icon-button aria-label="Profile link">
+      <mat-icon>person</mat-icon>
+    </button>
+    <button *ngIf="isAuth" mat-raised-button aria-label="Create new board">
+      New Board
+    </button>
+    <button mat-raised-button aria-label="SignIn Link">
+      SignIn
+    </button>
+    <button mat-raised-button aria-label="SignUp Link">
+      SignUp
+    </button>
+    <button *ngIf="isAuth" mat-raised-button aria-label="Logout">
+      Logout
+    </button>
+    <mat-slide-toggle>{{currentLang}}</mat-slide-toggle>
+  </div>
+</mat-toolbar>

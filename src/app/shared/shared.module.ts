@@ -11,6 +11,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { RouterModule } from "@angular/router";
 
 const MaterialsModules = [
@@ -24,6 +25,7 @@ const MaterialsModules = [
   MatDatepickerModule,
   MatNativeDateModule,
   MatProgressSpinnerModule,
+  MatSlideToggleModule,
 ];
 
 @NgModule({
