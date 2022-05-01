@@ -13,6 +13,7 @@ import { MatNativeDateModule } from "@angular/material/core";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { RouterModule } from "@angular/router";
+import { RouteLinkComponent } from "./components";
 
 const MaterialsModules = [
   MatToolbarModule,
@@ -29,9 +30,9 @@ const MaterialsModules = [
 ];
 
 @NgModule({
-  declarations: [],
+  declarations: [RouteLinkComponent],
   providers: [MatDatepickerModule],
   imports: [CommonModule, MaterialsModules, RouterModule, ReactiveFormsModule],
-  exports: [CommonModule, MaterialsModules, RouterModule, ReactiveFormsModule],
+  exports: [CommonModule, MaterialsModules, RouterModule, ReactiveFormsModule, RouteLinkComponent],
 })
 export class SharedModule {}
