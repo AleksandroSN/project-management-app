@@ -39,7 +39,7 @@ export class LongPressDirective implements OnDestroy {
     );
     this.eventSubscribe = merge(mousedown, mouseup, touchstart, touchEnd)
       .pipe(
-        switchMap((state) => (state ? timer(this.threshold, 1000) : of(null))),
+        switchMap((state) => (state ? timer(this.threshold, 100) : of(null))),
         // @ts-ignore
         filter((value) => value),
       )
