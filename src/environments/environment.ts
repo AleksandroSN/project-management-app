@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  API_URL: "http://aleksandro-pm-be.herokuapp.com",
 };
 
 /*
