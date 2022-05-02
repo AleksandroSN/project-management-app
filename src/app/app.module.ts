@@ -5,9 +5,9 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 import { SharedModule } from "@app/shared";
+import { CoreModule } from "@app/core";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { CoreModule } from "./core/core.module";
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,7 +15,7 @@ import { CoreModule } from "./core/core.module";
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({}),
+    StoreModule.forRoot([]),
     EffectsModule.forRoot([]),
     SharedModule,
     CoreModule,
