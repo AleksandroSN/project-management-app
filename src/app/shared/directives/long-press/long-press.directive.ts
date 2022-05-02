@@ -1,19 +1,8 @@
 import {
-  Directive,
-  ElementRef,
-  EventEmitter,
-  OnDestroy,
-  Output,
+ Directive, ElementRef, EventEmitter, OnDestroy, Output 
 } from "@angular/core";
 import {
-  filter,
-  fromEvent,
-  map,
-  merge,
-  of,
-  Subscription,
-  switchMap,
-  timer,
+ filter, fromEvent, map, merge, of, Subscription, switchMap, timer 
 } from "rxjs";
 
 @Directive({

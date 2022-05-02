@@ -1,16 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { RouteLinkComponent } from './route-link.component';
+import { RouteLinkComponent } from "./route-link.component";
 
-describe('RouteLinkComponent', () => {
+describe("RouteLinkComponent", () => {
   let component: RouteLinkComponent;
   let fixture: ComponentFixture<RouteLinkComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RouteLinkComponent ]
-    })
-    .compileComponents();
+      declarations: [RouteLinkComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('RouteLinkComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

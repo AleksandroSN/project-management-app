@@ -10,10 +10,7 @@ import { CardComponent } from "./components";
 import { HomeRoutingModule } from "./home-routing.module";
 
 @NgModule({
-  declarations: [
-    HomeComponent,
-    CardComponent,
-  ],
+  declarations: [HomeComponent, CardComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,
