@@ -1,0 +1,17 @@
+import { Component, OnInit } from "@angular/core";
+
+@Component({
+  selector: "app-header",
+  templateUrl: "./header.component.html",
+  styleUrls: ["./header.component.scss"],
+})
+export class HeaderComponent implements OnInit {
+  isAuth = false;
+
+  currentLang = "EN";
+
+  ngOnInit(): void {
+    this.isAuth = true;
+    this.currentLang = "En";
+  }
+}
