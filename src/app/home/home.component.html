@@ -1,0 +1,14 @@
+<div class="header">
+  <div class="header__inner">
+    <h1 class="header__title">
+      Boards list
+    </h1>
+  </div>
+</div>
+<div class="boards">
+  <div class="boards__inner">
+    <div class="boards__list" *ngIf="boards.length">
+      <app-card *ngFor="let board of boards" [data]="board"></app-card>
+    </div>
+  </div>
+</div>
