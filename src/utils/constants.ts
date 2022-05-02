@@ -1,1 +1,2 @@
-export const CONSTANT = "constanta";
+// PAGES
+export const HOME_PAGE = "home";
