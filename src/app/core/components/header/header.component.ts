@@ -11,7 +11,7 @@ export class HeaderComponent implements OnInit {
   currentLang = "EN";
 
   ngOnInit(): void {
-    this.isAuth = true;
+    this.isAuth = false;
     this.currentLang = "En";
   }
 }

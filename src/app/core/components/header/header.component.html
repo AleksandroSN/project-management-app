@@ -4,8 +4,8 @@
   </button>
   <span>Project Management App</span>
   <div class="header__links">
-    <app-route-link *ngIf="!isAuth" linkPath="signin" linkText="SignIn"></app-route-link>
-    <app-route-link *ngIf="!isAuth" linkPath="signup" linkText="SignUp"></app-route-link>
+    <app-route-link *ngIf="!isAuth" linkPath="auth" linkText="Login"></app-route-link>
+    <app-route-link *ngIf="!isAuth" linkPath="auth/signup" linkText="SignUp"></app-route-link>
     <button *ngIf="isAuth" mat-raised-button aria-label="Create new board">
       New Board
     </button>
