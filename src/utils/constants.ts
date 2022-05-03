@@ -28,9 +28,13 @@ export const PASSWORD_INPUT = "password";
 
 // ACTIONS
 export enum UserActionsName {
-  LOGIN = "User is authorized",
-  LOGOUT = "User is logout",
+  LOGIN = "[AUTH] User is authorized",
+  LOGOUT = "[AUTH] User is logout",
+  UPDATE = "[AUTH] User data updated",
 }
 
 // FEATURENAME
 export const USER_FEATURE_KEY = "userFeature";
+
+// OTHER
+export const LOCAL_STORAGE_KEY = "auth_data";

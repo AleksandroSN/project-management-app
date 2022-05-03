@@ -1,6 +1,6 @@
 import { createFeature, createReducer, on } from "@ngrx/store";
 import { USER_FEATURE_KEY } from "@utils";
-import { userAuthorize, userLogout } from "../actions";
+import { userAuthorize, userLogin, userLogout } from "../actions";
 import { UserState } from "../state.models";
 
 const INITIAL_STATE: UserState = {
@@ -19,6 +19,7 @@ export const userFeature = createFeature({
         ...user,
       }),
     ),
+    on(userLogin, (state): UserState => ({ ...state, isAuth: true })),
     on(userLogout, (state): UserState => ({ ...state, ...INITIAL_STATE })),
   ),
 });

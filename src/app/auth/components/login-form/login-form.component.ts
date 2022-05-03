@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { InputValidationService } from "@app/core/services";
+import { InputValidationService, LoginService } from "@app/core/services";
+import { User } from "@app/shared";
 import { LOGIN_INPUT, PASSWORD_INPUT } from "@utils";
 
 @Component({
@@ -13,7 +14,11 @@ export class LoginFormComponent implements OnInit {
 
   form?: FormGroup;
 
-  constructor(private fb: FormBuilder, private inputValidationService: InputValidationService) {}
+  constructor(
+    private fb: FormBuilder,
+    private inputValidationService: InputValidationService,
+    private loginService: LoginService,
+  ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -31,13 +36,7 @@ export class LoginFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form?.value);
-    // const dataFromForm = this.form?.value as User;
-    // const userName = getUsernameFromEmail(dataFromForm.login);
-    // const user: User = {
-    //   login: userName,
-    //   password: dataFromForm.password,
-    // };
-    // this.loginService.login(user);
+    const user = this.form?.value as User;
+    this.loginService.login(user);
   }
 }
