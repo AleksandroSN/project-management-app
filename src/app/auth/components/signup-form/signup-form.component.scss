@@ -1,0 +1,22 @@
+:host {
+  display: block;
+  margin: 0 auto;
+  max-width: 500px;
+}
+
+.signup {
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  &__submit {
+    align-self: flex-end;
+  }
+}

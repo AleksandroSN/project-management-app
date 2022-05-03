@@ -3,7 +3,7 @@
     <p class="login__title">Login</p>
     <mat-form-field appearance="fill">
       <mat-label>Enter your login</mat-label>
-      <input type="text" matInput formControlName="login" placeholder="UserLgogin" required>
+      <input type="text" matInput formControlName="login" placeholder="Login" required>
       <mat-error *ngIf="login?.invalid && (login?.dirty || login?.touched)">
         <span *ngIf="login?.errors?.['required']">
           Login is required.
