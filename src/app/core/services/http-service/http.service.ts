@@ -3,9 +3,7 @@ import { Injectable } from "@angular/core";
 import { catchError, Observable } from "rxjs";
 import { environment } from "@environments/environment";
 
-@Injectable({
-  providedIn: "root",
-})
+@Injectable()
 export class HttpService {
   constructor(private http: HttpClient) {}
 
