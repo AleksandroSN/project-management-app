@@ -25,3 +25,12 @@ export const RegExForInputValidation = {
 export const NAME_INPUT = "name";
 export const LOGIN_INPUT = "login";
 export const PASSWORD_INPUT = "password";
+
+// ACTIONS
+export enum UserActionsName {
+  LOGIN = "User is authorized",
+  LOGOUT = "User is logout",
+}
+
+// FEATURENAME
+export const USER_FEATURE_KEY = "userFeature";
