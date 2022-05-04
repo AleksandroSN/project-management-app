@@ -1,17 +1,5 @@
 @import "adaptive";
 
-.header {
-  background: white;
-  padding: 0.4rem 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  &__inner {
-    @include contentWidth;
-  }
-  &__title {
-    margin: 0;
-    font-size: 1rem;
-  }
-}
 .boards {
   padding: 1rem 0;
   &__inner {
