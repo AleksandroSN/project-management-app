@@ -6,6 +6,8 @@ import { UserState } from "../state.models";
 const INITIAL_STATE: UserState = {
   isAuth: false,
   login: "",
+  id: "",
+  name: "",
 };
 
 export const userFeature = createFeature({

@@ -6,9 +6,8 @@ export interface User {
 export interface UserWithName extends User {
   name: string;
 }
-export interface UserWithAuth {
+export interface UserWithId {
   id?: string;
   name?: string;
   login: string;
-  isAuth: boolean;
 }
