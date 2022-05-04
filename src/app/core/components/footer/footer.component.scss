@@ -1,8 +1,11 @@
-footer {
+@import "adaptive";
+
+.footer-inner {
   display: flex;
   justify-content: space-between;
   height: 80px;
   align-items: center;
+  @include contentWidth();
 }
 .link {
   display: block;

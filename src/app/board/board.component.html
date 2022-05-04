@@ -1,6 +1,10 @@
 <app-module-header [title]="'Board ' + 'test'"></app-module-header>
 <div class="board">
   <div class="board__inner">
-    test
+    <app-board-column
+      *ngFor="let column of columns; index as i"
+      [columnData]="getColumnData(i, column)"
+      (dropEvent)="drop($event)"
+    ></app-board-column>
   </div>
 </div>

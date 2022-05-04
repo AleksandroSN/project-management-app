@@ -1,4 +1,9 @@
-import { Component } from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from "@angular/core";
 
 @Component({
   selector: "app-board-column",
@@ -6,4 +11,11 @@ import { Component } from "@angular/core";
   styleUrls: ["./board-column.component.scss"],
 })
 export class BoardColumnComponent {
+  @Input() public columnData: any;
+
+  @Output() public dropEvent = new EventEmitter<any>();
+
+  public drop(event: any) {
+    this.dropEvent.emit(event);
+  }
 }

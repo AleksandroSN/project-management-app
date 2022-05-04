@@ -16,6 +16,7 @@ $breakpoints: (
 
 @mixin contentWidth() {
   margin: 0 auto;
+  width: 100%;
   max-width: 1400px;
   padding: 0 1rem;
   @include breakpoint(md) {

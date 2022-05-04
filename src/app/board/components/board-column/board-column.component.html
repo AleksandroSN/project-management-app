@@ -1,1 +1,14 @@
-<p>board-column works!</p>
+<div class="column">
+  <h2>{{ columnData.type }}</h2>
+  <div
+    cdkDropList
+    [id]="'column-' + columnData.id"
+    [cdkDropListConnectedTo]="columnData.otherColumns"
+    [cdkDropListData]="columnData.cards"
+    class="column__list"
+    (cdkDropListDropped)="drop($event)">
+    <div class="column__card" *ngFor="let card of columnData.cards" cdkDrag>
+      <app-board-card [cardData]="card"></app-board-card>
+    </div>
+  </div>
+</div>
