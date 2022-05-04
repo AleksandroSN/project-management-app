@@ -1,24 +1,27 @@
-footer {
-  display: flex;
-  justify-content: space-between;
-  height: 80px;
-  align-items: center;
-}
-.link {
-  display: block;
-  height: 60px;
-  width: 120px;
-}
-img {
-  width: 100%;
-  object-fit: contain;
-}
-p {
-  font-size: 18px;
-  font-weight: 500;
-}
-.git {
-  color: #696969;
-  text-decoration: none;
-  margin-left: 7px;
+.footer {
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+    height: 80px;
+    align-items: center;
+  }
+  &__link {
+    display: block;
+    height: 45px;
+    width: 120px;
+  }
+  &__img {
+    width: 100%;
+    object-fit: contain;
+  }
+  &__text {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0;
+  }
+  &__git {
+    color: #696969;
+    text-decoration: none;
+    margin-left: 7px;
+  }
 }
