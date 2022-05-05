@@ -4,17 +4,22 @@
   </button>
   <span>Project Management App</span>
   <div class="header__links">
-    <app-route-link *ngIf="!isAuth" linkPath="signin" linkText="SignIn"></app-route-link>
-    <app-route-link *ngIf="!isAuth" linkPath="signup" linkText="SignUp"></app-route-link>
-    <button *ngIf="isAuth" mat-raised-button aria-label="Create new board">
-      New Board
-    </button>
-    <button *ngIf="isAuth" mat-raised-button aria-label="Logout">
-      Logout
-    </button>
-    <app-route-link *ngIf="isAuth" linkPath="profile">
-      <mat-icon>person</mat-icon>
-    </app-route-link>
-    <mat-slide-toggle>{{currentLang}}</mat-slide-toggle>
+    <ng-container *ngIf="isAuth$ | async; else loginLinks">
+      <button mat-raised-button aria-label="Create new board">
+        New Board
+      </button>
+      <button mat-raised-button aria-label="Logout" (click)="logout()">
+        Logout
+      </button>
+      <app-route-link linkPath="profile">
+        <mat-icon>person</mat-icon>
+      </app-route-link>
+    </ng-container>
+    <mat-slide-toggle class="header__toggle">{{currentLang}}</mat-slide-toggle>
   </div>
 </mat-toolbar>
+
+<ng-template #loginLinks>
+  <app-route-link linkPath="auth" linkText="Login"></app-route-link>
+  <app-route-link linkPath="auth/signup" linkText="SignUp"></app-route-link>
+</ng-template>
