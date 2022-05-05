@@ -1,5 +1,7 @@
 import { Component } from "@angular/core";
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from "@angular/cdk/drag-drop";
+import { ColumnModel } from "@app/shared/models/column.model";
+import { TaskModel } from "@app/shared/models/task.model";
 
 @Component({
   selector: "app-board",
@@ -7,29 +9,43 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from "@angular/cdk/dr
   styleUrls: ["./board.component.scss"],
 })
 export class BoardComponent {
-  public columns: any[] = [
+  public columns: ColumnModel[] = [
     {
-      type: "To do",
-      cards: [
-        "Get to work",
-        "Pick up groceries",
-        "Go home",
-        "Fall asleep",
+      id: "0",
+      title: "To do",
+      order: 1,
+      tasks: [
+        {
+          id: "6e3abe9c-ceb1-40fa-9a04-eb2b2184daf9",
+          title: "Task: pet the cat",
+          order: 1,
+          done: false,
+          description: "Domestic cat needs to be stroked gently",
+          userId: "b2d92061-7d23-4641-af52-dd39f95b99f8",
+        },
       ],
     },
     {
-      type: "Done",
-      cards: [
-        "Get up",
-        "Brush teeth",
-        "Take a shower",
-        "Check e-mail",
-        "Walk dog",
+      id: "1",
+      title: "Done",
+      order: 2,
+      tasks: [
+        {
+          id: "ada26e3abe9c-ceb1-40fa-9a04-eb2b2184daf9",
+          title: "Task: get up",
+          order: 1,
+          done: false,
+          description: "Test",
+          userId: "b2d92061-7d23-4641-af52-dd39f95b99f8",
+        },
       ],
     },
   ];
 
-  public drop(event: CdkDragDrop<string[]>): void {
+  public drop(event: CdkDragDrop<TaskModel[] | undefined, TaskModel[]>): void {
+    if (!event.container?.data) {
+      return;
+    }
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -42,11 +58,13 @@ export class BoardComponent {
     }
   }
 
-  public getColumnData(index: number, data: any): any {
+  public getColumnData(index: number, data: ColumnModel): any {
     return {
       ...data,
       id: index,
-      otherColumns: [...Array(this.columns.length).keys()].filter((item) => item !== index).map((item) => `column-${item}`),
+      otherColumns: [...Array(this.columns.length).keys()]
+        .filter((item) => item !== index)
+        .map((item) => `column-${item}`),
     };
   }
 }

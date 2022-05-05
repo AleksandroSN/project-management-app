@@ -4,6 +4,9 @@ import {
   Input,
   Output,
 } from "@angular/core";
+import { ExtendedColumnModel } from "@app/shared/models/column.model";
+import { CdkDragDrop } from "@angular/cdk/drag-drop";
+import { TaskModel } from "@app/shared/models/task.model";
 
 @Component({
   selector: "app-board-column",
@@ -11,11 +14,13 @@ import {
   styleUrls: ["./board-column.component.scss"],
 })
 export class BoardColumnComponent {
-  @Input() public columnData: any;
+  @Input() public columnData!: ExtendedColumnModel;
 
-  @Output() public dropEvent = new EventEmitter<any>();
+  @Output() public dropEvent = new EventEmitter<
+  CdkDragDrop<TaskModel[] | undefined, TaskModel[]>
+  >();
 
-  public drop(event: any) {
+  public drop(event: CdkDragDrop<TaskModel[] | undefined, TaskModel[]>) {
     this.dropEvent.emit(event);
   }
 }
