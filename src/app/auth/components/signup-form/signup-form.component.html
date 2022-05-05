@@ -1,0 +1,47 @@
+<ng-container *ngIf="form">
+  <form class="signup__form" (ngSubmit)="onSubmit()" [formGroup]="form">
+    <p class="signup__title">Sign up</p>
+    <mat-form-field appearance="fill">
+      <mat-label>Enter your name</mat-label>
+      <input type="text" matInput formControlName="name" placeholder="Username" required>
+      <mat-error *ngIf="name?.invalid && (name?.dirty || name?.touched)">
+        <span *ngIf="name?.errors?.['required']">
+          Name is required.
+        </span>
+        <span *ngIf="name?.invalid">
+          Minimum length 5 characters.
+        </span>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Enter your login</mat-label>
+      <input type="text" matInput formControlName="login" placeholder="Login" required>
+      <mat-error *ngIf="login?.invalid && (login?.dirty || login?.touched)">
+        <span *ngIf="login?.errors?.['required']">
+          Login is required.
+        </span>
+        <span *ngIf="login?.invalid">
+          Minimum length 5 characters.
+        </span>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Enter your password</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
+      <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-error *ngIf="password?.invalid && (password?.dirty || password?.touched)">
+        Your password isn't strong enough
+        <span *ngIf="password?.errors?.['minLength']">at least 8 characters</span>
+        <span *ngIf="password?.errors?.['upperAndLowerCase']">a mixture of both uppercase and lowercase letters</span>
+        <span *ngIf="password?.errors?.['numbersAndLetters']">a mixture of letters and numbers</span>
+        <span *ngIf="password?.errors?.['specialChar']">inclusion of at least one special character, e.g., ! @ # ?
+          ]</span>
+      </mat-error>
+    </mat-form-field>
+    <button [disabled]="form.invalid" class="signup__submit" mat-raised-button color="primary"
+      type="submit">Sign Up</button>
+  </form>
+</ng-container>

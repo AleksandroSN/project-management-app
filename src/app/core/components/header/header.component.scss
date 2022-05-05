@@ -9,8 +9,13 @@
 
   &__links {
     display: flex;
+    flex: 0 1 300px;
     align-items: center;
     gap: 1rem;
+    margin-left: auto;
+  }
+
+  &__toggle {
     margin-left: auto;
   }
 }
