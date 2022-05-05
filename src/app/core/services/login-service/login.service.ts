@@ -2,7 +2,9 @@ import jwt_decode from "jwt-decode";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { userAuthorize, userLogout } from "@app/redux";
-import { LoginRes, TokenModel, User, UserSignupRes, UserWithId, UserWithName } from "@app/shared";
+import {
+ LoginRes, TokenModel, User, UserSignupRes, UserWithId, UserWithName
+} from "@app/shared";
 import { Store } from "@ngrx/store";
 import {
   HOME_PAGE,
@@ -19,13 +21,23 @@ export class LoginService {
   constructor(private store: Store, private httpService: HttpService, private route: Router) {}
 
   signup(signupUser: UserWithName) {
-    this.httpService.post<UserWithName, UserSignupRes>(SINGUP_ENPOINT, signupUser).subscribe(() => {
-      const user: User = {
-        login: signupUser.login,
-        password: signupUser.password,
-      };
-      this.login(user);
-    });
+    this.httpService
+      .post<UserWithName, UserSignupRes>(SINGUP_ENPOINT, signupUser)
+      .pipe(
+        switchMap((res) => {
+          this.store.dispatch(userAuthorize({ user: res }));
+          const user: User = {
+            login: signupUser.login,
+            password: signupUser.password,
+          };
+          return this.httpService.post<User, LoginRes>(LOGIN_ENDPOINT, user);
+        }),
+      )
+      .subscribe(({ token }) => {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(token));
+        this.route.navigateByUrl(HOME_PAGE);
+      });
+    // or subscribe on first POST and invoke this.login ?
   }
 
   login(user: User): void {
@@ -53,12 +65,16 @@ export class LoginService {
   autoLogin() {
     const localStorageData = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (localStorageData) {
-      // check token on lifetime
-      const { userId } = jwt_decode(localStorageData) as TokenModel;
-      this.httpService.get<UserWithId>(`${USERS_ENDPOINT}/${userId}`).subscribe((res) => {
-        this.route.navigateByUrl(HOME_PAGE);
-        this.store.dispatch(userAuthorize({ user: res }));
-      });
+      const { userId, exp } = jwt_decode(localStorageData) as TokenModel;
+      const currentTimeInSeconds = Date.now() / 1000;
+      if (exp > currentTimeInSeconds) {
+        this.httpService.get<UserWithId>(`${USERS_ENDPOINT}/${userId}`).subscribe((res) => {
+          this.route.navigateByUrl(HOME_PAGE);
+          this.store.dispatch(userAuthorize({ user: res }));
+        });
+      } else {
+        this.logout();
+      }
     }
   }
 }

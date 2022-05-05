@@ -15,11 +15,11 @@
         <mat-icon>person</mat-icon>
       </app-route-link>
     </ng-container>
-    <mat-slide-toggle>{{currentLang}}</mat-slide-toggle>
+    <mat-slide-toggle class="header__toggle">{{currentLang}}</mat-slide-toggle>
   </div>
 </mat-toolbar>
 
 <ng-template #loginLinks>
   <app-route-link linkPath="auth" linkText="Login"></app-route-link>
-      <app-route-link linkPath="auth/signup" linkText="SignUp"></app-route-link>
+  <app-route-link linkPath="auth/signup" linkText="SignUp"></app-route-link>
 </ng-template>
