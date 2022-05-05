@@ -13,7 +13,9 @@ import { MatNativeDateModule } from "@angular/material/core";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { RouterModule } from "@angular/router";
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { RouteLinkComponent } from "./components";
+import { AuthInterceptor } from "./interceptors";
 
 const MaterialsModules = [
   MatToolbarModule,
@@ -31,7 +33,10 @@ const MaterialsModules = [
 
 @NgModule({
   declarations: [RouteLinkComponent],
-  providers: [MatDatepickerModule],
+  providers: [
+    MatDatepickerModule,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   imports: [CommonModule, MaterialsModules, RouterModule, ReactiveFormsModule],
   exports: [CommonModule, MaterialsModules, RouterModule, ReactiveFormsModule, RouteLinkComponent],
 })
