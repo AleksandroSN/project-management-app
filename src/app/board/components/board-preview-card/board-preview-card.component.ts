@@ -3,11 +3,11 @@ import { BoardModel } from "@app/shared/models";
 import { MatMenuTrigger } from "@angular/material/menu";
 
 @Component({
-  selector: "app-card",
-  templateUrl: "./card.component.html",
-  styleUrls: ["./card.component.scss"],
+  selector: "app-board-preview-card",
+  templateUrl: "./board-preview-card.component.html",
+  styleUrls: ["./board-preview-card.component.scss"],
 })
-export class CardComponent {
+export class BoardPreviewCardComponent {
   @Input() public data!: BoardModel;
 
   // eslint-disable-next-line class-methods-use-this

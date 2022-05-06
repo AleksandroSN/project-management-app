@@ -1,8 +1,11 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { BoardComponent } from "@app/board/board.component";
+import { BoardPageComponent, DetailBoardPageComponent } from "./pages";
 
-const routes: Routes = [{ path: "", component: BoardComponent }];
+const routes: Routes = [
+  { path: "", component: BoardPageComponent },
+  { path: ":id", component: DetailBoardPageComponent },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

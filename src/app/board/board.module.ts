@@ -1,14 +1,32 @@
 import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
 import { BoardRoutingModule } from "@app/board/board-routing.module";
 import { DragDropModule } from "@angular/cdk/drag-drop";
 import { SharedModule } from "@app/shared";
-import { BoardComponent } from "./board.component";
-import { BoardColumnComponent } from "./components/board-column/board-column.component";
-import { BoardCardComponent } from "./components/board-card/board-card.component";
+import { MatCardModule } from "@angular/material/card";
+import { MatRippleModule } from "@angular/material/core";
+import { MatIconModule } from "@angular/material/icon";
+import { MatMenuModule } from "@angular/material/menu";
+import { LongPressModule } from "@app/shared/directives";
+import { BoardColumnComponent, BoardCardComponent, BoardPreviewCardComponent } from "./components";
+import { BoardPageComponent, DetailBoardPageComponent } from "./pages";
 
 @NgModule({
-  declarations: [BoardComponent, BoardColumnComponent, BoardCardComponent],
-  imports: [CommonModule, BoardRoutingModule, SharedModule, DragDropModule],
+  declarations: [
+    BoardColumnComponent,
+    BoardCardComponent,
+    BoardPreviewCardComponent,
+    BoardPageComponent,
+    DetailBoardPageComponent,
+  ],
+  imports: [
+    BoardRoutingModule,
+    DragDropModule,
+    SharedModule,
+    MatCardModule,
+    MatIconModule,
+    MatRippleModule,
+    MatMenuModule,
+    LongPressModule,
+  ],
 })
 export class BoardModule {}

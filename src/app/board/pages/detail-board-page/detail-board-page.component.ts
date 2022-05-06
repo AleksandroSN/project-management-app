@@ -3,11 +3,11 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from "@angular/cdk/dr
 import { ColumnModel, TaskModel } from "@app/shared/models";
 
 @Component({
-  selector: "app-board",
-  templateUrl: "./board.component.html",
-  styleUrls: ["./board.component.scss"],
+  selector: "app-detail-board-page",
+  templateUrl: "./detail-board-page.component.html",
+  styleUrls: ["./detail-board-page.component.scss"],
 })
-export class BoardComponent {
+export class DetailBoardPageComponent {
   public columns: ColumnModel[] = [
     {
       id: "0",
