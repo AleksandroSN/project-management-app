@@ -11,7 +11,7 @@ export class BoardColumnComponent {
   @Input() public columnData!: ExtendedColumnModel;
 
   @Output() public dropEvent = new EventEmitter<
-    CdkDragDrop<TaskModel[] | undefined, TaskModel[]>
+  CdkDragDrop<TaskModel[] | undefined, TaskModel[]>
   >();
 
   public drop(event: CdkDragDrop<TaskModel[] | undefined, TaskModel[]>) {

@@ -10,6 +10,7 @@ import { MatMenuTrigger } from "@angular/material/menu";
 export class CardComponent {
   @Input() public data!: BoardModel;
 
+  // eslint-disable-next-line class-methods-use-this
   public openActionsPopup(menu: MatMenuTrigger) {
     menu.openMenu();
   }

@@ -2,9 +2,7 @@ import jwt_decode from "jwt-decode";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { userAuthorize, userLogout } from "@app/redux";
-import {
- LoginRes, TokenModel, User, UserSignupRes, UserWithId, UserWithName
-} from "@app/shared";
+import { LoginRes, TokenModel, User, UserSignupRes, UserWithId, UserWithName } from "@app/shared";
 import { Store } from "@ngrx/store";
 import { LOCAL_STORAGE_KEY, LOGIN_ENDPOINT, SINGUP_ENPOINT, USERS_ENDPOINT } from "@utils";
 import { switchMap } from "rxjs";

@@ -5,7 +5,10 @@ import { NotFoundComponent } from "@app/core/pages/not-found/not-found.component
 const routes: Routes = [
   { path: "", redirectTo: "/home", pathMatch: "full" },
   { path: "home", loadChildren: () => import("./home/home.module").then((m) => m.HomeModule) },
-  { path: "board/:id", loadChildren: () => import("./board/board.module").then((m) => m.BoardModule) },
+  {
+    path: "board/:id",
+    loadChildren: () => import("./board/board.module").then((m) => m.BoardModule),
+  },
   { path: "auth", loadChildren: () => import("./auth/auth.module").then((m) => m.AuthModule) },
   { path: "**", component: NotFoundComponent },
 ];

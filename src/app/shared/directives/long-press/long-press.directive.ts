@@ -1,13 +1,7 @@
-import {
- Directive, ElementRef, EventEmitter, OnDestroy, Output 
-} from "@angular/core";
-import {
- filter, fromEvent, map, merge, of, Subscription, switchMap, timer 
-} from "rxjs";
+import { Directive, ElementRef, EventEmitter, OnDestroy, Output } from "@angular/core";
+import { filter, fromEvent, map, merge, of, Subscription, switchMap, timer } from "rxjs";
 
-@Directive({
-  selector: "[appLongPress]",
-})
+@Directive({ selector: "[appLongPress]" })
 export class LongPressDirective implements OnDestroy {
   private readonly eventSubscribe: Subscription;
 

@@ -41,6 +41,7 @@ export class BoardComponent {
     },
   ];
 
+  // eslint-disable-next-line class-methods-use-this
   public drop(event: CdkDragDrop<TaskModel[] | undefined, TaskModel[]>): void {
     if (!event.container?.data) {
       return;

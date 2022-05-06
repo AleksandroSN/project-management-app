@@ -7,9 +7,7 @@ describe("HeaderToComponent", () => {
   let fixture: ComponentFixture<HeaderToComponent>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [HeaderToComponent],
-    }).compileComponents();
+    await TestBed.configureTestingModule({ declarations: [HeaderToComponent] }).compileComponents();
   });
 
   beforeEach(() => {
