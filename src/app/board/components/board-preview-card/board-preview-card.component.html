@@ -5,6 +5,7 @@
   <div class="card__info">
     <h2 class="card__title">{{ data.title }}</h2>
     <div #menuTrigger="matMenuTrigger"  [matMenuTriggerFor]="menu" class="card__trigger"></div>
+    <app-route-link linkPath="{{ data.id }}" linkText="to Board"></app-route-link>
   </div>
 </mat-card>
 <mat-menu #menu="matMenu" class="menu" yPosition="below" xPosition="before">

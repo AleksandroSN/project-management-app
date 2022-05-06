@@ -9,7 +9,7 @@ import { switchMap } from "rxjs";
 import { HttpService } from "../http-service";
 
 @Injectable()
-export class LoginService {
+export class AuthService {
   constructor(private store: Store, private httpService: HttpService, private route: Router) {}
 
   signup(signupUser: UserWithName) {
@@ -27,7 +27,7 @@ export class LoginService {
       )
       .subscribe(({ token }) => {
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(token));
-        this.route.navigateByUrl("home");
+        this.route.navigateByUrl("/board");
       });
     // or subscribe on first POST and invoke this.login ?
   }
@@ -43,7 +43,7 @@ export class LoginService {
         }),
       )
       .subscribe((res) => {
-        this.route.navigateByUrl("home");
+        this.route.navigateByUrl("/board");
         this.store.dispatch(userAuthorize({ user: res }));
       });
   }
@@ -51,7 +51,7 @@ export class LoginService {
   logout() {
     localStorage.removeItem(LOCAL_STORAGE_KEY);
     this.store.dispatch(userLogout());
-    this.route.navigateByUrl("home");
+    this.route.navigateByUrl("/home");
   }
 
   autoLogin() {
@@ -61,7 +61,7 @@ export class LoginService {
       const currentTimeInSeconds = Date.now() / 1000;
       if (exp > currentTimeInSeconds) {
         this.httpService.get<UserWithId>(`${USERS_ENDPOINT}/${userId}`).subscribe((res) => {
-          this.route.navigateByUrl("home");
+          this.route.navigateByUrl("/board");
           this.store.dispatch(userAuthorize({ user: res }));
         });
       } else {

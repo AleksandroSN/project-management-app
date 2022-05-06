@@ -1,12 +1,13 @@
 import { NgModule } from "@angular/core";
 import { SharedModule } from "@app/shared";
 import { HeaderComponent, FooterComponent } from "./components";
+import { AuthGuard } from "./guards";
 import { NotFoundComponent } from "./pages";
-import { HttpService, InputValidationService, LoginService } from "./services";
+import { HttpService, InputValidationService, AuthService } from "./services";
 
 @NgModule({
   declarations: [HeaderComponent, FooterComponent, NotFoundComponent],
-  providers: [HttpService, InputValidationService, LoginService],
+  providers: [HttpService, InputValidationService, AuthService, AuthGuard],
   imports: [SharedModule],
   exports: [HeaderComponent, FooterComponent],
 })
