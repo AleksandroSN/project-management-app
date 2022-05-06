@@ -1,4 +1,6 @@
 import { Component, Input } from "@angular/core";
+import { BoardModel } from "@app/shared/models/board.model";
+import { MatMenuTrigger } from "@angular/material/menu";
 
 @Component({
   selector: "app-card",
@@ -6,9 +8,9 @@ import { Component, Input } from "@angular/core";
   styleUrls: ["./card.component.scss"],
 })
 export class CardComponent {
-  @Input() public data!: any;
+  @Input() public data!: BoardModel;
 
-  public openActionsPopup(menu: any) {
+  public openActionsPopup(menu: MatMenuTrigger) {
     menu.openMenu();
   }
 }
