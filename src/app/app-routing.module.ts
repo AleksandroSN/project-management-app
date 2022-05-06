@@ -1,14 +1,12 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { NotFoundComponent } from "@app/core/pages/not-found/not-found.component";
-import { HOME_PAGE, LOGIN_PAGE } from "@utils";
 
 const routes: Routes = [
-  { path: "", redirectTo: `/${HOME_PAGE}`, pathMatch: "full" },
+  { path: "", redirectTo: "/home", pathMatch: "full" },
   { path: "home", loadChildren: () => import("./home/home.module").then((m) => m.HomeModule) },
   { path: "board/:id", loadChildren: () => import("./board/board.module").then((m) => m.BoardModule) },
-  { path: HOME_PAGE, loadChildren: () => import("./home/home.module").then((m) => m.HomeModule) },
-  { path: LOGIN_PAGE, loadChildren: () => import("./auth/auth.module").then((m) => m.AuthModule) },
+  { path: "auth", loadChildren: () => import("./auth/auth.module").then((m) => m.AuthModule) },
   { path: "**", component: NotFoundComponent },
 ];
 
