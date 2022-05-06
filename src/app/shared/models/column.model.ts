@@ -1,4 +1,4 @@
-import { TaskModel } from "@app/shared/models/task.model";
+import { TaskModel } from "./task.model";
 
 export interface ColumnModel {
   id: string;

@@ -1,7 +1,6 @@
 import { Component } from "@angular/core";
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from "@angular/cdk/drag-drop";
-import { ColumnModel } from "@app/shared/models/column.model";
-import { TaskModel } from "@app/shared/models/task.model";
+import { ColumnModel, TaskModel } from "@app/shared/models";
 
 @Component({
   selector: "app-board",

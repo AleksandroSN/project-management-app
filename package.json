@@ -8,6 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
+    "lint:fix": "ng lint --fix",
     "husky:install": "husky install && husky add .husky/pre-commit \"npx --no-install lint-staged\""
   },
   "private": true,
@@ -63,7 +64,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "ng lint --fix"
+      "pre-commit": "npm run lint:fix"
     }
   }
 }

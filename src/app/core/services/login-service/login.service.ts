@@ -6,13 +6,7 @@ import {
  LoginRes, TokenModel, User, UserSignupRes, UserWithId, UserWithName
 } from "@app/shared";
 import { Store } from "@ngrx/store";
-import {
-  HOME_PAGE,
-  LOCAL_STORAGE_KEY,
-  LOGIN_ENDPOINT,
-  SINGUP_ENPOINT,
-  USERS_ENDPOINT,
-} from "@utils";
+import { LOCAL_STORAGE_KEY, LOGIN_ENDPOINT, SINGUP_ENPOINT, USERS_ENDPOINT } from "@utils";
 import { switchMap } from "rxjs";
 import { HttpService } from "../http-service";
 
@@ -35,7 +29,7 @@ export class LoginService {
       )
       .subscribe(({ token }) => {
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(token));
-        this.route.navigateByUrl(HOME_PAGE);
+        this.route.navigateByUrl("home");
       });
     // or subscribe on first POST and invoke this.login ?
   }
@@ -51,7 +45,7 @@ export class LoginService {
         }),
       )
       .subscribe((res) => {
-        this.route.navigateByUrl(HOME_PAGE);
+        this.route.navigateByUrl("home");
         this.store.dispatch(userAuthorize({ user: res }));
       });
   }
@@ -59,7 +53,7 @@ export class LoginService {
   logout() {
     localStorage.removeItem(LOCAL_STORAGE_KEY);
     this.store.dispatch(userLogout());
-    this.route.navigateByUrl(HOME_PAGE);
+    this.route.navigateByUrl("home");
   }
 
   autoLogin() {
@@ -69,7 +63,7 @@ export class LoginService {
       const currentTimeInSeconds = Date.now() / 1000;
       if (exp > currentTimeInSeconds) {
         this.httpService.get<UserWithId>(`${USERS_ENDPOINT}/${userId}`).subscribe((res) => {
-          this.route.navigateByUrl(HOME_PAGE);
+          this.route.navigateByUrl("home");
           this.store.dispatch(userAuthorize({ user: res }));
         });
       } else {

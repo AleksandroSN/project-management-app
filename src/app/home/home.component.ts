@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { BoardModel } from "@app/shared/models/board.model";
+import { BoardModel } from "@app/shared/models";
 
 @Component({
   selector: "app-home",

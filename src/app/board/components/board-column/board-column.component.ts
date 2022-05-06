@@ -1,12 +1,6 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-} from "@angular/core";
-import { ExtendedColumnModel } from "@app/shared/models/column.model";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { ExtendedColumnModel, TaskModel } from "@app/shared/models";
 import { CdkDragDrop } from "@angular/cdk/drag-drop";
-import { TaskModel } from "@app/shared/models/task.model";
 
 @Component({
   selector: "app-board-column",
@@ -17,7 +11,7 @@ export class BoardColumnComponent {
   @Input() public columnData!: ExtendedColumnModel;
 
   @Output() public dropEvent = new EventEmitter<
-  CdkDragDrop<TaskModel[] | undefined, TaskModel[]>
+    CdkDragDrop<TaskModel[] | undefined, TaskModel[]>
   >();
 
   public drop(event: CdkDragDrop<TaskModel[] | undefined, TaskModel[]>) {
