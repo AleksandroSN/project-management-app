@@ -12,10 +12,12 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { MatDialogModule } from "@angular/material/dialog";
 import { RouterModule } from "@angular/router";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { RouteLinkComponent } from "./components";
 import { AuthInterceptor } from "./interceptors";
+import { ModalComponent } from "./components/modal/modal.component";
 
 const MaterialsModules = [
   MatToolbarModule,
@@ -29,15 +31,23 @@ const MaterialsModules = [
   MatNativeDateModule,
   MatProgressSpinnerModule,
   MatSlideToggleModule,
+  MatDialogModule,
 ];
 
 @NgModule({
-  declarations: [RouteLinkComponent],
+  declarations: [RouteLinkComponent, ModalComponent],
   providers: [
     MatDatepickerModule,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   imports: [CommonModule, MaterialsModules, RouterModule, ReactiveFormsModule],
-  exports: [CommonModule, MaterialsModules, RouterModule, ReactiveFormsModule, RouteLinkComponent],
+  exports: [
+    CommonModule,
+    MaterialsModules,
+    RouterModule,
+    ReactiveFormsModule,
+    RouteLinkComponent,
+    ModalComponent,
+  ],
 })
 export class SharedModule {}

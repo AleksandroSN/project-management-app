@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
 import { LoginService } from "@app/core/services";
 import { selectUserAuth } from "@app/redux";
+import { ModalComponent } from "@app/shared/components/modal/modal.component";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 
@@ -14,7 +16,7 @@ export class HeaderComponent implements OnInit {
 
   currentLang = "EN";
 
-  constructor(private store: Store, private loginService: LoginService) {
+  constructor(private store: Store, private loginService: LoginService, public dialog: MatDialog) {
     this.isAuth$ = this.store.select(selectUserAuth);
   }
 
@@ -25,5 +27,12 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.loginService.logout();
+  }
+
+  openModal() {
+    const dialogRef = this.dialog.open(ModalComponent, { data: { name: "something" } });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+    });
   }
 }

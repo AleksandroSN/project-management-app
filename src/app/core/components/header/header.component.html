@@ -3,6 +3,7 @@
     <mat-icon>menu</mat-icon>
   </button>
   <span>Project Management App</span>
+  <button (click)="openModal()">Delete</button>
   <div class="header__links">
     <ng-container *ngIf="isAuth$ | async; else loginLinks">
       <button mat-raised-button aria-label="Create new board">
