@@ -1,4 +1,4 @@
-import { ColumnModel } from "@app/shared/models/column.model";
+import { ColumnModel } from "./column.model";
 
 export interface BoardModel {
   id: string;

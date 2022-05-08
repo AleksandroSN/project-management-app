@@ -1,14 +1,13 @@
 import { Component } from "@angular/core";
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from "@angular/cdk/drag-drop";
-import { ColumnModel } from "@app/shared/models/column.model";
-import { TaskModel } from "@app/shared/models/task.model";
+import { ColumnModel, TaskModel } from "@app/shared/models";
 
 @Component({
-  selector: "app-board",
-  templateUrl: "./board.component.html",
-  styleUrls: ["./board.component.scss"],
+  selector: "app-detail-board-page",
+  templateUrl: "./detail-board-page.component.html",
+  styleUrls: ["./detail-board-page.component.scss"],
 })
-export class BoardComponent {
+export class DetailBoardPageComponent {
   public columns: ColumnModel[] = [
     {
       id: "0",
@@ -42,6 +41,7 @@ export class BoardComponent {
     },
   ];
 
+  // eslint-disable-next-line class-methods-use-this
   public drop(event: CdkDragDrop<TaskModel[] | undefined, TaskModel[]>): void {
     if (!event.container?.data) {
       return;

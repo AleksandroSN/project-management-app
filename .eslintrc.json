@@ -49,6 +49,7 @@
         ],
         "@typescript-eslint/comma-dangle": ["error", "always-multiline"],
         "import/prefer-default-export": "off",
+        "object-curly-newline": "off",
         "prettier/prettier": ["warn", { "tabWidth": 2 }]
       }
     },

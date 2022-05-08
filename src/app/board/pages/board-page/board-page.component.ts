@@ -1,12 +1,12 @@
 import { Component } from "@angular/core";
-import { BoardModel } from "@app/shared/models/board.model";
+import { BoardModel } from "@app/shared";
 
 @Component({
-  selector: "app-home",
-  templateUrl: "./home.component.html",
-  styleUrls: ["./home.component.scss"],
+  selector: "app-board-page",
+  templateUrl: "./board-page.component.html",
+  styleUrls: ["./board-page.component.scss"],
 })
-export class HomeComponent {
+export class BoardPageComponent {
   public boards: BoardModel[] = [
     {
       id: "0",

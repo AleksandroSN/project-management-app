@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { InputValidationService, LoginService } from "@app/core/services";
+import { InputValidationService, AuthService } from "@app/core/services";
 import { UserWithName } from "@app/shared";
 import { LOGIN_INPUT, NAME_INPUT, PASSWORD_INPUT } from "@utils";
 
@@ -18,7 +18,7 @@ export class SignupFormComponent implements OnInit {
     private fb: FormBuilder,
 
     private inputValidationService: InputValidationService,
-    private loginService: LoginService,
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
@@ -43,6 +43,6 @@ export class SignupFormComponent implements OnInit {
 
   onSubmit() {
     const user = this.form?.value as UserWithName;
-    this.loginService.signup(user);
+    this.authService.signup(user);
   }
 }

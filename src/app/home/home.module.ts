@@ -1,26 +1,10 @@
 import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { MatCardModule } from "@angular/material/card";
-import { MatIconModule } from "@angular/material/icon";
-import { MatRippleModule } from "@angular/material/core";
-import { LongPressModule } from "@app/shared/directives/long-press/long-press.module";
-import { MatMenuModule } from "@angular/material/menu";
-import { ModuleHeaderModule } from "@app/shared/components/module-header/module-header.module";
-import { HomeComponent } from "./home.component";
-import { CardComponent } from "./components";
+import { SharedModule } from "@app/shared";
 import { HomeRoutingModule } from "./home-routing.module";
+import { HomePageComponent } from "./pages";
 
 @NgModule({
-  declarations: [HomeComponent, CardComponent],
-  imports: [
-    CommonModule,
-    HomeRoutingModule,
-    MatCardModule,
-    MatIconModule,
-    MatRippleModule,
-    MatMenuModule,
-    LongPressModule,
-    ModuleHeaderModule,
-  ],
+  declarations: [HomePageComponent],
+  imports: [SharedModule, HomeRoutingModule],
 })
 export class HomeModule {}
