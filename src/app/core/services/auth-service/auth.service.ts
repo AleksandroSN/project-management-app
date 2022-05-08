@@ -54,14 +54,14 @@ export class AuthService {
     this.route.navigateByUrl("/home");
   }
 
-  autoLogin() {
+  autoLogin(redirectUrl: string) {
     const localStorageData = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (localStorageData) {
       const { userId, exp } = jwt_decode(localStorageData) as TokenModel;
       const currentTimeInSeconds = Date.now() / 1000;
       if (exp > currentTimeInSeconds) {
         this.httpService.get<UserWithId>(`${USERS_ENDPOINT}/${userId}`).subscribe((res) => {
-          this.route.navigateByUrl("/board");
+          this.route.navigateByUrl(redirectUrl);
           this.store.dispatch(userAuthorize({ user: res }));
         });
       } else {
