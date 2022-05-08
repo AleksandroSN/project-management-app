@@ -2,7 +2,9 @@
   <button mat-icon-button aria-label="Burger menu" class="header__burger">
     <mat-icon>menu</mat-icon>
   </button>
-  <span>Project Management App</span>
+  <app-route-link linkPath="/">
+    <span class="header__home-link">Project Management App</span>
+  </app-route-link>
   <div class="header__links">
     <ng-container *ngIf="isAuth$ | async; else loginLinks">
       <button mat-raised-button aria-label="Create new board">
@@ -20,6 +22,6 @@
 </mat-toolbar>
 
 <ng-template #loginLinks>
-  <app-route-link linkPath="auth" linkText="Login"></app-route-link>
+  <app-route-link linkPath="auth/signin" linkText="Login"></app-route-link>
   <app-route-link linkPath="auth/signup" linkText="SignUp"></app-route-link>
 </ng-template>

@@ -14,7 +14,7 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { RouterModule } from "@angular/router";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
-import { RouteLinkComponent } from "./components";
+import { HeaderToComponent, RouteLinkComponent } from "./components";
 import { AuthInterceptor } from "./interceptors";
 
 const MaterialsModules = [
@@ -32,12 +32,19 @@ const MaterialsModules = [
 ];
 
 @NgModule({
-  declarations: [RouteLinkComponent],
+  declarations: [RouteLinkComponent, HeaderToComponent],
   providers: [
     MatDatepickerModule,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   imports: [CommonModule, MaterialsModules, RouterModule, ReactiveFormsModule],
-  exports: [CommonModule, MaterialsModules, RouterModule, ReactiveFormsModule, RouteLinkComponent],
+  exports: [
+    CommonModule,
+    MaterialsModules,
+    RouterModule,
+    ReactiveFormsModule,
+    RouteLinkComponent,
+    HeaderToComponent,
+  ],
 })
 export class SharedModule {}

@@ -4,9 +4,7 @@ import { UserAuthorizeEffects } from "./effects";
 import { userFeature } from "./reducers";
 import { AppState } from "./state.models";
 
-export const appReducers: ActionReducerMap<AppState> = {
-  [USER_FEATURE_KEY]: userFeature.reducer,
-};
+export const appReducers: ActionReducerMap<AppState> = { [USER_FEATURE_KEY]: userFeature.reducer };
 
 export const appEffects = [UserAuthorizeEffects];
 
