@@ -1,15 +1,31 @@
 @import "adaptive";
 
 .board {
+  box-sizing: border-box;
   padding: 1rem 0;
+  height: calc(100% - 40px);
+  overflow: hidden;
+  &__wrapper {
+    flex-direction: column;
+    height: 100%;
+    display: flex;
+  }
   &__inner {
+    height: 100%;
+    overflow-x: auto;
+    display: flex;
     @include contentWidth;
+    max-width: 100vw !important;
+    padding: 0 2rem;
   }
   &__columns {
     min-height: 60px;
-    overflow: hidden;
+    height: 100%;
+    width: auto;
+    white-space: nowrap;
   }
   &__column {
+    position: relative;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 4px;
     cursor: pointer;
@@ -18,8 +34,29 @@
     max-width: 100%;
     display: inline-block;
     vertical-align: top;
-    padding: 1rem;
+    padding: 1rem 10px;
     background: rgb(239, 239, 239);
+  }
+  &__add-column {
+    &__inner {
+      user-select: none;
+      background: rgb(239, 239, 239);
+      width: 300px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      color: rgba(0, 0, 0, 0.6);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      cursor: pointer;
+      mat-icon {
+        transform: scale(0.8);
+      }
+      span {
+        margin-right: 1rem;
+      }
+    }
   }
 }
 
