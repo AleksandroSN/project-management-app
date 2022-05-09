@@ -10,7 +10,6 @@ import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
-import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { RouterModule } from "@angular/router";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
@@ -27,7 +26,6 @@ const MaterialsModules = [
   MatProgressBarModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatProgressSpinnerModule,
   MatSlideToggleModule,
 ];
 
