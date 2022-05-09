@@ -1,10 +1,4 @@
 .column {
-  width: 300px;
-  max-width: 100%;
-  margin-right: 2rem;
-  display: inline-block;
-  vertical-align: top;
-
   &__list {
     border: 1px solid rgba(0, 0, 0, 0.1);
     min-height: 60px;
@@ -23,7 +17,7 @@
     align-items: center;
     justify-content: space-between;
     box-sizing: border-box;
-    cursor: move;
+    cursor: pointer;
     background: white;
     font-size: 14px;
     &:last-child {

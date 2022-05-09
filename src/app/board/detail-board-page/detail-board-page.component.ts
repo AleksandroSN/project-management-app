@@ -42,7 +42,7 @@ export class DetailBoardPageComponent {
   ];
 
   // eslint-disable-next-line class-methods-use-this
-  public drop(event: CdkDragDrop<TaskModel[] | undefined, TaskModel[]>): void {
+  public dropTask(event: CdkDragDrop<TaskModel[] | undefined, TaskModel[]>): void {
     if (!event.container?.data) {
       return;
     }
@@ -56,6 +56,10 @@ export class DetailBoardPageComponent {
         event.currentIndex,
       );
     }
+  }
+
+  public dropColumn(event: CdkDragDrop<ColumnModel[] | undefined>) {
+    moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
   }
 
   public getColumnData(index: number, data: ColumnModel): any {
