@@ -1,3 +1,8 @@
+<ng-container *ngIf="isLoaderActive$ | async">
+  <div class="app-overlay">
+    <mat-spinner diameter="200"></mat-spinner>
+  </div>
+</ng-container>
 <div class="app-container">
   <header class="app-header">
     <app-header></app-header>

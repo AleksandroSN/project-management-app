@@ -1,4 +1,4 @@
-import { USER_FEATURE_KEY } from "@utils";
+import { APP_SETTINGS_FEATURE_KEY, USER_FEATURE_KEY } from "@utils";
 
 export interface UserState {
   id: string;
@@ -7,6 +7,11 @@ export interface UserState {
   isAuth: boolean;
 }
 
+export interface AppSettingsState {
+  isLoadData: boolean;
+}
+
 export interface AppState {
   [USER_FEATURE_KEY]: UserState;
+  [APP_SETTINGS_FEATURE_KEY]: AppSettingsState;
 }
