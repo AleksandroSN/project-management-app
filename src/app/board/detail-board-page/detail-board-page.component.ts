@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from "@angular/cdk/drag-drop";
 import { ColumnModel, TaskModel } from "@app/shared/models";
-import { NotificationsService } from "@app/core/services/notifications-service/notifications.service";
+import { NotificationsService } from "@app/core/services";
 
 @Component({
   selector: "app-detail-board-page",

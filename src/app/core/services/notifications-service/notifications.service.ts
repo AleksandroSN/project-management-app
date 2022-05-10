@@ -1,9 +1,5 @@
 import { Injectable } from "@angular/core";
-import {
-  NotificationBaseModel,
-  NotificationModel,
-  NotificationRef,
-} from "@app/shared/models/notification.model";
+import { NotificationBaseModel, NotificationModel, NotificationRef } from "@app/shared/models";
 import { BehaviorSubject, Observable } from "rxjs";
 import { v4 as uuid } from "uuid";
 
