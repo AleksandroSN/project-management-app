@@ -1,0 +1,28 @@
+.notification {
+  border-radius: 5px;
+  padding: 1rem;
+  background: rgba(63, 81, 181, 0.85);
+  backdrop-filter: blur(5px);
+  margin-top: 0.5rem;
+  box-shadow: 0 5px 11px -5px rgba(34, 60, 80, 0.6);
+  color: white;
+  display: grid;
+  grid-template-columns: 2rem auto;
+  &>div {
+    display: flex;
+    align-items: center;
+  }
+  &__info {
+
+  }
+  &__icon>div {
+    display: flex;
+    align-items: center;
+  }
+  ::ng-deep {
+    .mat-progress-spinner circle, .mat-spinner circle {
+      stroke: white;
+    }
+  }
+}
+

@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from "@angular/cdk/drag-drop";
 import { ColumnModel, TaskModel } from "@app/shared/models";
+import { NotificationsService } from "@app/core/services/notifications-service/notifications.service";
 
 @Component({
   selector: "app-detail-board-page",
@@ -166,6 +167,10 @@ export class DetailBoardPageComponent {
     },
   ];
 
+  constructor(
+    private notificationsService: NotificationsService,
+  ) {}
+
   // eslint-disable-next-line class-methods-use-this
   public dropTask(event: CdkDragDrop<TaskModel[] | undefined, TaskModel[]>): void {
     if (!event.container?.data) {
@@ -181,6 +186,17 @@ export class DetailBoardPageComponent {
         event.currentIndex,
       );
     }
+    const notification = this.notificationsService.showNotification({
+      type: "spinner",
+      message: "Синхронизация",
+    });
+    setTimeout(() => {
+      notification.close();
+      this.notificationsService.showNotification({
+        type: "message",
+        message: "Синхронизация завершена",
+      });
+    }, 5000);
   }
 
   public dropColumn(event: CdkDragDrop<ColumnModel[] | undefined>) {
