@@ -1,12 +1,6 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-} from "@angular/core";
-import { ExtendedColumnModel } from "@app/shared/models/column.model";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { ExtendedColumnModel, TaskModel } from "@app/shared/models";
 import { CdkDragDrop } from "@angular/cdk/drag-drop";
-import { TaskModel } from "@app/shared/models/task.model";
 
 @Component({
   selector: "app-board-column",

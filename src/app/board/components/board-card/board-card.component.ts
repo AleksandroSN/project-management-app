@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import { TaskModel } from "@app/shared/models/task.model";
+import { TaskModel } from "@app/shared/models";
 
 @Component({
   selector: "app-board-card",

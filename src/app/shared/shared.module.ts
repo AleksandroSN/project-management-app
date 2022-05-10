@@ -15,7 +15,7 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatDialogModule } from "@angular/material/dialog";
 import { RouterModule } from "@angular/router";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
-import { RouteLinkComponent } from "./components";
+import { HeaderToComponent, RouteLinkComponent } from "./components";
 import { AuthInterceptor } from "./interceptors";
 import { ModalComponent } from "./components/modal/modal.component";
 
@@ -35,7 +35,7 @@ const MaterialsModules = [
 ];
 
 @NgModule({
-  declarations: [RouteLinkComponent, ModalComponent],
+  declarations: [RouteLinkComponent, HeaderToComponent, ModalComponent],
   providers: [
     MatDatepickerModule,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
@@ -48,6 +48,7 @@ const MaterialsModules = [
     ReactiveFormsModule,
     RouteLinkComponent,
     ModalComponent,
+    HeaderToComponent,
   ],
 })
 export class SharedModule {}
