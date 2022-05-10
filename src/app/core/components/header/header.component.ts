@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
   isAuth$: Observable<boolean>;
 
   currentLang = "EN";
+
   constructor(private store: Store, private authService: AuthService, public dialog: MatDialog) {
     this.isAuth$ = this.store.select(selectUserAuth);
   }
