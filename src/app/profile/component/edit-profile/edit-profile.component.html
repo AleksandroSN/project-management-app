@@ -1,1 +1,44 @@
-<p>edit-profile works!</p>
+<ng-container *ngIf="(user$ | async) as user">
+  <form class="profile__form" (ngSubmit)="onSubmit()" [formGroup]="form">
+    <p class="profile__title">Edit profile</p>
+    <mat-form-field appearance="fill">
+      <mat-label>{{user.name || "Profile name"}}</mat-label>
+      <input type="text" matInput formControlName="name" placeholder="New name" required>
+      <mat-error *ngIf="controls.name.invalid && (controls.name.dirty || controls.name.touched)">
+        <span *ngIf="controls.name.invalid">
+          Minimum length 5 characters.
+        </span>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>{{user.login || "Profile login"}}</mat-label>
+      <input type="text" matInput formControlName="login" placeholder="New login" required>
+      <mat-error *ngIf="controls.login.invalid && (controls.login.dirty || controls.login.touched)">
+        <span *ngIf="controls.login.invalid">
+          Minimum length 5 characters.
+        </span>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Profile password</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
+      <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-error *ngIf="controls.password.invalid && (controls.password.dirty || controls.password.touched)">
+        Your password isn't strong enough
+        <span *ngIf="controls.password.errors?.['minLength']">at least 8 characters</span>
+        <span *ngIf="controls.password.errors?.['upperAndLowerCase']">a mixture of both uppercase and lowercase letters</span>
+        <span *ngIf="controls.password.errors?.['numbersAndLetters']">a mixture of letters and numbers</span>
+        <span *ngIf="controls.password.errors?.['specialChar']">inclusion of at least one special character, e.g., ! @ # ?
+          ]</span>
+      </mat-error>
+    </mat-form-field>
+    <div class="profile__buttons">
+      <button class="profile__cancel" mat-raised-button color="warn" type="button">Delete</button>
+      <button [disabled]="form.invalid" class="profile__submit" mat-raised-button color="primary"
+        type="submit">Update</button>
+    </div>
+  </form>
+</ng-container>

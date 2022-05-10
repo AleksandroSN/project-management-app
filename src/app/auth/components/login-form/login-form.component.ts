@@ -1,8 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { InputValidationService, AuthService } from "@app/core/services";
-import { User } from "@app/shared";
-import { LOGIN_INPUT, PASSWORD_INPUT } from "@utils";
+import { User, AuthFormControls } from "@app/shared";
 
 @Component({
   selector: "app-login-form",
@@ -12,7 +11,7 @@ import { LOGIN_INPUT, PASSWORD_INPUT } from "@utils";
 export class LoginFormComponent implements OnInit {
   hide = true;
 
-  form?: FormGroup;
+  form!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -27,16 +26,12 @@ export class LoginFormComponent implements OnInit {
     });
   }
 
-  get login() {
-    return this.form?.get(LOGIN_INPUT);
-  }
-
-  get password() {
-    return this.form?.get(PASSWORD_INPUT);
+  get controls(): AuthFormControls {
+    return this.form.controls as AuthFormControls;
   }
 
   onSubmit() {
-    const user = this.form?.value as User;
+    const user = this.form.value as User;
     this.authService.login(user);
   }
 }

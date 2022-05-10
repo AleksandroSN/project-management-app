@@ -16,6 +16,8 @@ const routes: Routes = [
   {
     path: "profile",
     loadChildren: () => import("./profile/profile.module").then((m) => m.ProfileModule),
+    canActivate: [AuthGuard],
+    canLoad: [AuthGuard],
   },
   { path: "**", component: NotFoundComponent },
 ];

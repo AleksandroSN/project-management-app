@@ -4,7 +4,7 @@ import { hideLoader, showLoader } from "../actions";
 import { AppSettingsState } from "../state.models";
 
 const INITIAL_STATE: AppSettingsState = {
-  isLoadData: true,
+  isLoadData: false,
 };
 
 export const appSettingsFeature = createFeature({

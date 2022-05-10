@@ -4,11 +4,11 @@
     <mat-form-field appearance="fill">
       <mat-label>Enter your login</mat-label>
       <input type="text" matInput formControlName="login" placeholder="Login" required>
-      <mat-error *ngIf="login?.invalid && (login?.dirty || login?.touched)">
-        <span *ngIf="login?.errors?.['required']">
+      <mat-error *ngIf="controls.login.invalid && (controls.login.dirty || controls.login.touched)">
+        <span *ngIf="controls.login.errors?.['required']">
           Login is required.
         </span>
-        <span *ngIf="login?.invalid">
+        <span *ngIf="controls.login.invalid">
           Minimum length 5 characters.
         </span>
       </mat-error>
@@ -20,12 +20,12 @@
         [attr.aria-pressed]="hide">
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
-      <mat-error *ngIf="password?.invalid && (password?.dirty || password?.touched)">
+      <mat-error *ngIf="controls.password.invalid && (controls.password.dirty || controls.password.touched)">
         Your password isn't strong enough
-        <span *ngIf="password?.errors?.['minLength']">at least 8 characters</span>
-        <span *ngIf="password?.errors?.['upperAndLowerCase']">a mixture of both uppercase and lowercase letters</span>
-        <span *ngIf="password?.errors?.['numbersAndLetters']">a mixture of letters and numbers</span>
-        <span *ngIf="password?.errors?.['specialChar']">inclusion of at least one special character, e.g., ! @ # ?
+        <span *ngIf="controls.password.errors?.['minLength']">at least 8 characters</span>
+        <span *ngIf="controls.password.errors?.['upperAndLowerCase']">a mixture of both uppercase and lowercase letters</span>
+        <span *ngIf="controls.password.errors?.['numbersAndLetters']">a mixture of letters and numbers</span>
+        <span *ngIf="controls.password.errors?.['specialChar']">inclusion of at least one special character, e.g., ! @ # ?
           ]</span>
       </mat-error>
     </mat-form-field>
