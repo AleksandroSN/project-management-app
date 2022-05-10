@@ -1,12 +1,15 @@
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
+import { userAuthorize } from "@app/redux";
 import { LoginRes, User, UserSignupRes, UserWithId, UserWithName } from "@app/shared";
+import { Store } from "@ngrx/store";
 import { LOGIN_ENDPOINT, SINGUP_ENPOINT, USERS_ENDPOINT } from "@utils";
 import { Observable, of, switchMap } from "rxjs";
 import { HttpService } from "../http-service";
 
 @Injectable()
 export class UserService {
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService, private store: Store, private router: Router) {}
 
   createUser(body: UserWithName): Observable<User> {
     return this.httpService.post<UserWithName, UserSignupRes>(SINGUP_ENPOINT, body).pipe(
@@ -28,11 +31,15 @@ export class UserService {
     return this.httpService.get<UserWithId>(`${USERS_ENDPOINT}/${userId}`);
   }
 
-  updateUser(userId: string, body: UserWithName): Observable<UserWithId> {
-    return this.httpService.update<UserWithId>(`${USERS_ENDPOINT}/${userId}`, body);
+  updateUser(userId: string, body: UserWithName): void {
+    this.httpService.update<UserWithId>(`${USERS_ENDPOINT}/${userId}`, body).subscribe((res) => {
+      this.store.dispatch(userAuthorize({ user: res }));
+      this.router.navigateByUrl("/home");
+    });
   }
 
-  deleteUser(userId: string): Observable<void> {
-    return this.httpService.delete<void>(`${USERS_ENDPOINT}/${userId}`);
+  deleteUser(userId: string): void {
+    this.httpService.delete<void>(`${USERS_ENDPOINT}/${userId}`);
+    this.router.navigateByUrl("/login");
   }
 }

@@ -1,8 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { InputValidationService, AuthService } from "@app/core/services";
-import { UserWithName } from "@app/shared";
-import { LOGIN_INPUT, NAME_INPUT, PASSWORD_INPUT } from "@utils";
+import { UserWithName, AuthFormControls } from "@app/shared";
 
 @Component({
   selector: "app-signup-form",
@@ -12,7 +11,7 @@ import { LOGIN_INPUT, NAME_INPUT, PASSWORD_INPUT } from "@utils";
 export class SignupFormComponent implements OnInit {
   hide = true;
 
-  form?: FormGroup;
+  form!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -28,16 +27,8 @@ export class SignupFormComponent implements OnInit {
     });
   }
 
-  get name() {
-    return this.form?.get(NAME_INPUT);
-  }
-
-  get login() {
-    return this.form?.get(LOGIN_INPUT);
-  }
-
-  get password() {
-    return this.form?.get(PASSWORD_INPUT);
+  get controls(): AuthFormControls {
+    return this.form.controls as AuthFormControls;
   }
 
   onSubmit() {

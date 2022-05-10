@@ -1,0 +1,17 @@
+.profile {
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+}

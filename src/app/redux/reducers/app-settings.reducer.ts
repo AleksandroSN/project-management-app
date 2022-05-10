@@ -3,7 +3,7 @@ import { APP_SETTINGS_FEATURE_KEY } from "@utils";
 import { AppSettingsState } from "@app/redux";
 
 const INITIAL_STATE: AppSettingsState = {
-  isLoadData: true,
+  isLoadData: false,
 };
 
 export const appSettingsFeature = createFeature({
