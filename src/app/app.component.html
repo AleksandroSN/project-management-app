@@ -1,6 +1,6 @@
-<ng-container *ngIf="isLoaderActive$ | async">
-  <div class="app-overlay">
-    <mat-spinner diameter="200"></mat-spinner>
+<ng-container>
+  <div class="app-notifications">
+    <app-notifications-list></app-notifications-list>
   </div>
 </ng-container>
 <div class="app-container">
@@ -13,5 +13,4 @@
   <footer class="app-footer">
     <app-footer></app-footer>
   </footer>
-
 </div>

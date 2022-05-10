@@ -8,7 +8,6 @@ export interface UserState {
 }
 
 export interface AppSettingsState {
-  isLoadData: boolean;
 }
 
 export interface AppState {
