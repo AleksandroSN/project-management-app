@@ -1,6 +1,6 @@
 import { ActionReducerMap } from "@ngrx/store";
 import { APP_SETTINGS_FEATURE_KEY, USER_FEATURE_KEY } from "@utils";
-import { LoaderEffects, UserAuthorizeEffects } from "./effects";
+import { UserAuthorizeEffects } from "./effects";
 import { appSettingsFeature, userFeature } from "./reducers";
 import { AppState } from "./state.models";
 
@@ -9,7 +9,7 @@ export const appReducers: ActionReducerMap<AppState> = {
   [APP_SETTINGS_FEATURE_KEY]: appSettingsFeature.reducer,
 };
 
-export const appEffects = [LoaderEffects, UserAuthorizeEffects];
+export const appEffects = [UserAuthorizeEffects];
 
 export * from "./actions";
 export * from "./state.models";
