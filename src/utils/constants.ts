@@ -28,8 +28,14 @@ export enum UserActionsName {
   UPDATE = "[AUTH] User data updated",
 }
 
+export enum LoaderActionsName {
+  SHOW = "[LOADER] Spinner show",
+  HIDE = "[LOADER] Spinner hide",
+}
+
 // FEATURENAME
 export const USER_FEATURE_KEY = "userFeature";
+export const APP_SETTINGS_FEATURE_KEY = "appSettingsFeature";
 
 // OTHER
 export const LOCAL_STORAGE_KEY = "auth_data";
