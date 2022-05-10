@@ -5,7 +5,7 @@
       <mat-icon>more_horiz</mat-icon>
     </div>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>
+      <button mat-menu-item (click)="openModal()">
         <mat-icon>delete</mat-icon>
         <span>Delete</span>
       </button>

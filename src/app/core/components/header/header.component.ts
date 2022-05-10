@@ -1,9 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
 import { NavigationStart, Router } from "@angular/router";
 import { AuthService } from "@app/core/services";
 import { selectUserAuth } from "@app/redux";
-import { ModalComponent } from "@app/shared/components/modal/modal.component";
 import { Store } from "@ngrx/store";
 import { filter, Observable } from "rxjs";
 
@@ -19,12 +17,7 @@ export class HeaderComponent implements OnInit {
 
   link = "";
 
-  constructor(
-    private store: Store,
-    private router: Router,
-    private authService: AuthService,
-    public dialog: MatDialog,
-  ) {
+  constructor(private store: Store, private router: Router, private authService: AuthService) {
     this.isAuth$ = this.store.select(selectUserAuth);
   }
 
@@ -42,12 +35,5 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.authService.logout();
-  }
-
-  openModal() {
-    const dialogRef = this.dialog.open(ModalComponent, { data: { name: "something" } });
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
-    });
   }
 }

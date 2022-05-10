@@ -5,7 +5,6 @@
   <app-route-link linkPath="/">
     <span class="header__home-link">Project Management App</span>
   </app-route-link>
-  <button (click)="openModal()">Delete</button>
   <div class="header__links">
     <ng-container *ngIf="isAuth$ | async; else loginLinks">
       <button mat-raised-button aria-label="Create new board">
