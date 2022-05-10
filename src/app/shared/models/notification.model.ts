@@ -1,11 +1,9 @@
-export type NotificationType = "message" | "spinner";
+export type NotificationType = "message" | "success" | "warning" | "error" | "spinner";
 
 export interface NotificationBaseModel {
   type: NotificationType;
   message: string;
   duration?: number;
-  bgColor?: string;
-  contentColor?: string;
 }
 
 export interface NotificationRef {

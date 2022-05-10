@@ -193,7 +193,7 @@ export class DetailBoardPageComponent {
     setTimeout(() => {
       notification.close();
       this.notificationsService.showNotification({
-        type: "message",
+        type: "success",
         message: "Синхронизация завершена",
       });
     }, 5000);

@@ -1,8 +1,8 @@
-<div class="notification" [style.background-color]="notificationData.bgColor || 'rgba(63, 81, 181, 0.85)'">
+<div class="notification" [style.background-color]="themes[notificationData.type].color">
   <div class="notification__icon">
     <div [ngSwitch]="notificationData.type">
       <mat-spinner color="warn" *ngSwitchCase="'spinner'" diameter="20"></mat-spinner>
-      <mat-icon *ngSwitchCase="'message'">notifications</mat-icon>
+      <mat-icon *ngSwitchDefault>{{ themes[notificationData.type].icon }}</mat-icon>
     </div>
   </div>
   <div class="notification__info">
