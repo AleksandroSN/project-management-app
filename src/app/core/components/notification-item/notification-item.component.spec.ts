@@ -1,16 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { NotificationItemComponent } from './notification-item.component';
+import { NotificationItemComponent } from "./notification-item.component";
 
-describe('NotificationItemComponent', () => {
+describe("NotificationItemComponent", () => {
   let component: NotificationItemComponent;
   let fixture: ComponentFixture<NotificationItemComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NotificationItemComponent ]
-    })
-    .compileComponents();
+      declarations: [NotificationItemComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('NotificationItemComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

@@ -34,10 +34,7 @@ const MaterialsModules = [
 
 @NgModule({
   declarations: [RouteLinkComponent, HeaderToComponent, ModalComponent],
-  providers: [
-    MatDatepickerModule,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-  ],
+  providers: [MatDatepickerModule, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   imports: [CommonModule, MaterialsModules, RouterModule, ReactiveFormsModule],
   exports: [
     CommonModule,

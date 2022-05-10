@@ -12,9 +12,7 @@ import { MatDialog } from "@angular/material/dialog";
 export class BoardColumnComponent {
   @Input() public columnData!: ExtendedColumnModel;
 
-  @Output() public dropTaskEvent = new EventEmitter<
-    CdkDragDrop<TaskModel[] | undefined, TaskModel[]>
-  >();
+  @Output() public dropTaskEvent = new EventEmitter<CdkDragDrop<TaskModel[] | undefined, TaskModel[]>>();
 
   constructor(public dialog: MatDialog) {}
 

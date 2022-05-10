@@ -167,9 +167,7 @@ export class DetailBoardPageComponent {
     },
   ];
 
-  constructor(
-    private notificationsService: NotificationsService,
-  ) {}
+  constructor(private notificationsService: NotificationsService) {}
 
   // eslint-disable-next-line class-methods-use-this
   public dropTask(event: CdkDragDrop<TaskModel[] | undefined, TaskModel[]>): void {

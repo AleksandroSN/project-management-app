@@ -8,7 +8,5 @@ const INITIAL_STATE: AppSettingsState = {
 
 export const appSettingsFeature = createFeature({
   name: APP_SETTINGS_FEATURE_KEY,
-  reducer: createReducer(
-    INITIAL_STATE,
-  ),
+  reducer: createReducer(INITIAL_STATE),
 });

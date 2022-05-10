@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { AuthFormControls, UserWithName } from "@app/shared";
-import { InputValidationService, UserService } from "@app/core/services";
+import { AuthFormControls, UserWithName, ModalComponent } from "@app/shared";
+import { InputValidationService, ProfileService } from "@app/core/services";
 import { selectUser, UserState } from "@app/redux";
 import { Store } from "@ngrx/store";
 import { Observable, Subject, takeUntil } from "rxjs";
+import { MatDialog } from "@angular/material/dialog";
 
 @Component({
   selector: "app-edit-profile",
@@ -25,8 +26,9 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private inputValidationService: InputValidationService,
-    private userServise: UserService,
+    private profileServise: ProfileService,
     private store: Store,
+    private dialog: MatDialog,
   ) {
     this.user$ = this.store.select(selectUser);
   }
@@ -57,6 +59,15 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     const user: UserWithName = this.form.value as UserWithName;
-    this.userServise.updateUser(this.userID, user);
+    this.profileServise.updateProfile(this.userID, user);
+  }
+
+  openModal() {
+    const dialogRef = this.dialog.open(ModalComponent, { data: { name: "column" } });
+    dialogRef.afterClosed().subscribe((confirm) => {
+      if (confirm) {
+        this.profileServise.deleteProfile(this.userID);
+      }
+    });
   }
 }
