@@ -10,11 +10,11 @@ import { CdkDragDrop } from "@angular/cdk/drag-drop";
 export class BoardColumnComponent {
   @Input() public columnData!: ExtendedColumnModel;
 
-  @Output() public dropEvent = new EventEmitter<
+  @Output() public dropTaskEvent = new EventEmitter<
   CdkDragDrop<TaskModel[] | undefined, TaskModel[]>
   >();
 
-  public drop(event: CdkDragDrop<TaskModel[] | undefined, TaskModel[]>) {
-    this.dropEvent.emit(event);
+  public dropTask(event: CdkDragDrop<TaskModel[] | undefined, TaskModel[]>) {
+    this.dropTaskEvent.emit(event);
   }
 }

@@ -7,8 +7,11 @@ import { MatRippleModule } from "@angular/material/core";
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
 import { LongPressModule } from "@app/shared/directives";
-import { BoardColumnComponent, BoardCardComponent, BoardPreviewCardComponent } from "./components";
-import { BoardPageComponent, DetailBoardPageComponent } from "./pages";
+import { DetailBoardPageComponent } from "@app/board/detail-board-page/detail-board-page.component";
+import { BoardPageComponent } from "@app/board/board-page/board-page.component";
+import { BoardPreviewCardComponent } from "@app/board/board-page/board-preview-card";
+import { BoardColumnComponent } from "@app/board/detail-board-page/board-column";
+import { BoardCardComponent } from "@app/board/detail-board-page/board-card";
 
 @NgModule({
   declarations: [

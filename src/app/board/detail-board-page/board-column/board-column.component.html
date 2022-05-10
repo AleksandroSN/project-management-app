@@ -6,7 +6,7 @@
     [cdkDropListConnectedTo]="columnData.otherColumns"
     [cdkDropListData]="columnData.tasks"
     class="column__list"
-    (cdkDropListDropped)="drop($event)">
+    (cdkDropListDropped)="dropTask($event)">
     <div class="column__card" *ngFor="let task of columnData.tasks" cdkDrag>
       <app-board-card [taskData]="task"></app-board-card>
     </div>
