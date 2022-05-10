@@ -16,7 +16,6 @@ export class SignupFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-
     private inputValidationService: InputValidationService,
     private authService: AuthService,
   ) {}
