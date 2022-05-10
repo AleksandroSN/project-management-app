@@ -1,0 +1,22 @@
+<div class="board__wrapper">
+  <app-header-to-component [title]="'Board ' + 'test'"></app-header-to-component>
+  <div class="board">
+    <div class="board__inner">
+      <div cdkDropList cdkDropListOrientation="horizontal" class="board__columns" (cdkDropListDropped)="dropColumn($event)">
+        <div class="board__column" *ngFor="let column of columns; index as i" cdkDrag>
+          <app-board-column
+            [columnData]="getColumnData(i, column)"
+            (dropTaskEvent)="dropTask($event)"
+          ></app-board-column>
+        </div>
+      </div>
+      <div class="board__add-column">
+        <div class="board__add-column__inner" matRipple>
+          <mat-icon>add</mat-icon>
+          <span>Add another list</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

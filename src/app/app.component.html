@@ -1,11 +1,16 @@
+<ng-container *ngIf="isLoaderActive$ | async">
+  <div class="app-overlay">
+    <mat-spinner diameter="200"></mat-spinner>
+  </div>
+</ng-container>
 <div class="app-container">
-  <header class="header">
+  <header class="app-header">
     <app-header></app-header>
   </header>
-  <main>
+  <main class="app-main">
     <router-outlet></router-outlet>
   </main>
-  <footer class="footer">
+  <footer class="app-footer">
     <app-footer></app-footer>
   </footer>
 

@@ -1,0 +1,30 @@
+<div class="column">
+  <div class="column__header">
+    <h2>{{ columnData.title }}</h2>
+    <div [matMenuTriggerFor]="menu" class="btn-hover" matRipple>
+      <mat-icon>more_horiz</mat-icon>
+    </div>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>delete</mat-icon>
+        <span>Delete</span>
+      </button>
+    </mat-menu>
+
+  </div>
+  <div
+    cdkDropList
+    [id]="'column-' + columnData.id"
+    [cdkDropListConnectedTo]="columnData.otherColumns"
+    [cdkDropListData]="columnData.tasks"
+    class="column__list"
+    (cdkDropListDropped)="dropTask($event)">
+    <div class="column__card" *ngFor="let task of columnData.tasks" cdkDrag>
+      <app-board-card [taskData]="task"></app-board-card>
+    </div>
+  </div>
+  <div class="column__add-card btn-hover" matRipple>
+    <mat-icon>add</mat-icon>
+    <span>Add task</span>
+  </div>
+</div>
