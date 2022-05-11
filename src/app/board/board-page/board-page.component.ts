@@ -10,10 +10,12 @@ export class BoardPageComponent {
   public boards: BoardModel[] = [
     {
       id: "0",
+      description: "test 0",
       title: "RS Project",
     },
     {
       id: "1",
+      description: "test 1",
       title: "Test Project",
     },
   ];

@@ -1,6 +1,6 @@
 // ENDPOINTS
 export const USERS_ENDPOINT = "users";
-export const BOARDS_ENDPOINT = "boards";
+export const BOARDS_ENDPOINT = "boards-service";
 export const COLUMNS_ENDPOINT = "columns";
 export const TASKS_ENDPOINT = "tasks";
 export const LOGIN_ENDPOINT = "signin";
@@ -36,6 +36,7 @@ export enum LoaderActionsName {
 // FEATURENAME
 export const USER_FEATURE_KEY = "userFeature";
 export const APP_SETTINGS_FEATURE_KEY = "appSettingsFeature";
+export const CURRENT_BOARD_KEY = "currentBoardFeature";
 
 // OTHER
 export const LOCAL_STORAGE_KEY = "auth_data";

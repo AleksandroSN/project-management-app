@@ -1,7 +1,13 @@
 import { Component } from "@angular/core";
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from "@angular/cdk/drag-drop";
-import { ColumnModel, TaskModel } from "@app/shared/models";
+import { ColumnModel, LoadingStatus, TaskModel } from "@app/shared/models";
 import { NotificationsService } from "@app/core/services/notifications-service/notifications.service";
+import { Store } from "@ngrx/store";
+import { AppState } from "@app/redux";
+import { getBoardById } from "@app/redux/actions/current-board.action";
+import { selectCurrentBoardStatus } from "@app/redux/selectors/current-board.selectors";
+import { Observable } from "rxjs";
+import { NotificationRef } from "@app/shared/models/notification.model";
 
 @Component({
   selector: "app-detail-board-page",
@@ -167,9 +173,26 @@ export class DetailBoardPageComponent {
     },
   ];
 
-  constructor(
-    private notificationsService: NotificationsService,
-  ) {}
+  public status$: Observable<LoadingStatus | null> = this.store.select(selectCurrentBoardStatus);
+
+  public loadingNotification!: NotificationRef | null;
+
+  constructor(private notificationsService: NotificationsService, private store: Store<AppState>) {
+    this.status$.subscribe((res) => {
+      if (res === LoadingStatus.LOADING) {
+        if (!this.loadingNotification) {
+          this.loadingNotification = notificationsService.showNotification({
+            type: "spinner",
+            message: "Board synchronization",
+          });
+        }
+      } else if (this.loadingNotification) {
+        this.loadingNotification.close();
+        this.loadingNotification = null;
+      }
+    });
+    this.store.dispatch(getBoardById({ id: "9a111e19-24ec-43e1-b8c4-13776842b8d5" }));
+  }
 
   // eslint-disable-next-line class-methods-use-this
   public dropTask(event: CdkDragDrop<TaskModel[] | undefined, TaskModel[]>): void {
@@ -186,21 +209,12 @@ export class DetailBoardPageComponent {
         event.currentIndex,
       );
     }
-    const notification = this.notificationsService.showNotification({
-      type: "spinner",
-      message: "Синхронизация",
-    });
-    setTimeout(() => {
-      notification.close();
-      this.notificationsService.showNotification({
-        type: "success",
-        message: "Синхронизация завершена",
-      });
-    }, 5000);
+    this.store.dispatch(getBoardById({ id: "9a111e19-24ec-43e1-b8c4-13776842b8d5" }));
   }
 
   public dropColumn(event: CdkDragDrop<ColumnModel[] | undefined>) {
     moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
+    this.store.dispatch(getBoardById({ id: "9a111e19-24ec-43e1-b8c4-13776842b8d5" }));
   }
 
   public getColumnData(index: number, data: ColumnModel): any {
