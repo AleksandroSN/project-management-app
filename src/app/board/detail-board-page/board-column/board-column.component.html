@@ -5,7 +5,7 @@
       <mat-icon>more_horiz</mat-icon>
     </div>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="openModal()">
+      <button appOpenModal (callbackAfterClose)="responseOnBack()" deleteEntity="column" mat-menu-item>
         <mat-icon>delete</mat-icon>
         <span>Delete</span>
       </button>
