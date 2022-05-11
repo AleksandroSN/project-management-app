@@ -4,7 +4,13 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { HeaderComponent, FooterComponent } from "./components";
 import { AuthGuard } from "./guards";
 import { NotFoundComponent } from "./pages";
-import { HttpService, InputValidationService, AuthService, UserService } from "./services";
+import {
+  HttpService,
+  InputValidationService,
+  AuthService,
+  UserService,
+  ModalService,
+} from "./services";
 import { NotificationItemComponent } from "./components/notification-item/notification-item.component";
 import { NotificationsListComponent } from "./components/notifications-list/notifications-list.component";
 
@@ -17,7 +23,14 @@ import { NotificationsListComponent } from "./components/notifications-list/noti
     NotificationItemComponent,
     NotificationsListComponent,
   ],
-  providers: [HttpService, InputValidationService, AuthService, AuthGuard, UserService],
+  providers: [
+    HttpService,
+    InputValidationService,
+    AuthService,
+    AuthGuard,
+    UserService,
+    ModalService,
+  ],
   imports: [SharedModule, MatProgressSpinnerModule],
   exports: [HeaderComponent, FooterComponent, NotificationsListComponent],
 })

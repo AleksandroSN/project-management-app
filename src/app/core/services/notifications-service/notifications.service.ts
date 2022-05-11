@@ -1,5 +1,9 @@
 import { Injectable } from "@angular/core";
-import { NotificationBaseModel, NotificationModel, NotificationRef } from "@app/shared/models/notification.model";
+import {
+  NotificationBaseModel,
+  NotificationModel,
+  NotificationRef,
+} from "@app/shared/models/notification.model";
 import { BehaviorSubject, Observable } from "rxjs";
 import { v4 as uuid } from "uuid";
 
@@ -10,7 +14,9 @@ export class NotificationsService {
   private defaultDuration = 3000;
 
   // eslint-disable-next-line max-len
-  private orderSubject: BehaviorSubject<NotificationModel[]> = new BehaviorSubject<NotificationModel[]>([]);
+  private orderSubject: BehaviorSubject<NotificationModel[]> = new BehaviorSubject<
+  NotificationModel[]
+  >([]);
 
   public order$: Observable<NotificationModel[]> = this.orderSubject.asObservable();
 

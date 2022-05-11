@@ -7,8 +7,7 @@ export interface UserState {
   isAuth: boolean;
 }
 
-export interface AppSettingsState {
-}
+export interface AppSettingsState {}
 
 export interface AppState {
   [USER_FEATURE_KEY]: UserState;
