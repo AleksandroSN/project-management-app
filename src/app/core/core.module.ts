@@ -9,6 +9,7 @@ import {
   InputValidationService,
   AuthService,
   UserService,
+  ModalService,
   ProfileService,
   NotificationsService,
 } from "./services";
@@ -30,6 +31,7 @@ import { NotificationsListComponent } from "./components/notifications-list/noti
     AuthService,
     AuthGuard,
     UserService,
+    ModalService,
     ProfileService,
     NotificationsService,
   ],
