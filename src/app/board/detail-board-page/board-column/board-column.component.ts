@@ -1,8 +1,6 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { ExtendedColumnModel, TaskModel } from "@app/shared/models";
 import { CdkDragDrop } from "@angular/cdk/drag-drop";
-import { ModalComponent } from "@app/shared/components/modal/modal.component";
-import { MatDialog } from "@angular/material/dialog";
 
 @Component({
   selector: "app-board-column",
@@ -12,20 +10,14 @@ import { MatDialog } from "@angular/material/dialog";
 export class BoardColumnComponent {
   @Input() public columnData!: ExtendedColumnModel;
 
-  @Output() public dropTaskEvent = new EventEmitter<
-    CdkDragDrop<TaskModel[] | undefined, TaskModel[]>
-  >();
-
-  constructor(public dialog: MatDialog) {}
+  @Output() public dropTaskEvent = new EventEmitter<CdkDragDrop<TaskModel[] | undefined, TaskModel[]>>();
 
   public dropTask(event: CdkDragDrop<TaskModel[] | undefined, TaskModel[]>) {
     this.dropTaskEvent.emit(event);
   }
 
-  openModal() {
-    const dialogRef = this.dialog.open(ModalComponent, { data: { name: "column" } });
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
-    });
+  // eslint-disable-next-line class-methods-use-this
+  responseOnBack() {
+    console.log("response on back end");
   }
 }
