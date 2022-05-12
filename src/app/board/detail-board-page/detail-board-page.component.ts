@@ -1,187 +1,48 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from "@angular/cdk/drag-drop";
-import { ColumnModel, LoadingStatus, TaskModel } from "@app/shared/models";
+import { BoardModel, ColumnModel, LoadingStatus, TaskModel } from "@app/shared/models";
 import { NotificationsService } from "@app/core/services/notifications-service/notifications.service";
 import { Store } from "@ngrx/store";
 import { AppState } from "@app/redux";
 import { getBoardById } from "@app/redux/actions/current-board.action";
-import { selectCurrentBoardStatus } from "@app/redux/selectors/current-board.selectors";
+import { selectCurrentBoard, selectCurrentBoardStatus } from "@app/redux/selectors/current-board.selectors";
 import { Observable } from "rxjs";
 import { NotificationRef } from "@app/shared/models/notification.model";
+import { BoardsService } from "@app/core/services/boards-service/boards.service";
+import { HttpService } from "@app/core/services";
 
 @Component({
   selector: "app-detail-board-page",
   templateUrl: "./detail-board-page.component.html",
   styleUrls: ["./detail-board-page.component.scss"],
 })
-export class DetailBoardPageComponent {
-  public columns: ColumnModel[] = [
-    {
-      id: "0",
-      title: "To do",
-      order: 1,
-      tasks: [
-        {
-          id: "6e3abe9c-ceb1-40fa-9a04-eb2b2184daf9",
-          title: "Task: pet the catвфрвофшдвошфовщфоцшовшдфоцвдшофцдшвоцшфдовдшфодцшвофд",
-          order: 1,
-          done: false,
-          description: "Domestic cat needs to be stroked gently",
-          userId: "b2d92061-7d23-4641-af52-dd39f95b99f8",
-        },
-        {
-          id: "6e3abe9c-ceb1-40fa-9a04-eb2b2184daf9",
-          title: "Task: pet the cat",
-          order: 1,
-          done: false,
-          description: "Domestic cat needs to be stroked gently",
-          userId: "b2d92061-7d23-4641-af52-dd39f95b99f8",
-        },
-        {
-          id: "6e3abe9c-ceb1-40fa-9a04-eb2b2184daf9",
-          title: "Task: pet the cat",
-          order: 1,
-          done: false,
-          description: "Domestic cat needs to be stroked gently",
-          userId: "b2d92061-7d23-4641-af52-dd39f95b99f8",
-        },
-        {
-          id: "6e3abe9c-ceb1-40fa-9a04-eb2b2184daf9",
-          title: "Task: pet the cat",
-          order: 1,
-          done: false,
-          description: "Domestic cat needs to be stroked gently",
-          userId: "b2d92061-7d23-4641-af52-dd39f95b99f8",
-        },
-        {
-          id: "6e3abe9c-ceb1-40fa-9a04-eb2b2184daf9",
-          title: "Task: pet the cat",
-          order: 1,
-          done: false,
-          description: "Domestic cat needs to be stroked gently",
-          userId: "b2d92061-7d23-4641-af52-dd39f95b99f8",
-        },
-        {
-          id: "6e3abe9c-ceb1-40fa-9a04-eb2b2184daf9",
-          title: "Task: pet the cat",
-          order: 1,
-          done: false,
-          description: "Domestic cat needs to be stroked gently",
-          userId: "b2d92061-7d23-4641-af52-dd39f95b99f8",
-        },
-        {
-          id: "6e3abe9c-ceb1-40fa-9a04-eb2b2184daf9",
-          title: "Task: pet the cat",
-          order: 1,
-          done: false,
-          description: "Domestic cat needs to be stroked gently",
-          userId: "b2d92061-7d23-4641-af52-dd39f95b99f8",
-        },
-        {
-          id: "6e3abe9c-ceb1-40fa-9a04-eb2b2184daf9",
-          title: "Task: pet the cat",
-          order: 1,
-          done: false,
-          description: "Domestic cat needs to be stroked gently",
-          userId: "b2d92061-7d23-4641-af52-dd39f95b99f8",
-        },
-        {
-          id: "6e3abe9c-ceb1-40fa-9a04-eb2b2184daf9",
-          title: "Task: pet the cat",
-          order: 1,
-          done: false,
-          description: "Domestic cat needs to be stroked gently",
-          userId: "b2d92061-7d23-4641-af52-dd39f95b99f8",
-        },
-        {
-          id: "6e3abe9c-ceb1-40fa-9a04-eb2b2184daf9",
-          title: "Task: pet the cat",
-          order: 1,
-          done: false,
-          description: "Domestic cat needs to be stroked gently",
-          userId: "b2d92061-7d23-4641-af52-dd39f95b99f8",
-        },
-        {
-          id: "6e3abe9c-ceb1-40fa-9a04-eb2b2184daf9",
-          title: "Task: pet the cat",
-          order: 1,
-          done: false,
-          description: "Domestic cat needs to be stroked gently",
-          userId: "b2d92061-7d23-4641-af52-dd39f95b99f8",
-        },
-      ],
-    },
-    {
-      id: "1",
-      title: "Done",
-      order: 2,
-      tasks: [
-        {
-          id: "ada26e3abe9c-ceb1-40fa-9a04-eb2b2184daf9",
-          title: "Task: get up",
-          order: 1,
-          done: false,
-          description: "Test",
-          userId: "b2d92061-7d23-4641-af52-dd39f95b99f8",
-        },
-      ],
-    },
-    {
-      id: "1",
-      title: "Done",
-      order: 2,
-      tasks: [
-        {
-          id: "ada26e3abe9c-ceb1-40fa-9a04-eb2b2184daf9",
-          title: "Task: get up",
-          order: 1,
-          done: false,
-          description: "Test",
-          userId: "b2d92061-7d23-4641-af52-dd39f95b99f8",
-        },
-      ],
-    },
-    {
-      id: "1",
-      title: "Done",
-      order: 2,
-      tasks: [
-        {
-          id: "ada26e3abe9c-ceb1-40fa-9a04-eb2b2184daf9",
-          title: "Task: get up",
-          order: 1,
-          done: false,
-          description: "Test",
-          userId: "b2d92061-7d23-4641-af52-dd39f95b99f8",
-        },
-      ],
-    },
-    {
-      id: "1",
-      title: "Done",
-      order: 2,
-      tasks: [
-        {
-          id: "ada26e3abe9c-ceb1-40fa-9a04-eb2b2184daf9",
-          title: "Task: get up",
-          order: 1,
-          done: false,
-          description: "Test",
-          userId: "b2d92061-7d23-4641-af52-dd39f95b99f8",
-        },
-      ],
-    },
-  ];
-
+export class DetailBoardPageComponent implements OnInit {
   public status$: Observable<LoadingStatus | null> = this.store.select(selectCurrentBoardStatus);
+
+  public board$: Observable<BoardModel | undefined> = this.store.select(selectCurrentBoard);
+
+  public board: BoardModel | undefined;
 
   public loadingNotification!: NotificationRef | null;
 
-  constructor(private notificationsService: NotificationsService, private store: Store<AppState>) {
+  constructor(
+    private notificationsService: NotificationsService,
+    private store: Store<AppState>,
+    private boardServive: BoardsService,
+    private httpService: HttpService,
+  ) {
+    httpService.chain([
+      boardServive.getBoardById("ada", 5000),
+      boardServive.getBoardById("dadad", 2000),
+      boardServive.getBoardById("daidja"),
+    ]).subscribe((res) => console.log(res));
+  }
+
+  public ngOnInit(): void {
     this.status$.subscribe((res) => {
       if (res === LoadingStatus.LOADING) {
         if (!this.loadingNotification) {
-          this.loadingNotification = notificationsService.showNotification({
+          this.loadingNotification = this.notificationsService.showNotification({
             type: "spinner",
             message: "Board synchronization",
           });
@@ -192,6 +53,9 @@ export class DetailBoardPageComponent {
       }
     });
     this.store.dispatch(getBoardById({ id: "9a111e19-24ec-43e1-b8c4-13776842b8d5" }));
+    this.board$.subscribe((board) => {
+      this.board = board;
+    });
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -213,7 +77,10 @@ export class DetailBoardPageComponent {
   }
 
   public dropColumn(event: CdkDragDrop<ColumnModel[] | undefined>) {
-    moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
+    if (!this.board?.columns) {
+      return;
+    }
+    moveItemInArray(this.board.columns, event.previousIndex, event.currentIndex);
     this.store.dispatch(getBoardById({ id: "9a111e19-24ec-43e1-b8c4-13776842b8d5" }));
   }
 
@@ -221,7 +88,7 @@ export class DetailBoardPageComponent {
     return {
       ...data,
       id: index,
-      otherColumns: [...Array(this.columns.length).keys()]
+      otherColumns: [...Array((this.board?.columns || []).length).keys()]
         .filter((item) => item !== index)
         .map((item) => `column-${item}`),
     };

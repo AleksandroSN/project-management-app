@@ -9,7 +9,7 @@ import { BoardModel } from "@app/shared";
 export class BoardsService {
   constructor(private httpService: HttpService) {}
 
-  public getBoardById(id: string): Observable<BoardModel> {
+  public getBoardById(id: string, time?: number): Observable<BoardModel> {
     return of({
       id,
       title: "Homework tasks",
@@ -37,6 +37,6 @@ export class BoardsService {
           ],
         },
       ],
-    }).pipe(delay(1000));
+    }).pipe(delay(time || 1000));
   }
 }
