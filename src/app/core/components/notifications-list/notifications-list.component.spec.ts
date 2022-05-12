@@ -1,16 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { NotificationsListComponent } from './notifications-list.component';
+import { NotificationsListComponent } from "./notifications-list.component";
 
-describe('NotificationsListComponent', () => {
+describe("NotificationsListComponent", () => {
   let component: NotificationsListComponent;
   let fixture: ComponentFixture<NotificationsListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NotificationsListComponent ]
-    })
-    .compileComponents();
+      declarations: [NotificationsListComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('NotificationsListComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

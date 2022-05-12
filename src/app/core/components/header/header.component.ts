@@ -23,14 +23,12 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentLang = "EN";
-    this.router.events
-      .pipe(filter((event) => event instanceof NavigationStart))
-      .subscribe((event) => {
-        if (!this.link) {
-          this.link = (<any>event).url;
-          this.authService.autoLogin(this.link);
-        }
-      });
+    this.router.events.pipe(filter((event) => event instanceof NavigationStart)).subscribe((event) => {
+      if (!this.link) {
+        this.link = (<any>event).url;
+        this.authService.autoLogin(this.link);
+      }
+    });
   }
 
   logout() {

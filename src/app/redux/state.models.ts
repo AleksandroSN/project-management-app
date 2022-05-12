@@ -8,8 +8,7 @@ export interface UserState {
   isAuth: boolean;
 }
 
-export interface AppSettingsState {
-}
+export interface AppSettingsState {}
 
 export interface CurrentBoardState {
   board: BoardModel | undefined;
