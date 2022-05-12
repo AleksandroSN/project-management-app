@@ -8,8 +8,6 @@ import { getBoardById } from "@app/redux/actions/current-board.action";
 import { selectCurrentBoard, selectCurrentBoardStatus } from "@app/redux/selectors/current-board.selectors";
 import { Observable } from "rxjs";
 import { NotificationRef } from "@app/shared/models/notification.model";
-import { BoardsService } from "@app/core/services/boards-service/boards.service";
-import { HttpService } from "@app/core/services";
 
 @Component({
   selector: "app-detail-board-page",
@@ -28,15 +26,7 @@ export class DetailBoardPageComponent implements OnInit {
   constructor(
     private notificationsService: NotificationsService,
     private store: Store<AppState>,
-    private boardServive: BoardsService,
-    private httpService: HttpService,
-  ) {
-    httpService.chain([
-      boardServive.getBoardById("ada", 5000),
-      boardServive.getBoardById("dadad", 2000),
-      boardServive.getBoardById("daidja"),
-    ]).subscribe((res) => console.log(res));
-  }
+  ) {}
 
   public ngOnInit(): void {
     this.status$.subscribe((res) => {

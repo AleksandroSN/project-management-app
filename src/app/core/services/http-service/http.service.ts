@@ -26,9 +26,9 @@ export class HttpService {
       .pipe(catchError((err) => throwError(() => err)));
   }
 
-  update<T>(chunk: string, body: T): Observable<T> {
+  update<T, K>(chunk: string, body: T): Observable<K> {
     return this.http
-      .put<T>(`${environment.API_URL}/${chunk}`, body)
+      .put<K>(`${environment.API_URL}/${chunk}`, body)
       .pipe(catchError((err) => throwError(() => err)));
   }
 

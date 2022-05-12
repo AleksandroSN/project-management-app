@@ -32,7 +32,7 @@ export class UserService {
   }
 
   updateUser(userId: string, body: UserWithName): void {
-    this.httpService.update<UserWithId>(`${USERS_ENDPOINT}/${userId}`, body).subscribe((res) => {
+    this.httpService.update<UserWithName, UserWithId>(`${USERS_ENDPOINT}/${userId}`, body).subscribe((res) => {
       this.store.dispatch(userAuthorize({ user: res }));
       this.router.navigateByUrl("/home");
     });
