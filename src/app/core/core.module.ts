@@ -10,6 +10,8 @@ import {
   AuthService,
   UserService,
   ModalService,
+  ProfileService,
+  NotificationsService,
 } from "./services";
 import { NotificationItemComponent } from "./components/notification-item/notification-item.component";
 import { NotificationsListComponent } from "./components/notifications-list/notifications-list.component";
@@ -30,6 +32,8 @@ import { NotificationsListComponent } from "./components/notifications-list/noti
     AuthGuard,
     UserService,
     ModalService,
+    ProfileService,
+    NotificationsService,
   ],
   imports: [SharedModule, MatProgressSpinnerModule],
   exports: [HeaderComponent, FooterComponent, NotificationsListComponent],

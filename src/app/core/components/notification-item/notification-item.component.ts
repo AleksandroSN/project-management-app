@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { NotificationModel } from "@app/shared/models/notification.model";
+import { NotificationModel } from "@app/shared/models";
 
 @Component({
   selector: "app-notification-item",

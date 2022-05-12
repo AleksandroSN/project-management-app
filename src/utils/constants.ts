@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 // ENDPOINTS
 export const USERS_ENDPOINT = "users";
 export const BOARDS_ENDPOINT = "boards";

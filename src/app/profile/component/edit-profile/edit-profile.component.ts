@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AuthFormControls, UserWithName } from "@app/shared";
-import { InputValidationService, UserService } from "@app/core/services";
+import { InputValidationService, ProfileService } from "@app/core/services";
 import { selectUser, UserState } from "@app/redux";
 import { Store } from "@ngrx/store";
 import { Observable, Subject, takeUntil } from "rxjs";
@@ -25,7 +25,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private inputValidationService: InputValidationService,
-    private userServise: UserService,
+    public profileServise: ProfileService,
     private store: Store,
   ) {
     this.user$ = this.store.select(selectUser);
@@ -57,6 +57,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     const user: UserWithName = this.form.value as UserWithName;
-    this.userServise.updateUser(this.userID, user);
+    this.profileServise.updateProfile(this.userID, user);
   }
 }
