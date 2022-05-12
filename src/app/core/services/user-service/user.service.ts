@@ -29,7 +29,7 @@ export class UserService {
   }
 
   updateUser(userId: string, body: UserWithName): Observable<UserWithId> {
-    return this.httpService.update<UserWithId>(`${USERS_ENDPOINT}/${userId}`, body);
+    return this.httpService.update<UserWithId, UserWithId>(`${USERS_ENDPOINT}/${userId}`, body);
   }
 
   deleteUser(userId: string): Observable<void> {
