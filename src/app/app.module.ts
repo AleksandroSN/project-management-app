@@ -8,6 +8,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { environment } from "@environments/environment";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { appEffects, appReducers } from "@app/redux";
+import { StickyHeaderModule } from "@app/shared/directives";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 
@@ -18,6 +19,7 @@ import { AppComponent } from "./app.component";
     BrowserAnimationsModule,
     AppRoutingModule,
     CoreModule,
+    StickyHeaderModule,
     HttpClientModule,
     StoreModule.forRoot(appReducers),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
