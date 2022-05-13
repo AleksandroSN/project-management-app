@@ -1,8 +1,12 @@
 import { CurrentBoardState } from "@app/redux";
-import { LoadingStatus } from "@app/shared";
 import { createFeature, createReducer, on } from "@ngrx/store";
-import { getBoardById, getBoardByIdFailure, getBoardByIdSuccess } from "@app/redux/actions/current-board.action";
+import {
+  getBoardById,
+  getBoardByIdFailure,
+  getBoardByIdSuccess,
+} from "@app/redux/actions/current-board.action";
 import { CURRENT_BOARD_KEY } from "@utils";
+import { LoadingStatus } from "@app/shared/models/loading-status.model";
 
 export const initialState: CurrentBoardState = {
   board: undefined,

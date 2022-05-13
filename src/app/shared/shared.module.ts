@@ -37,7 +37,7 @@ const MaterialsModules = [
 ];
 
 @NgModule({
-declarations: [RouteLinkComponent, HeaderToComponent, ModalComponent, ErrorModalComponent],
+  declarations: [RouteLinkComponent, HeaderToComponent, ModalComponent, ErrorModalComponent],
   providers: [
     MatDatepickerModule,
     { provide: HTTP_INTERCEPTORS, useClass: ErrorCatcherInterceptor, multi: true },
