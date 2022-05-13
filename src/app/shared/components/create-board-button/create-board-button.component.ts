@@ -21,7 +21,7 @@ export class CreateBoardButtonComponent {
 
   createBoard() {
     this.modalService
-      .openNewBoardModal({ title: this.title, description: this.description })
+      .openBoardModal({ title: this.title, description: this.description }, true)
       .pipe(switchMap((data) => this.boardService.createBoard(data)))
       .subscribe(() => {
         this.notificationServise.showNotification({

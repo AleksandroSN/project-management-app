@@ -8,7 +8,7 @@ import {
 import { CURRENT_BOARD_KEY } from "@utils";
 import { LoadingStatus } from "@app/shared/models/loading-status.model";
 
-export const initialState: CurrentBoardState = {
+const initialState: CurrentBoardState = {
   board: undefined,
   error: null,
   status: LoadingStatus.PENDING,

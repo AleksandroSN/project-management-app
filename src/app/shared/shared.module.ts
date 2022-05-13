@@ -18,7 +18,7 @@ import {
   HeaderToComponent,
   RouteLinkComponent,
   ModalComponent,
-  NewBoardModalComponent,
+  BoardModalComponent,
   CreateBoardButtonComponent,
 } from "./components";
 import { AuthInterceptor, ErrorCatcherInterceptor } from "./interceptors";
@@ -42,7 +42,7 @@ const MaterialsModules = [
     RouteLinkComponent,
     HeaderToComponent,
     ModalComponent,
-    NewBoardModalComponent,
+    BoardModalComponent,
     CreateBoardButtonComponent,
   ],
   providers: [
