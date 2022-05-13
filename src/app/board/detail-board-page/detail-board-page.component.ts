@@ -23,10 +23,7 @@ export class DetailBoardPageComponent implements OnInit {
 
   public loadingNotification!: NotificationRef | null;
 
-  constructor(
-    private notificationsService: NotificationsService,
-    private store: Store<AppState>,
-  ) {}
+  constructor(private notificationsService: NotificationsService, private store: Store<AppState>) {}
 
   public ngOnInit(): void {
     this.status$.subscribe((res) => {

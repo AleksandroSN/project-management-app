@@ -14,12 +14,7 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatDialogModule } from "@angular/material/dialog";
 import { RouterModule } from "@angular/router";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
-import {
-  HeaderToComponent,
-  RouteLinkComponent,
-  ErrorModalComponent,
-  ModalComponent,
-} from "./components";
+import { HeaderToComponent, RouteLinkComponent, ModalComponent } from "./components";
 import { AuthInterceptor, ErrorCatcherInterceptor } from "./interceptors";
 
 const MaterialsModules = [
@@ -37,7 +32,7 @@ const MaterialsModules = [
 ];
 
 @NgModule({
-  declarations: [RouteLinkComponent, HeaderToComponent, ModalComponent, ErrorModalComponent],
+  declarations: [RouteLinkComponent, HeaderToComponent, ModalComponent],
   providers: [
     MatDatepickerModule,
     { provide: HTTP_INTERCEPTORS, useClass: ErrorCatcherInterceptor, multi: true },
@@ -51,7 +46,6 @@ const MaterialsModules = [
     ReactiveFormsModule,
     RouteLinkComponent,
     ModalComponent,
-    ErrorModalComponent,
     HeaderToComponent,
   ],
 })

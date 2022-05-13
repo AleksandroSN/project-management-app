@@ -28,7 +28,7 @@ export const getBoardByIdFailure = createAction(
 
 export const createColumn = createAction(
   `[${reduxStateName}] Create column (Progress)`,
-  props<{ boardId: string, column: ColumnBodyModel }>(),
+  props<{ boardId: string; column: ColumnBodyModel }>(),
 );
 
 export const createColumnSuccess = createAction(
@@ -48,7 +48,7 @@ export const createColumnFailure = createAction(
 
 export const updateColumn = createAction(
   `[${reduxStateName}] Update column (Progress)`,
-  props<{ boardId: string, columnId: string, column: ColumnBodyModel }>(),
+  props<{ boardId: string; columnId: string; column: ColumnBodyModel }>(),
 );
 
 export const updateColumnSuccess = createAction(
@@ -68,7 +68,7 @@ export const updateColumnFailure = createAction(
 
 export const deleteColumn = createAction(
   `[${reduxStateName}] Delete column (Progress)`,
-  props<{ boardId: string, columnId: string, column: ColumnBodyModel }>(),
+  props<{ boardId: string; columnId: string; column: ColumnBodyModel }>(),
 );
 
 export const deleteColumnSuccess = createAction(

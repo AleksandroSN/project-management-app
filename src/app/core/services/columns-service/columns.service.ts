@@ -11,15 +11,11 @@ export class ColumnsService {
   constructor(private httpService: HttpService) {}
 
   public getAllColumns(boardId: string): Observable<ColumnModel[]> {
-    return this.httpService.getAll<ColumnModel>(
-      `${BOARS_ENDPOINT}/${boardId}/${COLUMNS_ENDPOINT}`,
-    );
+    return this.httpService.getAll<ColumnModel>(`${BOARS_ENDPOINT}/${boardId}/${COLUMNS_ENDPOINT}`);
   }
 
   public getColumnById(boardId: string, columnId: string): Observable<ColumnModel> {
-    return this.httpService.get<ColumnModel>(
-      `${BOARS_ENDPOINT}/${boardId}/${COLUMNS_ENDPOINT}/${columnId}`,
-    );
+    return this.httpService.get<ColumnModel>(`${BOARS_ENDPOINT}/${boardId}/${COLUMNS_ENDPOINT}/${columnId}`);
   }
 
   public createColumn(boardId: string, column: ColumnBodyModel): Observable<ColumnModel> {
@@ -29,11 +25,7 @@ export class ColumnsService {
     );
   }
 
-  public updateColumn(
-    boardId: string,
-    columnId: string,
-    column: ColumnBodyModel,
-  ): Observable<ColumnModel> {
+  public updateColumn(boardId: string, columnId: string, column: ColumnBodyModel): Observable<ColumnModel> {
     return this.httpService.update<ColumnBodyModel, ColumnModel>(
       `${BOARS_ENDPOINT}/${boardId}/${COLUMNS_ENDPOINT}/${columnId}`,
       column,

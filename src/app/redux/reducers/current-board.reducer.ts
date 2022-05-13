@@ -18,20 +18,29 @@ export const currentBoardFeature = createFeature({
   name: CURRENT_BOARD_KEY,
   reducer: createReducer(
     initialState,
-    on(getBoardById, (state, { id }) => ({
-      ...state,
-      status: LoadingStatus.LOADING,
-    })),
-    on(getBoardByIdSuccess, (state, { board }) => ({
-      ...state,
-      board,
-      error: null,
-      status: LoadingStatus.SUCCESS,
-    })),
-    on(getBoardByIdFailure, (state, { error }) => ({
-      ...state,
-      error,
-      status: LoadingStatus.ERROR,
-    })),
+    on(
+      getBoardById,
+      (state): CurrentBoardState => ({
+        ...state,
+        status: LoadingStatus.LOADING,
+      }),
+    ),
+    on(
+      getBoardByIdSuccess,
+      (state, { board }): CurrentBoardState => ({
+        ...state,
+        board,
+        error: null,
+        status: LoadingStatus.SUCCESS,
+      }),
+    ),
+    on(
+      getBoardByIdFailure,
+      (state, { error }): CurrentBoardState => ({
+        ...state,
+        error,
+        status: LoadingStatus.ERROR,
+      }),
+    ),
   ),
 });
