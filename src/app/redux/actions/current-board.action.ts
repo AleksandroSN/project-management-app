@@ -3,6 +3,39 @@ import { BoardModel, ColumnBodyModel, ColumnModel } from "@app/shared";
 
 const reduxStateName = "Current Board State";
 
+export class GenerateApiAction {
+  constructor(
+    name: string,
+    message: string,
+  ) {
+    // @ts-ignore
+    this[`${name}`] = createAction(
+      `${message}`,
+    );
+
+    // @ts-ignore
+    this[`${name}Success`] = createAction(
+      `${message}`,
+      props<any>(),
+    );
+
+    // @ts-ignore
+    this[`${name}Failure`] = createAction(
+      `${message}`,
+      props<{ error: any }>(),
+    );
+  }
+}
+
+// Set Pending State
+// ===============
+
+export const setPendingState = createAction(
+  `[${reduxStateName}] Set Pending State`,
+);
+
+// ===============
+
 // Get Board By ID
 // ===============
 
@@ -18,7 +51,7 @@ export const getBoardByIdSuccess = createAction(
 
 export const getBoardByIdFailure = createAction(
   `[${reduxStateName}] Get the board by id (Failure)`,
-  props<{ error: string }>(),
+  props<{ error: any }>(),
 );
 
 // ===============
@@ -38,7 +71,7 @@ export const createColumnSuccess = createAction(
 
 export const createColumnFailure = createAction(
   `[${reduxStateName}] Create column (Failure)`,
-  props<{ error: string }>(),
+  props<{ error: any }>(),
 );
 
 // ===============
@@ -58,7 +91,7 @@ export const updateColumnSuccess = createAction(
 
 export const updateColumnFailure = createAction(
   `[${reduxStateName}] Update column (Failure)`,
-  props<{ error: string }>(),
+  props<{ error: any }>(),
 );
 
 // ===============
@@ -78,7 +111,7 @@ export const deleteColumnSuccess = createAction(
 
 export const deleteColumnFailure = createAction(
   `[${reduxStateName}] Delete column (Failure)`,
-  props<{ error: string }>(),
+  props<{ error: any }>(),
 );
 
 // ===============

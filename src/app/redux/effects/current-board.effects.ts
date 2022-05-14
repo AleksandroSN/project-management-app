@@ -10,7 +10,7 @@ import {
 import { BoardModel } from "@app/shared";
 import { Injectable } from "@angular/core";
 import { switchMap, map, catchError } from "rxjs/operators";
-import { of, from } from "rxjs";
+import { of } from "rxjs";
 
 @Injectable()
 export class CurrentBoardEffects {
@@ -22,9 +22,9 @@ export class CurrentBoardEffects {
 
   getBoardById$ = createEffect(() => this.actions$.pipe(
     ofType(getBoardById),
-    switchMap((request: { id: string }) => from(this.boardsService.getBoardById(request.id)).pipe(
+    switchMap((request: { id: string }) => this.boardsService.getBoardById(request.id).pipe(
       map((board: BoardModel) => getBoardByIdSuccess({ board })),
-      catchError((error) => of(getBoardByIdFailure({ error: error.error.message }))),
+      catchError((error) => of(getBoardByIdFailure({ error }))),
     )),
   ));
 }

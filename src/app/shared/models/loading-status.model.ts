@@ -8,4 +8,5 @@ export enum LoadingStatus {
 export interface StatusModel {
   type: LoadingStatus;
   info: string | null;
+  code: number | string | null;
 }

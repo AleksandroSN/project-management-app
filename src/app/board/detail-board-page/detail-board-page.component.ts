@@ -3,11 +3,11 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from "@angular/cdk/dr
 import { BoardModel, ColumnModel, LoadingStatus, StatusModel, TaskModel } from "@app/shared/models";
 import { NotificationsService } from "@app/core/services/notifications-service/notifications.service";
 import { Store } from "@ngrx/store";
-import { AppState } from "@app/redux";
-import { getBoardById } from "@app/redux/actions/current-board.action";
+import { getBoardById, setPendingState } from "@app/redux/actions/current-board.action";
 import { selectCurrentBoard, selectCurrentBoardStatus } from "@app/redux/selectors/current-board.selectors";
-import { distinctUntilChanged, Observable, Subject, takeUntil } from "rxjs";
+import { Observable, Subject, takeUntil } from "rxjs";
 import { NotificationRef } from "@app/shared/models/notification.model";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-detail-board-page",
@@ -17,8 +17,7 @@ import { NotificationRef } from "@app/shared/models/notification.model";
 export class DetailBoardPageComponent implements OnInit, OnDestroy {
   // eslint-disable-next-line max-len
   public status$: Observable<StatusModel> = this.store
-    .select(selectCurrentBoardStatus)
-    .pipe(distinctUntilChanged());
+    .select(selectCurrentBoardStatus);
 
   public board$: Observable<BoardModel | undefined> = this.store.select(selectCurrentBoard);
 
@@ -28,36 +27,47 @@ export class DetailBoardPageComponent implements OnInit, OnDestroy {
 
   public loadingNotification!: NotificationRef | null;
 
-  constructor(private notificationsService: NotificationsService, private store: Store<AppState>) {}
+  constructor(
+    private notificationsService: NotificationsService,
+    private store: Store,
+    private router: Router,
+  ) {}
 
   public ngOnInit(): void {
     this.status$.pipe(takeUntil(this.destroyed)).subscribe((res) => {
-      switch (res.type) {
-        case LoadingStatus.LOADING:
-          if (!this.loadingNotification && this.board) {
-            this.loadingNotification = this.notificationsService.showNotification({
-              type: "spinner",
-              message: "Board synchronization",
-            });
-          }
-          break;
-        case LoadingStatus.ERROR:
-          if (this.loadingNotification) {
-            this.loadingNotification.close();
-            this.loadingNotification = null;
-          }
+      if (res.type === LoadingStatus.LOADING) {
+        if (!this.loadingNotification) {
           this.loadingNotification = this.notificationsService.showNotification({
+            type: "spinner",
+            message: "Board synchronization",
+          });
+        }
+      } else if (res.type === LoadingStatus.ERROR) {
+        if (this.loadingNotification) {
+          this.loadingNotification.close();
+          this.loadingNotification = null;
+        }
+        if (res.code === 404) {
+          const errorNotification = this.notificationsService.showNotification({
             type: "error",
             message: res.info || "Unknown error",
             submit: true,
           });
-          break;
-        default:
-          if (this.loadingNotification) {
-            this.loadingNotification.close();
-            this.loadingNotification = null;
-          }
-          break;
+          errorNotification.afterClose.subscribe(() => {
+            this.router.navigateByUrl("/board");
+          });
+        } else {
+          this.notificationsService.showNotification({
+            type: "error",
+            message: res.info || "Unknown error",
+            duration: 5000,
+          });
+        }
+        this.store.dispatch(setPendingState());
+      } else if (this.loadingNotification) {
+        this.loadingNotification.close();
+        this.loadingNotification = null;
+        this.store.dispatch(setPendingState());
       }
     });
     this.board$.pipe(takeUntil(this.destroyed)).subscribe((board) => {
