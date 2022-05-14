@@ -19,8 +19,8 @@ export class HttpService {
     return this.http.post<K>(`${environment.API_URL}/${chunk}`, body);
   }
 
-  update<T>(chunk: string, body: T): Observable<T> {
-    return this.http.put<T>(`${environment.API_URL}/${chunk}`, body);
+  update<T, K>(chunk: string, body: T): Observable<K> {
+    return this.http.put<K>(`${environment.API_URL}/${chunk}`, body);
   }
 
   delete<T>(chunk: string): Observable<T> {

@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -17,8 +17,9 @@ import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import {
   HeaderToComponent,
   RouteLinkComponent,
-  ErrorModalComponent,
   ModalComponent,
+  BoardModalComponent,
+  CreateBoardButtonComponent,
 } from "./components";
 import { AuthInterceptor, ErrorCatcherInterceptor } from "./interceptors";
 
@@ -37,13 +38,19 @@ const MaterialsModules = [
 ];
 
 @NgModule({
-declarations: [RouteLinkComponent, HeaderToComponent, ModalComponent, ErrorModalComponent],
+  declarations: [
+    RouteLinkComponent,
+    HeaderToComponent,
+    ModalComponent,
+    BoardModalComponent,
+    CreateBoardButtonComponent,
+  ],
   providers: [
     MatDatepickerModule,
     { provide: HTTP_INTERCEPTORS, useClass: ErrorCatcherInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
-  imports: [CommonModule, MaterialsModules, RouterModule, ReactiveFormsModule],
+  imports: [CommonModule, MaterialsModules, RouterModule, ReactiveFormsModule, FormsModule],
   exports: [
     CommonModule,
     MaterialsModules,
@@ -51,8 +58,8 @@ declarations: [RouteLinkComponent, HeaderToComponent, ModalComponent, ErrorModal
     ReactiveFormsModule,
     RouteLinkComponent,
     ModalComponent,
-    ErrorModalComponent,
     HeaderToComponent,
+    CreateBoardButtonComponent,
   ],
 })
 export class SharedModule {}
