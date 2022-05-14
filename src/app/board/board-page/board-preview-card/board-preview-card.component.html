@@ -1,18 +1,19 @@
 <mat-card [routerLink]="data.id" appLongPress (longPress)="openActionsPopup(menuTrigger)" class="card" matRipple>
   <div class="card__icon">
-    <mat-icon>bolt</mat-icon>
+    <mat-icon>task</mat-icon>
   </div>
   <div class="card__info">
     <h2 class="card__title">{{ data.title }}</h2>
+    <p>{{data.description}}</p>
     <div #menuTrigger="matMenuTrigger"  [matMenuTriggerFor]="menu" class="card__trigger"></div>
   </div>
 </mat-card>
 <mat-menu #menu="matMenu" class="menu" yPosition="below" xPosition="before">
-  <button mat-menu-item>
+  <button mat-menu-item (click)="editBoard()">
     <mat-icon>edit</mat-icon>
     <span>Edit</span>
   </button>
-  <button mat-menu-item>
+  <button mat-menu-item appOpenModal deleteEntity="board" (callbackAfterClose)="deleteBoard()">
     <mat-icon>delete</mat-icon>
     <span>Delete</span>
   </button>

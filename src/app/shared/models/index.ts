@@ -6,3 +6,4 @@ export * from "./task.model";
 export * from "./auth.model";
 export * from "./errors.model";
 export * from "./notification.model";
+export * from "./loading-status.model";

@@ -7,10 +7,16 @@ import { Store } from "@ngrx/store";
 import { checkExpTimeToken, LOCAL_STORAGE_KEY } from "@utils";
 import { switchMap } from "rxjs";
 import { UserService } from "../user-service";
+import { NotificationsService } from "../notifications-service";
 
 @Injectable()
 export class AuthService {
-  constructor(private store: Store, private route: Router, private userService: UserService) {}
+  constructor(
+    private store: Store,
+    private route: Router,
+    private userService: UserService,
+    private notificationServise: NotificationsService,
+  ) {}
 
   signup(signupUser: UserWithName): void {
     this.userService.createUser(signupUser).subscribe((res) => {
@@ -19,6 +25,11 @@ export class AuthService {
   }
 
   login(user: User): void {
+    const { id } = this.notificationServise.showNotification({
+      type: "spinner",
+      message: "Loading...",
+      duration: 10000,
+    });
     this.userService
       .authorizeUser(user)
       .pipe(
@@ -29,6 +40,7 @@ export class AuthService {
         }),
       )
       .subscribe((res) => {
+        this.notificationServise.closeNotification(id);
         this.store.dispatch(userAuthorize({ user: res }));
         this.route.navigateByUrl("/board");
       });

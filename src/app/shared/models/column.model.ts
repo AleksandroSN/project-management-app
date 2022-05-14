@@ -1,5 +1,10 @@
 import { TaskModel } from "./task.model";
 
+export interface ColumnBodyModel {
+  title: string;
+  order: number;
+}
+
 export interface ColumnModel {
   id: string;
   title: string;

@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
-import { ErrorModalComponent, ModalComponent } from "@app/shared/components";
+import { BoardBodyModel } from "@app/shared";
+import { ModalComponent, BoardModalComponent } from "@app/shared/components";
+import { Observable } from "rxjs";
 
 @Injectable()
 export class ModalService {
@@ -11,7 +13,8 @@ export class ModalService {
     return dialogRef.afterClosed();
   }
 
-  openErrorModal(status: number, message: string) {
-    this.dialog.open(ErrorModalComponent, { minWidth: "250px", data: { status, message } });
+  openBoardModal(board: BoardBodyModel, isCreate: boolean): Observable<BoardBodyModel> {
+    const dialogRef = this.dialog.open(BoardModalComponent, { data: { board, create: isCreate } });
+    return dialogRef.afterClosed();
   }
 }

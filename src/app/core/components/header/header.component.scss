@@ -1,10 +1,9 @@
 .header {
   height: 60px;
-  transition: height 0.3s background-color 0.4s;
+  transition: height 0.3s, background-color 0.4s;
 
   &--sticky {
     height: 50px;
-    background-color: #ff4081;
   }
   &__burger {
     display: none;
