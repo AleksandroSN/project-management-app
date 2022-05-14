@@ -2,9 +2,9 @@ import jwt_decode from "jwt-decode";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { userAuthorize, userLogout } from "@app/redux";
-import { TokenModel, User, UserWithName } from "@app/shared";
+import { TokenModel, User, UserWithId, UserWithName } from "@app/shared";
 import { Store } from "@ngrx/store";
-import { checkExpTimeToken, LOCAL_STORAGE_KEY } from "@utils";
+import { checkExpTimeToken, clearLocalStorage, LOCAL_STORAGE_KEY, LOCAL_STORAGE_KEY_AUTH } from "@utils";
 import { switchMap } from "rxjs";
 import { UserService } from "../user-service";
 import { NotificationsService } from "../notifications-service";
@@ -25,7 +25,7 @@ export class AuthService {
   }
 
   login(user: User): void {
-    const { id } = this.notificationServise.showNotification({
+    const loginNotification = this.notificationServise.showNotification({
       type: "spinner",
       message: "Loading...",
       duration: 10000,
@@ -40,31 +40,55 @@ export class AuthService {
         }),
       )
       .subscribe((res) => {
-        this.notificationServise.closeNotification(id);
+        localStorage.setItem(LOCAL_STORAGE_KEY_AUTH, JSON.stringify(res));
         this.store.dispatch(userAuthorize({ user: res }));
         this.route.navigateByUrl("/board");
+        loginNotification.close();
       });
   }
 
   logout() {
-    localStorage.removeItem(LOCAL_STORAGE_KEY);
+    clearLocalStorage();
     this.store.dispatch(userLogout());
     this.route.navigateByUrl("/home");
   }
 
   autoLogin(redirectUrl: string) {
-    const localStorageData = localStorage.getItem(LOCAL_STORAGE_KEY);
-    if (localStorageData) {
-      const { userId, exp } = jwt_decode(localStorageData) as TokenModel;
+    this.updateUserFormLS();
+    const token = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (token) {
+      const { userId, exp } = jwt_decode(token) as TokenModel;
       const isNotExpired = checkExpTimeToken(exp);
       if (isNotExpired) {
-        this.userService.getUserById(userId).subscribe((res) => {
-          this.store.dispatch(userAuthorize({ user: res }));
-          this.route.navigateByUrl(redirectUrl);
-        });
+        this.updateUserData(userId, redirectUrl);
       } else {
+        const errorNotification = this.notificationServise.showNotification({
+          type: "error",
+          message: "Token expired",
+        });
         this.logout();
+        errorNotification.close();
       }
     }
+  }
+
+  updateUserFormLS() {
+    const localStorageData = localStorage.getItem(LOCAL_STORAGE_KEY_AUTH);
+    if (localStorageData) {
+      const authData = JSON.parse(localStorageData) as UserWithId;
+      this.store.dispatch(userAuthorize({ user: authData }));
+      this.notificationServise.showNotification({
+        type: "message",
+        message: "Welcome back",
+      });
+    }
+  }
+
+  updateUserData(userId: string, redirectUrl: string) {
+    this.userService.getUserById(userId).subscribe((res) => {
+      localStorage.setItem(LOCAL_STORAGE_KEY_AUTH, JSON.stringify(res));
+      this.store.dispatch(userAuthorize({ user: res }));
+      this.route.navigateByUrl(redirectUrl);
+    });
   }
 }

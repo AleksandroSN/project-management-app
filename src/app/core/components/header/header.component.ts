@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { NavigationStart, Router } from "@angular/router";
-import { AuthService } from "@app/core/services";
+import { AuthService, NotificationsService } from "@app/core/services";
 import { selectUserAuth } from "@app/redux";
 import { Store } from "@ngrx/store";
 import { filter, Observable } from "rxjs";
@@ -17,7 +17,12 @@ export class HeaderComponent implements OnInit {
 
   link = "";
 
-  constructor(private store: Store, private router: Router, private authService: AuthService) {
+  constructor(
+    private store: Store,
+    private router: Router,
+    private authService: AuthService,
+    private notificationServise: NotificationsService,
+  ) {
     this.isAuth$ = this.store.select(selectUserAuth);
   }
 
@@ -32,6 +37,10 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
+    this.notificationServise.showNotification({
+      type: "message",
+      message: "Good Bye !",
+    });
     this.authService.logout();
   }
 }
