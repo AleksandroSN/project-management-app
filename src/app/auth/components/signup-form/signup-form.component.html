@@ -1,8 +1,8 @@
 <ng-container *ngIf="form">
-  <form class="signup__form" (ngSubmit)="onSubmit()" [formGroup]="form">
-    <p class="signup__title">Sign up</p>
+  <form class="signup__form" (ngSubmit)="onSubmit()" [formGroup]="form" *transloco="let t; read:'authForm' ">
+    <p class="signup__title">{{ t('titleSign') }}</p>
     <mat-form-field appearance="fill">
-      <mat-label>Enter your name</mat-label>
+      <mat-label>{{ t('labelName') }}</mat-label>
       <input type="text" matInput formControlName="name" placeholder="Username" required>
       <mat-error *ngIf="controls.name.invalid && (controls.name.dirty || controls.name.touched)">
         <span *ngIf="controls.name.errors?.['required']">
@@ -14,7 +14,7 @@
       </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
-      <mat-label>Enter your login</mat-label>
+      <mat-label>{{ t('labelLog') }}</mat-label>
       <input type="text" matInput formControlName="login" placeholder="Login" required>
       <mat-error *ngIf="controls.login.invalid && (controls.login.dirty || controls.login.touched)">
         <span *ngIf="controls.login.errors?.['required']">
@@ -26,7 +26,7 @@
       </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
-      <mat-label>Enter your password</mat-label>
+      <mat-label>{{ t('labelPass') }}</mat-label>
       <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
       <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
         [attr.aria-pressed]="hide">
@@ -42,6 +42,6 @@
       </mat-error>
     </mat-form-field>
     <button [disabled]="form.invalid" class="signup__submit" mat-raised-button color="primary"
-      type="submit">Sign Up</button>
+      type="submit">{{ t('titleSign') }}</button>
   </form>
 </ng-container>

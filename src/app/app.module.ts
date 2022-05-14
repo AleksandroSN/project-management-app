@@ -11,6 +11,7 @@ import { appEffects, appReducers } from "@app/redux";
 import { StickyHeaderModule } from "@app/shared/directives";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
+import { TranslocoRootModule } from "./transloco-root.module";
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +25,7 @@ import { AppComponent } from "./app.component";
     StoreModule.forRoot(appReducers),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot(appEffects),
+    TranslocoRootModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

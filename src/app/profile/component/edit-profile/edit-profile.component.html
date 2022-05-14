@@ -1,9 +1,9 @@
 <ng-container *ngIf="(user$ | async) as user">
-  <form class="profile__form" (ngSubmit)="onSubmit()" [formGroup]="form">
-    <p class="profile__title">Edit profile</p>
+  <form class="profile__form" (ngSubmit)="onSubmit()" [formGroup]="form" *transloco="let t; read:'profileObj' ">
+    <p class="profile__title">{{ t('title') }}</p>
     <mat-form-field appearance="fill">
-      <mat-label>{{user.name || "Profile name"}}</mat-label>
-      <input type="text" matInput formControlName="name" placeholder="New name" required>
+      <mat-label>{{user.name || t('name')}}</mat-label>
+      <input type="text" matInput formControlName="name" placeholder="{{ t('newName') }}" required>
       <mat-error *ngIf="controls.name.invalid && (controls.name.dirty || controls.name.touched)">
         <span *ngIf="controls.name.invalid">
           Minimum length 5 characters.
@@ -11,8 +11,8 @@
       </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
-      <mat-label>{{user.login || "Profile login"}}</mat-label>
-      <input type="text" matInput formControlName="login" placeholder="New login" required>
+      <mat-label>{{user.login || t('login')}}</mat-label>
+      <input type="text" matInput formControlName="login" placeholder="{{ t('newLogin') }}" required>
       <mat-error *ngIf="controls.login.invalid && (controls.login.dirty || controls.login.touched)">
         <span *ngIf="controls.login.invalid">
           Minimum length 5 characters.
@@ -20,7 +20,7 @@
       </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
-      <mat-label>Profile password</mat-label>
+      <mat-label>{{ t('pass') }}</mat-label>
       <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
       <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
         [attr.aria-pressed]="hide">
@@ -44,9 +44,9 @@
         deleteEntity="profile"
         class="profile__cancel"
         mat-raised-button color="warn"
-        type="button">Delete</button>
+        type="button">{{'delete' | transloco}}</button>
       <button [disabled]="form.invalid" class="profile__submit" mat-raised-button color="primary"
-        type="submit">Update</button>
+        type="submit">{{'update' | transloco}}</button>
     </div>
   </form>
 </ng-container>

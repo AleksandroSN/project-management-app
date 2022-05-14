@@ -1,4 +1,4 @@
-<app-header-to-component title="Boards list"></app-header-to-component>
+<app-header-to-component title="{{ 'boardObj.list' | transloco }}"></app-header-to-component>
 <div class="boards">
   <div class="boards__inner">
     <div class="boards__list" *ngIf="(boards$ | async) as boards">

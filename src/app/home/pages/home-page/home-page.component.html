@@ -1,14 +1,12 @@
-<div class="welcome">
+<div class="welcome" *transloco="let t; read:'home' ">
   <div class="welcome__block">
     <div class="welcome__app">
-      <h3 class="welcome__title">Project Management App</h3>
-      <p class="welcome__text">It helps teams to solve work tasks effectively.
-        Work in a team, manage projects and take productivity to the next level.</p>
+      <h3 class="welcome__title">{{ t('title1') }}</h3>
+      <p class="welcome__text">{{ t('text1') }}</p>
     </div>
     <div class="welcome__team">
-      <h3 class="welcome__title">Our team</h3>
-      <p class="welcome__text">We are a team of frontend developers as part of the Rolling Scopes school Angular course,
-        we present you our kanban desk application.</p>
+      <h3 class="welcome__title">{{ t('title2') }}</h3>
+      <p class="welcome__text">{{ t('text2') }}</p>
     </div>
   </div>
   <div class="welcome__img--wrapper">

@@ -14,6 +14,7 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatDialogModule } from "@angular/material/dialog";
 import { RouterModule } from "@angular/router";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { TranslocoModule } from "@ngneat/transloco";
 import {
   HeaderToComponent,
   RouteLinkComponent,
@@ -50,7 +51,7 @@ const MaterialsModules = [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorCatcherInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
-  imports: [CommonModule, MaterialsModules, RouterModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, MaterialsModules, RouterModule, ReactiveFormsModule, FormsModule, TranslocoModule],
   exports: [
     CommonModule,
     MaterialsModules,
