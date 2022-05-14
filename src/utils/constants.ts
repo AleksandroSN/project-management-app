@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 // ENDPOINTS
 export const USERS_ENDPOINT = "users";
-export const BOARS_ENDPOINT = "boards";
+export const BOARDS_ENDPOINT = "boards";
 export const COLUMNS_ENDPOINT = "columns";
 export const TASKS_ENDPOINT = "tasks";
 export const LOGIN_ENDPOINT = "signin";
@@ -47,4 +47,5 @@ export const CURRENT_BOARD_KEY = "currentBoardFeature";
 export const ALL_BOARDS_FEATURE_KEY = "allBoardsFeature";
 
 // OTHER
-export const LOCAL_STORAGE_KEY = "auth_data";
+export const LOCAL_STORAGE_KEY = "token";
+export const LOCAL_STORAGE_KEY_AUTH = "auth_data";

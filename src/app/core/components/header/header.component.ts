@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { NavigationStart, Router } from "@angular/router";
-import { AuthService } from "@app/core/services";
+import { AuthService, NotificationsService } from "@app/core/services";
 import { selectUserAuth } from "@app/redux";
 import { TranslocoService } from "@ngneat/transloco";
 import { Store } from "@ngrx/store";
@@ -23,6 +23,7 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private translocoService: TranslocoService,
+    private notificationServise: NotificationsService,
   ) {
     this.isAuth$ = this.store.select(selectUserAuth);
   }
@@ -38,6 +39,10 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
+    this.notificationServise.showNotification({
+      type: "message",
+      message: "Good Bye !",
+    });
     this.authService.logout();
   }
 
