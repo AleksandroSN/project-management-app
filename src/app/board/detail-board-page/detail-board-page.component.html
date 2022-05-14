@@ -1,6 +1,6 @@
 <div class="board__wrapper">
-  <app-header-to-component [title]="'Board ' + 'test'"></app-header-to-component>
-  <div class="board">
+  <app-header-to-component [title]="board ? 'Board ' + 'test' : '...'"></app-header-to-component>
+  <div class="board" *ngIf="board; else firstBoardLoading">
     <div class="board__inner">
       <div cdkDropList cdkDropListOrientation="horizontal" class="board__columns" (cdkDropListDropped)="dropColumn($event)">
         <div class="board__column" *ngFor="let column of board?.columns || []; index as i" cdkDrag>
@@ -18,5 +18,20 @@
       </div>
     </div>
   </div>
+
+  <ng-template #firstBoardLoading>
+    <div class="board">
+      <div class="board__inner">
+        <div class="board__columns">
+          <div class="board__column board__column-loading skeleton-loading" *ngFor="let item of [1,2,3]">
+          </div>
+        </div>
+        <div class="board__add-column">
+          <div class="board__add-column__inner board__add-column__inner-loading skeleton-loading">
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
 
 </div>

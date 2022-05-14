@@ -19,17 +19,11 @@ export class BoardsService {
   }
 
   public createBoard(board: BoardBodyModel): Observable<BoardModel> {
-    return this.httpService.post<BoardBodyModel, BoardModel>(
-      `${BOARS_ENDPOINT}`,
-      board,
-    );
+    return this.httpService.post<BoardBodyModel, BoardModel>(`${BOARS_ENDPOINT}`, board);
   }
 
   public updateBoard(id: string, board: BoardBodyModel): Observable<BoardModel> {
-    return this.httpService.update<BoardBodyModel, BoardModel>(
-      `${BOARS_ENDPOINT}/${id}`,
-      board,
-    );
+    return this.httpService.update<BoardBodyModel, BoardModel>(`${BOARS_ENDPOINT}/${id}`, board);
   }
 
   public deleteBoard(id: string): Observable<BoardModel> {

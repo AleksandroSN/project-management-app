@@ -24,7 +24,7 @@ export class CurrentBoardEffects {
     ofType(getBoardById),
     switchMap((request: { id: string }) => from(this.boardsService.getBoardById(request.id)).pipe(
       map((board: BoardModel) => getBoardByIdSuccess({ board })),
-      catchError((error) => of(getBoardByIdFailure({ error }))),
+      catchError((error) => of(getBoardByIdFailure({ error: error.error.message }))),
     )),
   ));
 }

@@ -1,12 +1,12 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from "@angular/cdk/drag-drop";
-import { BoardModel, ColumnModel, LoadingStatus, TaskModel } from "@app/shared/models";
+import { BoardModel, ColumnModel, LoadingStatus, StatusModel, TaskModel } from "@app/shared/models";
 import { NotificationsService } from "@app/core/services/notifications-service/notifications.service";
 import { Store } from "@ngrx/store";
 import { AppState } from "@app/redux";
 import { getBoardById } from "@app/redux/actions/current-board.action";
 import { selectCurrentBoard, selectCurrentBoardStatus } from "@app/redux/selectors/current-board.selectors";
-import { Observable } from "rxjs";
+import { distinctUntilChanged, Observable, Subject, takeUntil } from "rxjs";
 import { NotificationRef } from "@app/shared/models/notification.model";
 
 @Component({
@@ -14,38 +14,62 @@ import { NotificationRef } from "@app/shared/models/notification.model";
   templateUrl: "./detail-board-page.component.html",
   styleUrls: ["./detail-board-page.component.scss"],
 })
-export class DetailBoardPageComponent implements OnInit {
-  public status$: Observable<LoadingStatus | null> = this.store.select(selectCurrentBoardStatus);
+export class DetailBoardPageComponent implements OnInit, OnDestroy {
+  // eslint-disable-next-line max-len
+  public status$: Observable<StatusModel> = this.store
+    .select(selectCurrentBoardStatus)
+    .pipe(distinctUntilChanged());
 
   public board$: Observable<BoardModel | undefined> = this.store.select(selectCurrentBoard);
+
+  public destroyed = new Subject<any>();
 
   public board: BoardModel | undefined;
 
   public loadingNotification!: NotificationRef | null;
 
-  constructor(
-    private notificationsService: NotificationsService,
-    private store: Store<AppState>,
-  ) {}
+  constructor(private notificationsService: NotificationsService, private store: Store<AppState>) {}
 
   public ngOnInit(): void {
-    this.status$.subscribe((res) => {
-      if (res === LoadingStatus.LOADING) {
-        if (!this.loadingNotification) {
+    this.status$.pipe(takeUntil(this.destroyed)).subscribe((res) => {
+      switch (res.type) {
+        case LoadingStatus.LOADING:
+          if (!this.loadingNotification && this.board) {
+            this.loadingNotification = this.notificationsService.showNotification({
+              type: "spinner",
+              message: "Board synchronization",
+            });
+          }
+          break;
+        case LoadingStatus.ERROR:
+          if (this.loadingNotification) {
+            this.loadingNotification.close();
+            this.loadingNotification = null;
+          }
           this.loadingNotification = this.notificationsService.showNotification({
-            type: "spinner",
-            message: "Board synchronization",
+            type: "error",
+            message: res.info || "Unknown error",
+            submit: true,
           });
-        }
-      } else if (this.loadingNotification) {
-        this.loadingNotification.close();
-        this.loadingNotification = null;
+          break;
+        default:
+          if (this.loadingNotification) {
+            this.loadingNotification.close();
+            this.loadingNotification = null;
+          }
+          break;
       }
     });
-    this.store.dispatch(getBoardById({ id: "9a111e19-24ec-43e1-b8c4-13776842b8d5" }));
-    this.board$.subscribe((board) => {
+    this.board$.pipe(takeUntil(this.destroyed)).subscribe((board) => {
       this.board = board;
     });
+    this.store.dispatch(getBoardById({ id: "9a111e19-24ec-43e1-b8c4-13776842b8d5" }));
+  }
+
+  public ngOnDestroy(): void {
+    // @ts-ignore
+    this.destroyed.next();
+    this.destroyed.complete();
   }
 
   // eslint-disable-next-line class-methods-use-this

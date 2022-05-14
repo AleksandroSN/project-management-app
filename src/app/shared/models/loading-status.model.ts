@@ -4,3 +4,8 @@ export enum LoadingStatus {
   ERROR = "ERROR",
   SUCCESS = "SUCCESS",
 }
+
+export interface StatusModel {
+  type: LoadingStatus;
+  info: string | null;
+}

@@ -10,8 +10,10 @@ import { LoadingStatus } from "@app/shared/models/loading-status.model";
 
 export const initialState: CurrentBoardState = {
   board: undefined,
-  error: null,
-  status: LoadingStatus.PENDING,
+  status: {
+    type: LoadingStatus.PENDING,
+    info: null,
+  },
 };
 
 export const currentBoardFeature = createFeature({
@@ -20,18 +22,25 @@ export const currentBoardFeature = createFeature({
     initialState,
     on(getBoardById, (state, { id }) => ({
       ...state,
-      status: LoadingStatus.LOADING,
+      status: {
+        type: LoadingStatus.LOADING,
+        info: null,
+      },
     })),
     on(getBoardByIdSuccess, (state, { board }) => ({
       ...state,
       board,
-      error: null,
-      status: LoadingStatus.SUCCESS,
+      status: {
+        type: LoadingStatus.SUCCESS,
+        info: null,
+      },
     })),
     on(getBoardByIdFailure, (state, { error }) => ({
       ...state,
-      error,
-      status: LoadingStatus.ERROR,
+      status: {
+        type: LoadingStatus.ERROR,
+        info: error,
+      },
     })),
   ),
 });

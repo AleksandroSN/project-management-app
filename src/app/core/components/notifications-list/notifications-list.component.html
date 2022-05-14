@@ -1,6 +1,5 @@
 <div class="notifications">
   <app-notification-item
-    @fade
     *ngFor="let notification of notificationsService.order$ | async"
     [notificationData]="notification"
     (closeNotificationEvent)="notificationsService.closeNotification(notification.id)"
