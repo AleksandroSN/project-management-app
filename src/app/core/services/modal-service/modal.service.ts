@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { BoardBodyModel } from "@app/shared";
 import { ModalComponent, BoardModalComponent } from "@app/shared/components";
-import { Observable } from "rxjs";
 
 @Injectable()
 export class ModalService {
@@ -13,7 +12,7 @@ export class ModalService {
     return dialogRef.afterClosed();
   }
 
-  openBoardModal(board: BoardBodyModel, isCreate: boolean): Observable<BoardBodyModel> {
+  openBoardModal(board: BoardBodyModel, isCreate: boolean) {
     const dialogRef = this.dialog.open(BoardModalComponent, { data: { board, create: isCreate } });
     return dialogRef.afterClosed();
   }

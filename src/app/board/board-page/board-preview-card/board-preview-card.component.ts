@@ -3,6 +3,8 @@ import { BoardModel } from "@app/shared/models";
 import { MatMenuTrigger } from "@angular/material/menu";
 import { BoardsService, ModalService, NotificationsService } from "@app/core/services";
 import { switchMap } from "rxjs";
+import { Store } from "@ngrx/store";
+import { getAllBoards } from "@app/redux";
 
 @Component({
   selector: "app-board-preview-card",
@@ -20,6 +22,7 @@ export class BoardPreviewCardComponent {
     private boardService: BoardsService,
     private notificationsService: NotificationsService,
     private modalService: ModalService,
+    private store: Store,
   ) {}
 
   // eslint-disable-next-line class-methods-use-this
@@ -29,6 +32,7 @@ export class BoardPreviewCardComponent {
 
   deleteBoard() {
     this.boardService.deleteBoard(this.data.id).subscribe(() => {
+      this.store.dispatch(getAllBoards());
       this.notificationsService.showNotification({
         type: "success",
         message: "Board deleted",
@@ -39,8 +43,9 @@ export class BoardPreviewCardComponent {
   editBoard() {
     this.modalService
       .openBoardModal({ title: this.title, description: this.description }, false)
-      .pipe(switchMap((updatedBoard) => this.boardService.updateBoard(this.data.id, updatedBoard)))
+      .pipe(switchMap((data) => this.boardService.updateBoard(this.data.id, data.board)))
       .subscribe(() => {
+        this.store.dispatch(getAllBoards());
         this.notificationsService.showNotification({
           type: "success",
           message: "Board updated",
