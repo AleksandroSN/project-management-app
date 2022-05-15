@@ -39,6 +39,16 @@
     "newLogin": "New login",
     "newName": "New name"
   },
+  "validation": {
+    "length5": "Minimum length 5 characters.",
+    "length8": "at least 8 characters",
+    "strong": "Your password isn't strong enough",
+    "case": "a mixture of both uppercase and lowercase letters",
+    "special": "inclusion of at least one special character, e.g., ! @ # ? ]",
+    "number": "a mixture of letters and numbers",
+    "login": "Login is required.",
+    "name": "Name is required."
+  },
   "deleteText": "Are you confident in your action? It can't be undone.",
   "profile": "profile",
   "board": "board",
