@@ -3,11 +3,16 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from "@angular/cdk/dr
 import { BoardModel, ColumnModel, LoadingStatus, StatusModel, TaskModel } from "@app/shared/models";
 import { NotificationsService } from "@app/core/services/notifications-service/notifications.service";
 import { Store } from "@ngrx/store";
-import { getBoardById, setPendingState } from "@app/redux/actions/current-board.action";
+import {
+  createColumn,
+  destroyCurrentBoard,
+  getBoardById,
+  setPendingState
+} from "@app/redux/actions/current-board.action";
 import { selectCurrentBoard, selectCurrentBoardStatus } from "@app/redux/selectors/current-board.selectors";
 import { Observable, Subject, takeUntil } from "rxjs";
 import { NotificationRef } from "@app/shared/models/notification.model";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: "app-detail-board-page",
@@ -16,8 +21,7 @@ import { Router } from "@angular/router";
 })
 export class DetailBoardPageComponent implements OnInit, OnDestroy {
   // eslint-disable-next-line max-len
-  public status$: Observable<StatusModel> = this.store
-    .select(selectCurrentBoardStatus);
+  public status$: Observable<StatusModel> = this.store.select(selectCurrentBoardStatus);
 
   public board$: Observable<BoardModel | undefined> = this.store.select(selectCurrentBoard);
 
@@ -31,11 +35,12 @@ export class DetailBoardPageComponent implements OnInit, OnDestroy {
     private notificationsService: NotificationsService,
     private store: Store,
     private router: Router,
+    private route: ActivatedRoute,
   ) {}
 
   public ngOnInit(): void {
     this.status$.pipe(takeUntil(this.destroyed)).subscribe((res) => {
-      if (res.type === LoadingStatus.LOADING) {
+      if ([LoadingStatus.LOADING, LoadingStatus.PRE_SUCCESS].includes(res.type)) {
         if (!this.loadingNotification) {
           this.loadingNotification = this.notificationsService.showNotification({
             type: "spinner",
@@ -73,13 +78,23 @@ export class DetailBoardPageComponent implements OnInit, OnDestroy {
     this.board$.pipe(takeUntil(this.destroyed)).subscribe((board) => {
       this.board = board;
     });
-    this.store.dispatch(getBoardById({ id: "9a111e19-24ec-43e1-b8c4-13776842b8d5" }));
+    this.store.dispatch(getBoardById({ id: this.route.snapshot.params["id"] }));
+  }
+
+  public createColumn(): void {
+    this.store.dispatch(createColumn({ boardId: this.route.snapshot.params["id"],
+      column: {
+        title: "test 6",
+        order: 6,
+      },
+    }));
   }
 
   public ngOnDestroy(): void {
     // @ts-ignore
     this.destroyed.next();
     this.destroyed.complete();
+    this.store.dispatch(destroyCurrentBoard());
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -97,7 +112,7 @@ export class DetailBoardPageComponent implements OnInit, OnDestroy {
         event.currentIndex,
       );
     }
-    this.store.dispatch(getBoardById({ id: "9a111e19-24ec-43e1-b8c4-13776842b8d5" }));
+    this.store.dispatch(getBoardById({ id: this.route.snapshot.params["id"] }));
   }
 
   public dropColumn(event: CdkDragDrop<ColumnModel[] | undefined>) {
@@ -105,7 +120,7 @@ export class DetailBoardPageComponent implements OnInit, OnDestroy {
       return;
     }
     moveItemInArray(this.board.columns, event.previousIndex, event.currentIndex);
-    this.store.dispatch(getBoardById({ id: "9a111e19-24ec-43e1-b8c4-13776842b8d5" }));
+    this.store.dispatch(getBoardById({ id: this.route.snapshot.params["id"] }));
   }
 
   public getColumnData(index: number, data: ColumnModel): any {

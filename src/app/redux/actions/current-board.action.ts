@@ -1,38 +1,32 @@
 import { createAction, props } from "@ngrx/store";
-import { BoardModel, ColumnBodyModel, ColumnModel } from "@app/shared";
+import { BoardModel, ColumnBodyModel, ColumnModel, TaskBodyModel, TaskModel } from "@app/shared";
 
 const reduxStateName = "Current Board State";
 
 export class GenerateApiAction {
-  constructor(
-    name: string,
-    message: string,
-  ) {
+  constructor(name: string, message: string) {
     // @ts-ignore
-    this[`${name}`] = createAction(
-      `${message}`,
-    );
+    this[`${name}`] = createAction(`${message}`);
 
     // @ts-ignore
-    this[`${name}Success`] = createAction(
-      `${message}`,
-      props<any>(),
-    );
+    this[`${name}Success`] = createAction(`${message}`, props<any>());
 
     // @ts-ignore
-    this[`${name}Failure`] = createAction(
-      `${message}`,
-      props<{ error: any }>(),
-    );
+    this[`${name}Failure`] = createAction(`${message}`, props<{ error: any }>());
   }
 }
 
 // Set Pending State
 // ===============
 
-export const setPendingState = createAction(
-  `[${reduxStateName}] Set Pending State`,
-);
+export const setPendingState = createAction(`[${reduxStateName}] Set Pending State`);
+
+// ===============
+
+// Destroy Current Board
+// ===============
+
+export const destroyCurrentBoard = createAction(`[${reduxStateName}] Destroy Current Board`);
 
 // ===============
 
@@ -101,7 +95,7 @@ export const updateColumnFailure = createAction(
 
 export const deleteColumn = createAction(
   `[${reduxStateName}] Delete column (Progress)`,
-  props<{ boardId: string; columnId: string; column: ColumnBodyModel }>(),
+  props<{ boardId: string; columnId: string }>(),
 );
 
 export const deleteColumnSuccess = createAction(
@@ -111,6 +105,66 @@ export const deleteColumnSuccess = createAction(
 
 export const deleteColumnFailure = createAction(
   `[${reduxStateName}] Delete column (Failure)`,
+  props<{ error: any }>(),
+);
+
+// ===============
+
+// Create Task
+// ===============
+
+export const createTask = createAction(
+  `[${reduxStateName}] Create task (Progress)`,
+  props<{ boardId: string; columnId: string; task: TaskBodyModel }>(),
+);
+
+export const createTaskSuccess = createAction(
+  `[${reduxStateName}] Create task (Success)`,
+  props<{ task: TaskModel }>(),
+);
+
+export const createTaskFailure = createAction(
+  `[${reduxStateName}] Create task (Failure)`,
+  props<{ error: any }>(),
+);
+
+// ===============
+
+// Update Task
+// ===============
+
+export const updateTask = createAction(
+  `[${reduxStateName}] Update task (Progress)`,
+  props<{ boardId: string; columnId: string; taskId: string; task: TaskBodyModel }>(),
+);
+
+export const updateTaskSuccess = createAction(
+  `[${reduxStateName}] Update task (Success)`,
+  props<{ task: TaskModel }>(),
+);
+
+export const updateTaskFailure = createAction(
+  `[${reduxStateName}] Update task (Failure)`,
+  props<{ error: any }>(),
+);
+
+// ===============
+
+// Delete Task
+// ===============
+
+export const deleteTask = createAction(
+  `[${reduxStateName}] Delete task (Progress)`,
+  props<{ boardId: string; columnId: string; taskId: string }>(),
+);
+
+export const deleteTaskSuccess = createAction(
+  `[${reduxStateName}] Delete task (Success)`,
+  props<{ task: TaskModel }>(),
+);
+
+export const deleteTaskFailure = createAction(
+  `[${reduxStateName}] Delete task (Failure)`,
   props<{ error: any }>(),
 );
 

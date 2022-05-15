@@ -1,10 +1,30 @@
-import { CurrentBoardState } from "@app/redux";
 import { createFeature, createReducer, on } from "@ngrx/store";
 import {
   getBoardById,
   getBoardByIdFailure,
-  getBoardByIdSuccess, setPendingState,
+  getBoardByIdSuccess,
+  setPendingState,
+  createColumn,
+  createColumnFailure,
+  createColumnSuccess,
+  destroyCurrentBoard,
+  updateColumn,
+  updateColumnSuccess,
+  updateColumnFailure,
+  deleteColumn,
+  deleteColumnSuccess,
+  deleteColumnFailure,
+  createTask,
+  createTaskSuccess,
+  createTaskFailure,
+  updateTask,
+  updateTaskSuccess,
+  updateTaskFailure,
+  deleteTask,
+  deleteTaskSuccess,
+  deleteTaskFailure,
 } from "@app/redux/actions/current-board.action";
+import { CurrentBoardState } from "@app/redux";
 import { CURRENT_BOARD_KEY } from "@utils";
 import { LoadingStatus } from "@app/shared/models/loading-status.model";
 
@@ -29,6 +49,15 @@ export const currentBoardFeature = createFeature({
         code: null,
       },
     })),
+    on(destroyCurrentBoard, (state) => ({
+      ...state,
+      board: undefined,
+      status: {
+        type: LoadingStatus.PENDING,
+        info: null,
+        code: null,
+      },
+    })),
     on(getBoardById, (state, { id }) => ({
       ...state,
       status: {
@@ -47,6 +76,150 @@ export const currentBoardFeature = createFeature({
       },
     })),
     on(getBoardByIdFailure, (state, { error }) => ({
+      ...state,
+      status: {
+        type: LoadingStatus.ERROR,
+        info: error.error.message,
+        code: error.status,
+      },
+    })),
+    on(createColumn, (state, { boardId, column }) => ({
+      ...state,
+      status: {
+        type: LoadingStatus.LOADING,
+        info: null,
+        code: null,
+      },
+    })),
+    on(createColumnSuccess, (state, { column }) => ({
+      ...state,
+      status: {
+        type: LoadingStatus.PRE_SUCCESS,
+        info: null,
+        code: null,
+      },
+    })),
+    on(createColumnFailure, (state, { error }) => ({
+      ...state,
+      status: {
+        type: LoadingStatus.ERROR,
+        info: error.error.message,
+        code: error.status,
+      },
+    })),
+    on(updateColumn, (state, { boardId, columnId, column }) => ({
+      ...state,
+      status: {
+        type: LoadingStatus.LOADING,
+        info: null,
+        code: null,
+      },
+    })),
+    on(updateColumnSuccess, (state, { column }) => ({
+      ...state,
+      status: {
+        type: LoadingStatus.PRE_SUCCESS,
+        info: null,
+        code: null,
+      },
+    })),
+    on(updateColumnFailure, (state, { error }) => ({
+      ...state,
+      status: {
+        type: LoadingStatus.ERROR,
+        info: error.error.message,
+        code: error.status,
+      },
+    })),
+    on(deleteColumn, (state, { boardId, columnId }) => ({
+      ...state,
+      status: {
+        type: LoadingStatus.LOADING,
+        info: null,
+        code: null,
+      },
+    })),
+    on(deleteColumnSuccess, (state, { column }) => ({
+      ...state,
+      status: {
+        type: LoadingStatus.PRE_SUCCESS,
+        info: null,
+        code: null,
+      },
+    })),
+    on(deleteColumnFailure, (state, { error }) => ({
+      ...state,
+      status: {
+        type: LoadingStatus.ERROR,
+        info: error.error.message,
+        code: error.status,
+      },
+    })),
+    on(createTask, (state, { boardId, columnId, task }) => ({
+      ...state,
+      status: {
+        type: LoadingStatus.LOADING,
+        info: null,
+        code: null,
+      },
+    })),
+    on(createTaskSuccess, (state, { task }) => ({
+      ...state,
+      status: {
+        type: LoadingStatus.PRE_SUCCESS,
+        info: null,
+        code: null,
+      },
+    })),
+    on(createTaskFailure, (state, { error }) => ({
+      ...state,
+      status: {
+        type: LoadingStatus.ERROR,
+        info: error.error.message,
+        code: error.status,
+      },
+    })),
+    on(updateTask, (state, { boardId, columnId, taskId, task }) => ({
+      ...state,
+      status: {
+        type: LoadingStatus.LOADING,
+        info: null,
+        code: null,
+      },
+    })),
+    on(updateTaskSuccess, (state, { task }) => ({
+      ...state,
+      status: {
+        type: LoadingStatus.PRE_SUCCESS,
+        info: null,
+        code: null,
+      },
+    })),
+    on(updateTaskFailure, (state, { error }) => ({
+      ...state,
+      status: {
+        type: LoadingStatus.ERROR,
+        info: error.error.message,
+        code: error.status,
+      },
+    })),
+    on(deleteTask, (state, { boardId, columnId, taskId }) => ({
+      ...state,
+      status: {
+        type: LoadingStatus.LOADING,
+        info: null,
+        code: null,
+      },
+    })),
+    on(deleteTaskSuccess, (state, { task }) => ({
+      ...state,
+      status: {
+        type: LoadingStatus.PRE_SUCCESS,
+        info: null,
+        code: null,
+      },
+    })),
+    on(deleteTaskFailure, (state, { error }) => ({
       ...state,
       status: {
         type: LoadingStatus.ERROR,
