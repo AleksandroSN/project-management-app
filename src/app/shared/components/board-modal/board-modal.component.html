@@ -1,15 +1,15 @@
-<h2 mat-dialog-title>{{data.create ? "Create new board" : "Update board"}}</h2>
-<mat-dialog-content class="modal-flex direction-col gap-1">
+<h2 mat-dialog-title *transloco="let b; read:'boardObj' ">{{data.create ? b('create') : b('update')}}</h2>
+<mat-dialog-content class="modal-flex direction-col gap-1" *transloco="let l; read:'boardObj.label' ">
   <mat-form-field appearance="fill">
-    <mat-label>Board title</mat-label>
+    <mat-label>{{l('title')}}</mat-label>
     <input matInput [(ngModel)]="data.board.title">
   </mat-form-field>
   <mat-form-field appearance="fill">
-    <mat-label>Board description</mat-label>
+    <mat-label>{{l('description')}}</mat-label>
     <input matInput [(ngModel)]="data.board.description">
   </mat-form-field>
 </mat-dialog-content>
-<mat-dialog-actions>
-  <button color="warn" mat-button (click)="onNoClick()">Cancel</button>
-  <button color="primary" mat-button [mat-dialog-close]="data">{{data.create ? "Create": "Update"}}</button>
+<mat-dialog-actions *transloco="let t">
+  <button color="warn" mat-button (click)="onNoClick()">{{t('cancel')}}</button>
+  <button color="primary" mat-button [mat-dialog-close]="data">{{data.create ? t('create'): t('update')}}</button>
 </mat-dialog-actions>

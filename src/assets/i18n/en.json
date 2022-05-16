@@ -1,0 +1,62 @@
+{
+  "lang": "EN",
+  "header": {
+    "login": "Login",
+    "signup": "SignUp",
+    "logout": "Logout",
+    "new": "New Board"
+  },
+  "footer": "Created at",
+  "home": {
+    "title1": "Project Management App",
+    "text1": "It helps teams to solve work tasks effectively. Work in a team, manage projects and take productivity to the next level.",
+    "title2": "Our team",
+    "text2": "We are a team of frontend developers as part of the Rolling Scopes school Angular course, we present you our kanban desk application."
+  },
+  "authForm": {
+    "titleLog": "Login",
+    "titleSign": "Sign Up",
+    "labelName": "Enter your name",
+    "labelLog": "Enter your login",
+    "labelPass": "Enter your password"
+  },
+  "boardObj": {
+    "list": "Boards list",
+    "addList": "Add another list",
+    "addTask": "Add task",
+    "create": "Create new board",
+    "update": "Update board",
+    "label": {
+      "title": "Board title",
+      "description": "Board description"
+    }
+  },
+  "profileObj": {
+    "title": "Edit profile",
+    "pass": "Profile password",
+    "login": "Profile login",
+    "name": "Profile name",
+    "newLogin": "New login",
+    "newName": "New name"
+  },
+  "validation": {
+    "length5": "Minimum length 5 characters.",
+    "length8": "at least 8 characters",
+    "strong": "Your password isn't strong enough",
+    "case": "a mixture of both uppercase and lowercase letters",
+    "special": "inclusion of at least one special character, e.g., ! @ # ? ]",
+    "number": "a mixture of letters and numbers",
+    "login": "Login is required.",
+    "name": "Name is required."
+  },
+  "deleteText": "Are you confident in your action? It can't be undone.",
+  "profile": "profile",
+  "board": "board",
+  "task": "task",
+  "delete": "Delete",
+  "edit": "Edit",
+  "update": "Update",
+  "create": "Create",
+  "cancel": "Cancel",
+  "404": "Sorry, something went wrong"
+}
