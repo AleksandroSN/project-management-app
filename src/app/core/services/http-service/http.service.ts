@@ -28,7 +28,7 @@ export class HttpService {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  chain(sources: Observable<any>[]): Observable<any[]> {
+  chain<T>(sources: Observable<any>[]): Observable<T> {
     return new Observable((subscriber: Subscriber<any>) => {
       const len = sources.length;
       const values: any[] = [];

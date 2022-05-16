@@ -30,9 +30,9 @@ export class DetailBoardPageComponent implements OnInit, OnDestroy {
     this.detailBoardService.createColumn(this.route.snapshot.params["id"], this.detailBoardService.board?.columns?.length || 0);
   }
 
-  public deleteColumn(columnId: string): void {
+  public deleteColumn(column: ExtendedColumnModel): void {
     if (this.detailBoardService.board) {
-      this.detailBoardService.deleteColumn(this.detailBoardService.board?.id, columnId);
+      this.detailBoardService.deleteColumn(this.detailBoardService.board?.id, column);
     }
   }
 

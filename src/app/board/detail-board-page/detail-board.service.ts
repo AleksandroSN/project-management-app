@@ -12,8 +12,8 @@ import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { Validators } from "@angular/forms";
 // eslint-disable-next-line max-len
 import { DetailBoardModalComponent } from "@app/shared/components/detail-board-modal/detail-board-modal.component";
-import { BoardModel, ColumnModel, LoadingStatus, NotificationRef, StatusModel } from "@app/shared";
-import { Observable, takeUntil } from "rxjs";
+import {BoardModel, ColumnModel, ExtendedColumnModel, LoadingStatus, NotificationRef, StatusModel} from "@app/shared";
+import { Observable } from "rxjs";
 import { Router } from "@angular/router";
 import { NotificationsService } from "@app/core/services";
 
@@ -21,7 +21,6 @@ import { NotificationsService } from "@app/core/services";
   providedIn: "root",
 })
 export class DetailBoardService {
-
   public loadingNotification!: NotificationRef | null;
 
   public status$: Observable<StatusModel> = this.store.select(selectCurrentBoardStatus);
@@ -92,11 +91,11 @@ export class DetailBoardService {
       });
   }
 
-  public deleteColumn(boardId: string, columnId: string): void {
+  public deleteColumn(boardId: string, column: ExtendedColumnModel): void {
     if (!this.board?.columns) {
       return;
     }
-    this.store.dispatch(deleteColumn({ boardId, columnId, columns: this.board.columns }));
+    this.store.dispatch(deleteColumn({ boardId, column, columns: this.board.columns }));
   }
 
   public updateColumn(boardId: string, column: ColumnModel): void {

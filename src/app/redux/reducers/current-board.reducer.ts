@@ -131,7 +131,7 @@ export const currentBoardFeature = createFeature({
         code: error.status,
       },
     })),
-    on(deleteColumn, (state, { boardId, columnId }) => ({
+    on(deleteColumn, (state, { boardId, column, columns }) => ({
       ...state,
       status: {
         type: LoadingStatus.LOADING,

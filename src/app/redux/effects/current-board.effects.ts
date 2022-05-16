@@ -26,7 +26,8 @@ import {
   getBoardByIdFailure,
   getBoardByIdSuccess,
 } from "@app/redux/actions/current-board.action";
-import { BoardModel, ColumnBodyModel, ColumnModel, TaskBodyModel, TaskModel } from "@app/shared";
+// eslint-disable-next-line max-len
+import { BoardModel, ColumnBodyModel, ColumnModel, ExtendedColumnModel, TaskBodyModel, TaskModel } from "@app/shared";
 import { Injectable } from "@angular/core";
 import { switchMap, map, catchError, finalize } from "rxjs/operators";
 import { of } from "rxjs";
@@ -44,7 +45,10 @@ export class CurrentBoardEffects {
   getBoardById$ = createEffect(() => this.actions$.pipe(
     ofType(getBoardById),
     switchMap((request: { id: string }) => this.entitiesService.boards.getBoardById(request.id).pipe(
-      map((board: BoardModel) => getBoardByIdSuccess({ board })),
+      map((board: BoardModel) => {
+        board.columns?.sort((a, b) => a.order - b.order);
+        return getBoardByIdSuccess({ board });
+      }),
       catchError((error) => of(getBoardByIdFailure({ error }))),
     )),
   ));
@@ -74,9 +78,9 @@ export class CurrentBoardEffects {
   deleteColumn$ = createEffect(() => this.actions$.pipe(
     ofType(deleteColumn),
     // eslint-disable-next-line max-len
-    switchMap((request: { boardId: string, columnId: string, columns: ColumnModel[] }) => this.entitiesService.columns.deleteColumn(request.boardId, request.columnId, request.columns)
+    switchMap((request: { boardId: string, column: ExtendedColumnModel, columns: ColumnModel[] }) => this.entitiesService.columns.deleteColumn(request.boardId, request.column, request.columns)
       .pipe(
-        map((column: ColumnModel) => deleteColumnSuccess({ column })),
+        map((column) => deleteColumnSuccess({ column: column[0] })),
         catchError((error) => of(deleteColumnFailure({ error }))),
         finalize(() => this.store.dispatch(getBoardById({ id: request.boardId }))),
       )),

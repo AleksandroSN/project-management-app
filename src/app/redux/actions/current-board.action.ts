@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { BoardModel, ColumnBodyModel, ColumnModel, TaskBodyModel, TaskModel } from "@app/shared";
+import {BoardModel, ColumnBodyModel, ColumnModel, ExtendedColumnModel, TaskBodyModel, TaskModel} from "@app/shared";
 
 const reduxStateName = "Current Board State";
 
@@ -95,7 +95,7 @@ export const updateColumnFailure = createAction(
 
 export const deleteColumn = createAction(
   `[${reduxStateName}] Delete column (Progress)`,
-  props<{ boardId: string; columnId: string; columns: ColumnModel[] }>(),
+  props<{ boardId: string; column: ExtendedColumnModel; columns: ColumnModel[] }>(),
 );
 
 export const deleteColumnSuccess = createAction(

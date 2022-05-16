@@ -12,7 +12,7 @@ export class BoardColumnComponent {
 
   @Output() public dropTaskEvent = new EventEmitter<CdkDragDrop<TaskModel[] | undefined, TaskModel[]>>();
 
-  @Output() public deleteColumn = new EventEmitter<string>();
+  @Output() public deleteColumn = new EventEmitter<ExtendedColumnModel>();
 
   @Output() public editColumn = new EventEmitter<ExtendedColumnModel>();
 
