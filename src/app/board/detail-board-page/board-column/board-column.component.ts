@@ -12,12 +12,11 @@ export class BoardColumnComponent {
 
   @Output() public dropTaskEvent = new EventEmitter<CdkDragDrop<TaskModel[] | undefined, TaskModel[]>>();
 
+  @Output() public deleteColumn = new EventEmitter();
+
+  @Output() public renameColumn = new EventEmitter<string>();
+
   public dropTask(event: CdkDragDrop<TaskModel[] | undefined, TaskModel[]>) {
     this.dropTaskEvent.emit(event);
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  responseOnBack() {
-    console.log("response on back end");
   }
 }

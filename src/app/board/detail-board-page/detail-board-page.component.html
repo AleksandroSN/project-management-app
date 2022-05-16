@@ -1,5 +1,5 @@
 <div class="board__wrapper">
-  <app-header-to-component [title]="board ? 'Board ' + 'test' : '...'"></app-header-to-component>
+  <app-header-to-component [title]="board ? board.title : '...'"></app-header-to-component>
   <div class="board" *ngIf="board; else firstBoardLoading">
     <div class="board__inner">
       <div cdkDropList cdkDropListOrientation="horizontal" class="board__columns" (cdkDropListDropped)="dropColumn($event)">

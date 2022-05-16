@@ -4,15 +4,15 @@ import { BoardModel, ColumnModel, LoadingStatus, StatusModel, TaskModel } from "
 import { NotificationsService } from "@app/core/services/notifications-service/notifications.service";
 import { Store } from "@ngrx/store";
 import {
-  createColumn,
   destroyCurrentBoard,
   getBoardById,
-  setPendingState
+  setPendingState,
 } from "@app/redux/actions/current-board.action";
 import { selectCurrentBoard, selectCurrentBoardStatus } from "@app/redux/selectors/current-board.selectors";
 import { Observable, Subject, takeUntil } from "rxjs";
 import { NotificationRef } from "@app/shared/models/notification.model";
 import { ActivatedRoute, Router } from "@angular/router";
+import { DetailBoardService } from "@app/board/detail-board-page/detail-board.service";
 
 @Component({
   selector: "app-detail-board-page",
@@ -36,6 +36,7 @@ export class DetailBoardPageComponent implements OnInit, OnDestroy {
     private store: Store,
     private router: Router,
     private route: ActivatedRoute,
+    private detailBoardService: DetailBoardService,
   ) {}
 
   public ngOnInit(): void {
@@ -82,12 +83,7 @@ export class DetailBoardPageComponent implements OnInit, OnDestroy {
   }
 
   public createColumn(): void {
-    this.store.dispatch(createColumn({ boardId: this.route.snapshot.params["id"],
-      column: {
-        title: "test 6",
-        order: 6,
-      },
-    }));
+    this.detailBoardService.createColumn(this.route.snapshot.params["id"], this.board?.columns?.length || 0);
   }
 
   public ngOnDestroy(): void {
