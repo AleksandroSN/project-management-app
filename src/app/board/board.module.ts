@@ -12,6 +12,7 @@ import { BoardPageComponent } from "@app/board/board-page/board-page.component";
 import { BoardPreviewCardComponent } from "@app/board/board-page/board-preview-card";
 import { BoardColumnComponent } from "@app/board/detail-board-page/board-column";
 import { BoardCardComponent } from "@app/board/detail-board-page/board-card";
+import { TranslocoModule } from "@ngneat/transloco";
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { BoardCardComponent } from "@app/board/detail-board-page/board-card";
     MatMenuModule,
     LongPressModule,
     OpenModalModule,
+    TranslocoModule,
   ],
 })
 export class BoardModule {}

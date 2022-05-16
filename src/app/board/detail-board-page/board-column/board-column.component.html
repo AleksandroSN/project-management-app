@@ -7,7 +7,7 @@
     <mat-menu #menu="matMenu">
       <button appOpenModal (callbackAfterClose)="responseOnBack()" deleteEntity="column" mat-menu-item>
         <mat-icon>delete</mat-icon>
-        <span>Delete</span>
+        <span>{{'delete' | transloco}}</span>
       </button>
     </mat-menu>
 
@@ -25,6 +25,6 @@
   </div>
   <div class="column__add-card btn-hover" matRipple>
     <mat-icon>add</mat-icon>
-    <span>Add task</span>
+    <span>{{'boardObj.addTask' | transloco}}</span>
   </div>
 </div>

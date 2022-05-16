@@ -1,35 +1,34 @@
 <ng-container *ngIf="form">
-  <form class="login__form" (ngSubmit)="onSubmit()" [formGroup]="form">
-    <p class="login__title">Login</p>
+  <form class="login__form" (ngSubmit)="onSubmit()" [formGroup]="form" *transloco="let t; read:'authForm' ">
+    <p class="login__title">{{ t('titleLog') }}</p>
     <mat-form-field appearance="fill">
-      <mat-label>Enter your login</mat-label>
+      <mat-label>{{ t('labelLog') }}</mat-label>
       <input type="text" matInput formControlName="login" placeholder="Login" required>
       <mat-error *ngIf="controls.login.invalid && (controls.login.dirty || controls.login.touched)">
         <span *ngIf="controls.login.errors?.['required']">
-          Login is required.
+          {{'validation.login' | transloco}}
         </span>
         <span *ngIf="controls.login.invalid">
-          Minimum length 5 characters.
+          {{'validation.length5' | transloco}}
         </span>
       </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
-      <mat-label>Enter your password</mat-label>
+      <mat-label>{{ t('labelPass') }}</mat-label>
       <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
       <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
         [attr.aria-pressed]="hide">
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
       <mat-error *ngIf="controls.password.invalid && (controls.password.dirty || controls.password.touched)">
-        Your password isn't strong enough
-        <span *ngIf="controls.password.errors?.['minLength']">at least 8 characters</span>
-        <span *ngIf="controls.password.errors?.['upperAndLowerCase']">a mixture of both uppercase and lowercase letters</span>
-        <span *ngIf="controls.password.errors?.['numbersAndLetters']">a mixture of letters and numbers</span>
-        <span *ngIf="controls.password.errors?.['specialChar']">inclusion of at least one special character, e.g., ! @ # ?
-          ]</span>
+        {{'validation.strong' | transloco}}
+        <span *ngIf="controls.password.errors?.['minLength']">{{'validation.length8' | transloco}}</span>
+        <span *ngIf="controls.password.errors?.['upperAndLowerCase']">{{'validation.case' | transloco}}</span>
+        <span *ngIf="controls.password.errors?.['numbersAndLetters']">{{'validation.number' | transloco}}</span>
+        <span *ngIf="controls.password.errors?.['specialChar']">{{'validation.special' | transloco}}</span>
       </mat-error>
     </mat-form-field>
     <button [disabled]="form.invalid" class="login__submit" mat-raised-button color="primary"
-      type="submit">Login</button>
+      type="submit">{{ t('titleLog') }}</button>
   </form>
 </ng-container>

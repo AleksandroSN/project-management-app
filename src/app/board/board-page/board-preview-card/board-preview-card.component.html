@@ -11,10 +11,10 @@
 <mat-menu #menu="matMenu" class="menu" yPosition="below" xPosition="before">
   <button mat-menu-item (click)="editBoard()">
     <mat-icon>edit</mat-icon>
-    <span>Edit</span>
+    <span>{{'edit' | transloco}}</span>
   </button>
   <button mat-menu-item appOpenModal deleteEntity="board" (callbackAfterClose)="deleteBoard()">
     <mat-icon>delete</mat-icon>
-    <span>Delete</span>
+    <span>{{'delete' | transloco}}</span>
   </button>
 </mat-menu>
