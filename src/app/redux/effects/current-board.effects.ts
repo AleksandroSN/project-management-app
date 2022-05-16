@@ -74,7 +74,7 @@ export class CurrentBoardEffects {
   deleteColumn$ = createEffect(() => this.actions$.pipe(
     ofType(deleteColumn),
     // eslint-disable-next-line max-len
-    switchMap((request: { boardId: string, columnId: string }) => this.entitiesService.columns.deleteColumn(request.boardId, request.columnId)
+    switchMap((request: { boardId: string, columnId: string, columns: ColumnModel[] }) => this.entitiesService.columns.deleteColumn(request.boardId, request.columnId, request.columns)
       .pipe(
         map((column: ColumnModel) => deleteColumnSuccess({ column })),
         catchError((error) => of(deleteColumnFailure({ error }))),

@@ -95,7 +95,7 @@ export const updateColumnFailure = createAction(
 
 export const deleteColumn = createAction(
   `[${reduxStateName}] Delete column (Progress)`,
-  props<{ boardId: string; columnId: string }>(),
+  props<{ boardId: string; columnId: string; columns: ColumnModel[] }>(),
 );
 
 export const deleteColumnSuccess = createAction(

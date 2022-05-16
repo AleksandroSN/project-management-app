@@ -5,11 +5,11 @@
       <mat-icon>more_horiz</mat-icon>
     </div>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>
+      <button (click)="editColumn.emit(columnData)" mat-menu-item>
         <mat-icon>edit</mat-icon>
-        <span>Rename</span>
+        <span>Edit</span>
       </button>
-      <button appOpenModal (callbackAfterClose)="deleteColumn.emit()" deleteEntity="column" mat-menu-item>
+      <button appOpenModal (callbackAfterClose)="deleteColumn.emit(columnData.id)" deleteEntity="column" mat-menu-item>
         <mat-icon>delete</mat-icon>
         <span>Delete</span>
       </button>
@@ -18,7 +18,7 @@
   </div>
   <div
     cdkDropList
-    [id]="'column-' + columnData.id"
+    [id]="'column-' + columnData.indexId"
     [cdkDropListConnectedTo]="columnData.otherColumns"
     [cdkDropListData]="columnData.tasks"
     class="column__list"

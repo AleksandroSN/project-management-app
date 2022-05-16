@@ -1,10 +1,12 @@
 <div class="board__wrapper">
-  <app-header-to-component [title]="board ? board.title : '...'"></app-header-to-component>
-  <div class="board" *ngIf="board; else firstBoardLoading">
+  <app-header-to-component [title]="detailBoardService.board ? detailBoardService.board.title : '...'"></app-header-to-component>
+  <div class="board" *ngIf="detailBoardService.board as board; else firstBoardLoading">
     <div class="board__inner">
       <div cdkDropList cdkDropListOrientation="horizontal" class="board__columns" (cdkDropListDropped)="dropColumn($event)">
         <div class="board__column" *ngFor="let column of board?.columns || []; index as i" cdkDrag>
           <app-board-column
+            (editColumn)="updateColumn($event)"
+            (deleteColumn)="deleteColumn($event)"
             [columnData]="getColumnData(i, column)"
             (dropTaskEvent)="dropTask($event)"
           ></app-board-column>

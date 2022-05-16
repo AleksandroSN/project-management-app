@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpService } from "@app/core/services";
 import { Observable } from "rxjs";
-import { ColumnBodyModel, ColumnModel } from "@app/shared";
+import {BoardModel, ColumnBodyModel, ColumnModel} from "@app/shared";
 import { BOARS_ENDPOINT, COLUMNS_ENDPOINT } from "@utils";
 
 @Injectable({
@@ -32,7 +32,7 @@ export class ColumnsService {
     );
   }
 
-  public deleteColumn(boardId: string, columnId: string): Observable<ColumnModel> {
+  public deleteColumn(boardId: string, columnId: string, columns: ColumnModel[]): Observable<ColumnModel> {
     return this.httpService.delete<ColumnModel>(
       `${BOARS_ENDPOINT}/${boardId}/${COLUMNS_ENDPOINT}/${columnId}`,
     );
