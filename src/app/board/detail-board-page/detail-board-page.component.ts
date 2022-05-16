@@ -3,7 +3,6 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from "@angular/cdk/dr
 import { BoardModel, ColumnModel, LoadingStatus, TaskModel } from "@app/shared/models";
 import { NotificationsService } from "@app/core/services/notifications-service/notifications.service";
 import { Store } from "@ngrx/store";
-import { AppState } from "@app/redux";
 import { getBoardById } from "@app/redux/actions/current-board.action";
 import { selectCurrentBoard, selectCurrentBoardStatus } from "@app/redux/selectors/current-board.selectors";
 import { Observable } from "rxjs";
@@ -23,7 +22,7 @@ export class DetailBoardPageComponent implements OnInit {
 
   public loadingNotification!: NotificationRef | null;
 
-  constructor(private notificationsService: NotificationsService, private store: Store<AppState>) {}
+  constructor(private notificationsService: NotificationsService, private store: Store) {}
 
   public ngOnInit(): void {
     this.status$.subscribe((res) => {

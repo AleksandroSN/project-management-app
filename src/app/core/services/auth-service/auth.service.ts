@@ -65,12 +65,11 @@ export class AuthService {
       if (isNotExpired) {
         this.updateUserData(userId, redirectUrl);
       } else {
-        const errorNotification = this.notificationServise.showNotification({
+        this.notificationServise.showNotification({
           type: "error",
-          message: "Token expired",
+          message: "Session expired",
         });
         this.logout();
-        errorNotification.close();
       }
     }
   }
