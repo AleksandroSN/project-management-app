@@ -30,7 +30,12 @@
   }
   &__git {
     color: #696969;
+    transition: color 0.3s;
     text-decoration: none;
     margin-left: 7px;
+
+    &:hover {
+      color: #000000;
+    }
   }
 }
