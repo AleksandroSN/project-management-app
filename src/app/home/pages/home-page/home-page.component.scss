@@ -55,10 +55,15 @@
     }
   }
   &__team {
-    margin-top: 60px;
     & .welcome__title,
     & .welcome__text {
       text-align: right;
     }
+  }
+
+  &__link {
+    align-self: center;
+    padding: 4px 16px;
+    font-size: 1.3rem;
   }
 }
