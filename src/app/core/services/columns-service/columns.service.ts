@@ -33,11 +33,25 @@ export class ColumnsService {
   }
 
   // eslint-disable-next-line max-len
-  public deleteColumn(boardId: string, column: ExtendedColumnModel, columns: ColumnModel[]): Observable<ColumnModel[]> {
+  public moveColumn(boardId: string, column: ExtendedColumnModel, columns: ColumnModel[], previousIndex: number, currentIndex: number): Observable<ColumnModel> {
+    return this.httpService.chain<ColumnModel>([
+      this.updateColumn(boardId, column.id, { title: column.title, order: columns.length + 1 }),
+      ...columns
+        // eslint-disable-next-line max-len
+        .filter((filterCol: ColumnModel) => filterCol.order > previousIndex + 1 && filterCol.order < currentIndex + 1)
+        // eslint-disable-next-line max-len
+        .map((mapCol: ColumnModel) => this.updateColumn(boardId, mapCol.id, { title: mapCol.title, order: mapCol.order + (currentIndex > previousIndex ? 1 : -1) })),
+    ]);
+  }
+
+  // eslint-disable-next-line max-len
+  public deleteColumn(
+    boardId: string,
+    column: ExtendedColumnModel,
+    columns: ColumnModel[],
+  ): Observable<ColumnModel[]> {
     return this.httpService.chain<ColumnModel[]>([
-      this.httpService.delete<ColumnModel>(
-        `${BOARDS_ENDPOINT}/${boardId}/${COLUMNS_ENDPOINT}/${column.id}`,
-      ),
+      this.httpService.delete<ColumnModel>(`${BOARDS_ENDPOINT}/${boardId}/${COLUMNS_ENDPOINT}/${column.id}`),
       // eslint-disable-next-line max-len
       ...columns
         .filter((filterCol: ColumnModel) => filterCol.order > column.order)

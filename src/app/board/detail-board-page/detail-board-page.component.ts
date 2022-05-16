@@ -2,10 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from "@angular/cdk/drag-drop";
 import { ColumnModel, ExtendedColumnModel, TaskModel } from "@app/shared/models";
 import { Store } from "@ngrx/store";
-import {
-  destroyCurrentBoard,
-  getBoardById,
-} from "@app/redux/actions/current-board.action";
+import { destroyCurrentBoard, getBoardById } from "@app/redux/actions/current-board.action";
 import { ActivatedRoute } from "@angular/router";
 import { DetailBoardService } from "@app/board/detail-board-page/detail-board.service";
 
@@ -27,7 +24,10 @@ export class DetailBoardPageComponent implements OnInit, OnDestroy {
 
   public createColumn(): void {
     // eslint-disable-next-line max-len
-    this.detailBoardService.createColumn(this.route.snapshot.params["id"], this.detailBoardService.board?.columns?.length || 0);
+    this.detailBoardService.createColumn(
+      this.route.snapshot.params["id"],
+      this.detailBoardService.board?.columns?.length || 0,
+    );
   }
 
   public deleteColumn(column: ExtendedColumnModel): void {

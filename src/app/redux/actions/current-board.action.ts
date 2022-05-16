@@ -1,5 +1,12 @@
 import { createAction, props } from "@ngrx/store";
-import {BoardModel, ColumnBodyModel, ColumnModel, ExtendedColumnModel, TaskBodyModel, TaskModel} from "@app/shared";
+import {
+  BoardModel,
+  ColumnBodyModel,
+  ColumnModel,
+  ExtendedColumnModel,
+  TaskBodyModel,
+  TaskModel,
+} from "@app/shared";
 
 const reduxStateName = "Current Board State";
 
@@ -65,6 +72,26 @@ export const createColumnSuccess = createAction(
 
 export const createColumnFailure = createAction(
   `[${reduxStateName}] Create column (Failure)`,
+  props<{ error: any }>(),
+);
+
+// ===============
+
+// Move Column
+// ===============
+
+export const moveColumn = createAction(
+  `[${reduxStateName}] Move column (Progress)`,
+  props<{ boardId: string; columnId: string; column: ColumnBodyModel }>(),
+);
+
+export const moveColumnSuccess = createAction(
+  `[${reduxStateName}] Move column (Success)`,
+  props<{ column: ColumnModel }>(),
+);
+
+export const moveColumnFailure = createAction(
+  `[${reduxStateName}] Move column (Failure)`,
   props<{ error: any }>(),
 );
 

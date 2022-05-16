@@ -12,7 +12,14 @@ import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { Validators } from "@angular/forms";
 // eslint-disable-next-line max-len
 import { DetailBoardModalComponent } from "@app/shared/components/detail-board-modal/detail-board-modal.component";
-import {BoardModel, ColumnModel, ExtendedColumnModel, LoadingStatus, NotificationRef, StatusModel} from "@app/shared";
+import {
+  BoardModel,
+  ColumnModel,
+  ExtendedColumnModel,
+  LoadingStatus,
+  NotificationRef,
+  StatusModel,
+} from "@app/shared";
 import { Observable } from "rxjs";
 import { Router } from "@angular/router";
 import { NotificationsService } from "@app/core/services";
@@ -72,7 +79,7 @@ export class DetailBoardService {
       }
     });
     this.board$.subscribe((board) => {
-      this.board = board;
+      this.board = board ? JSON.parse(JSON.stringify(board)) : undefined;
     });
   }
 
@@ -114,6 +121,13 @@ export class DetailBoardService {
           );
         }
       });
+  }
+
+  public moveColumn(boardId: string, column: ColumnModel, previousIndex: number, currentIndex: number): void {
+    if (!this.board?.columns) {
+      return;
+    }
+
   }
 
   // eslint-disable-next-line max-len
