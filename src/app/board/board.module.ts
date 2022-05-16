@@ -13,6 +13,7 @@ import { BoardPreviewCardComponent } from "@app/board/board-page/board-preview-c
 import { BoardColumnComponent } from "@app/board/detail-board-page/board-column";
 import { BoardCardComponent } from "@app/board/detail-board-page/board-card";
 import { TranslocoModule } from "@ngneat/transloco";
+import { SearchPipe } from "./pipes/search.pipe";
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { TranslocoModule } from "@ngneat/transloco";
     BoardPreviewCardComponent,
     BoardPageComponent,
     DetailBoardPageComponent,
+    SearchPipe,
   ],
   imports: [
     BoardRoutingModule,
