@@ -37,7 +37,7 @@ import { NotificationsListComponent } from "./components/notifications-list/noti
     ProfileService,
     NotificationsService,
   ],
-  imports: [SharedModule, MatProgressSpinnerModule, TranslocoModule],
+  imports: [SharedModule, MatProgressSpinnerModule, TranslocoModule, MatRippleModule],
   exports: [HeaderComponent, FooterComponent, NotificationsListComponent],
 })
 export class CoreModule {}

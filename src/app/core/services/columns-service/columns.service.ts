@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpService } from "@app/core/services";
 import { Observable } from "rxjs";
 import { ColumnBodyModel, ColumnModel, ExtendedColumnModel } from "@app/shared";
-import { BOARS_ENDPOINT, COLUMNS_ENDPOINT } from "@utils";
+import { BOARDS_ENDPOINT, COLUMNS_ENDPOINT } from "@utils";
 
 @Injectable({
   providedIn: "root",
@@ -36,7 +36,7 @@ export class ColumnsService {
   public deleteColumn(boardId: string, column: ExtendedColumnModel, columns: ColumnModel[]): Observable<ColumnModel[]> {
     return this.httpService.chain<ColumnModel[]>([
       this.httpService.delete<ColumnModel>(
-        `${BOARS_ENDPOINT}/${boardId}/${COLUMNS_ENDPOINT}/${column.id}`,
+        `${BOARDS_ENDPOINT}/${boardId}/${COLUMNS_ENDPOINT}/${column.id}`,
       ),
       // eslint-disable-next-line max-len
       ...columns
