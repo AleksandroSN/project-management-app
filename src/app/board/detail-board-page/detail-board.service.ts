@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
 import {
   createColumn,
-  deleteColumn,
+  deleteColumn, moveColumn,
   selectCurrentBoard,
   selectCurrentBoardStatus,
   setPendingState,
@@ -123,11 +123,21 @@ export class DetailBoardService {
       });
   }
 
-  public moveColumn(boardId: string, column: ColumnModel, previousIndex: number, currentIndex: number): void {
+  public moveColumn(column: ColumnModel, previousIndex: number, currentIndex: number): void {
     if (!this.board?.columns) {
       return;
     }
-
+    this.store.dispatch(
+      moveColumn(
+        {
+          boardId: this.board.id,
+          column,
+          columns: this.board.columns,
+          previousIndex,
+          currentIndex,
+        },
+      ),
+    );
   }
 
   // eslint-disable-next-line max-len

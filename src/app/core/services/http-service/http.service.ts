@@ -50,7 +50,7 @@ export class HttpService {
             values.push(response);
           },
           error(err) {
-            throw err;
+            subscriber.error(err);
             subscriber.complete();
           },
           complete() {

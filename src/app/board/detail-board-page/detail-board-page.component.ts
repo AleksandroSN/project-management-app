@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from "@angular/cdk/drag-drop";
 import { ColumnModel, ExtendedColumnModel, TaskModel } from "@app/shared/models";
 import { Store } from "@ngrx/store";
-import { destroyCurrentBoard, getBoardById } from "@app/redux/actions/current-board.action";
+import {destroyCurrentBoard, getBoardById, moveColumn} from "@app/redux/actions/current-board.action";
 import { ActivatedRoute } from "@angular/router";
 import { DetailBoardService } from "@app/board/detail-board-page/detail-board.service";
 
@@ -68,7 +68,14 @@ export class DetailBoardPageComponent implements OnInit, OnDestroy {
       return;
     }
     moveItemInArray(this.detailBoardService.board.columns, event.previousIndex, event.currentIndex);
-    this.store.dispatch(getBoardById({ id: this.route.snapshot.params["id"] }));
+    if (event.previousIndex === event.currentIndex) {
+      return;
+    }
+    this.detailBoardService.moveColumn(
+      this.detailBoardService.board.columns[event.currentIndex],
+      event.previousIndex,
+      event.currentIndex,
+    );
   }
 
   public getColumnData(index: number, data: ColumnModel): any {

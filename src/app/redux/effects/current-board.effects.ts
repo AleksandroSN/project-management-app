@@ -19,7 +19,7 @@ import {
   updateColumnSuccess,
   updateTask,
   updateTaskFailure,
-  updateTaskSuccess,
+  updateTaskSuccess, moveColumn, moveColumnSuccess, moveColumnFailure,
 } from "@app/redux";
 import {
   getBoardById,
@@ -56,7 +56,13 @@ export class CurrentBoardEffects {
   createColumn$ = createEffect(() => this.actions$.pipe(
     ofType(createColumn),
     // eslint-disable-next-line max-len
-    switchMap((request: { boardId: string, column: ColumnBodyModel }) => this.entitiesService.columns.createColumn(request.boardId, request.column)
+    switchMap((request: {
+      boardId: string,
+      column: ColumnBodyModel
+    }) => this.entitiesService.columns.createColumn(
+      request.boardId,
+      request.column,
+    )
       .pipe(
         map((column: ColumnModel) => createColumnSuccess({ column })),
         catchError((error) => of(createColumnFailure({ error }))),
@@ -64,10 +70,40 @@ export class CurrentBoardEffects {
       )),
   ));
 
+  moveColumn$ = createEffect(() => this.actions$.pipe(
+    ofType(moveColumn),
+    switchMap((request: {
+      boardId: string,
+      column: ColumnModel,
+      columns: ColumnModel[],
+      previousIndex: number,
+      currentIndex: number;
+    }) => this.entitiesService.columns.moveColumn(
+      request.boardId,
+      request.column,
+      request.columns,
+      request.previousIndex,
+      request.currentIndex,
+    )
+      .pipe(
+        map((column: ColumnModel[]) => moveColumnSuccess({ column: column[column.length - 1] })),
+        catchError((error) => of(moveColumnFailure({ error }))),
+        finalize(() => this.store.dispatch(getBoardById({ id: request.boardId }))),
+      )),
+  ));
+
   updateColumn$ = createEffect(() => this.actions$.pipe(
     ofType(updateColumn),
     // eslint-disable-next-line max-len
-    switchMap((request: { boardId: string, columnId: string, column: ColumnBodyModel }) => this.entitiesService.columns.updateColumn(request.boardId, request.columnId, request.column)
+    switchMap((request: {
+      boardId: string,
+      columnId: string,
+      column: ColumnBodyModel,
+    }) => this.entitiesService.columns.updateColumn(
+      request.boardId,
+      request.columnId,
+      request.column,
+    )
       .pipe(
         map((column: ColumnModel) => updateColumnSuccess({ column })),
         catchError((error) => of(updateColumnFailure({ error }))),

@@ -32,15 +32,43 @@ export class ColumnsService {
     );
   }
 
-  // eslint-disable-next-line max-len
-  public moveColumn(boardId: string, column: ExtendedColumnModel, columns: ColumnModel[], previousIndex: number, currentIndex: number): Observable<ColumnModel> {
-    return this.httpService.chain<ColumnModel>([
-      this.updateColumn(boardId, column.id, { title: column.title, order: columns.length + 1 }),
-      ...columns
-        // eslint-disable-next-line max-len
-        .filter((filterCol: ColumnModel) => filterCol.order > previousIndex + 1 && filterCol.order < currentIndex + 1)
-        // eslint-disable-next-line max-len
-        .map((mapCol: ColumnModel) => this.updateColumn(boardId, mapCol.id, { title: mapCol.title, order: mapCol.order + (currentIndex > previousIndex ? 1 : -1) })),
+  public moveColumn(
+    boardId: string,
+    column: ColumnModel,
+    columns: ColumnModel[],
+    previousIndex: number,
+    currentIndex: number,
+  ): Observable<ColumnModel[]> {
+    const minOrder = previousIndex < currentIndex ? previousIndex : currentIndex - 1;
+    const maxOrder = previousIndex > currentIndex ? previousIndex : currentIndex + 1;
+    const between = (): Observable<ColumnModel>[] => {
+      const filtered = columns.filter(
+        (filterCol: ColumnModel) => filterCol.order > minOrder + 1 && filterCol.order < maxOrder + 1,
+      );
+      if (currentIndex < previousIndex) {
+        filtered.reverse();
+      }
+      return filtered.map((mapCol: ColumnModel) => {
+        console.log(mapCol);
+        return this.updateColumn(
+          boardId,
+          mapCol.id,
+          { title: mapCol.title, order: mapCol.order + (currentIndex < previousIndex ? 1 : -1) },
+        );
+      });
+    };
+    return this.httpService.chain<ColumnModel[]>([
+      this.updateColumn(
+        boardId,
+        column.id,
+        { title: column.title, order: columns.length + 1 },
+      ),
+      ...between(),
+      this.updateColumn(
+        boardId,
+        column.id,
+        { title: column.title, order: currentIndex + 1 },
+      ),
     ]);
   }
 

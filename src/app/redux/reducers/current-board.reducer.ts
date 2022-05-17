@@ -22,7 +22,7 @@ import {
   updateTaskFailure,
   deleteTask,
   deleteTaskSuccess,
-  deleteTaskFailure,
+  deleteTaskFailure, moveColumn, moveColumnSuccess, moveColumnFailure,
 } from "@app/redux/actions/current-board.action";
 import { CurrentBoardState } from "@app/redux";
 import { CURRENT_BOARD_KEY } from "@utils";
@@ -100,6 +100,30 @@ export const currentBoardFeature = createFeature({
       },
     })),
     on(createColumnFailure, (state, { error }) => ({
+      ...state,
+      status: {
+        type: LoadingStatus.ERROR,
+        info: error.error.message,
+        code: error.status,
+      },
+    })),
+    on(moveColumn, (state, { boardId, column, columns, currentIndex, previousIndex }) => ({
+      ...state,
+      status: {
+        type: LoadingStatus.LOADING,
+        info: null,
+        code: null,
+      },
+    })),
+    on(moveColumnSuccess, (state, { column }) => ({
+      ...state,
+      status: {
+        type: LoadingStatus.PRE_SUCCESS,
+        info: null,
+        code: null,
+      },
+    })),
+    on(moveColumnFailure, (state, { error }) => ({
       ...state,
       status: {
         type: LoadingStatus.ERROR,

@@ -82,7 +82,13 @@ export const createColumnFailure = createAction(
 
 export const moveColumn = createAction(
   `[${reduxStateName}] Move column (Progress)`,
-  props<{ boardId: string; columnId: string; column: ColumnBodyModel }>(),
+  props<{
+    boardId: string;
+    column: ColumnModel;
+    columns: ColumnModel[];
+    previousIndex: number;
+    currentIndex: number;
+  }>(),
 );
 
 export const moveColumnSuccess = createAction(
