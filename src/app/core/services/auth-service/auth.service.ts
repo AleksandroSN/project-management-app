@@ -6,8 +6,8 @@ import { TokenModel, User, UserWithId, UserWithName } from "@app/shared";
 import { Store } from "@ngrx/store";
 import { checkExpTimeToken, clearLocalStorage, LOCAL_STORAGE_KEY, LOCAL_STORAGE_KEY_AUTH } from "@utils";
 import { switchMap } from "rxjs";
+import { NotificationsService } from "@app/core/services";
 import { UserService } from "../user-service";
-import { NotificationsService } from "../notifications-service";
 
 @Injectable()
 export class AuthService {

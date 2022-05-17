@@ -1,12 +1,13 @@
 import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
 import {
-  createColumn,
-  deleteColumn, moveColumn,
+  createColumn, createTask,
+  deleteColumn,
+  moveColumn,
   selectCurrentBoard,
-  selectCurrentBoardStatus,
+  selectCurrentBoardStatus, selectUser,
   setPendingState,
-  updateColumn,
+  updateColumn, UserState,
 } from "@app/redux";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { Validators } from "@angular/forms";
@@ -34,7 +35,11 @@ export class DetailBoardService {
 
   public board$: Observable<BoardModel | undefined> = this.store.select(selectCurrentBoard);
 
+  public user$: Observable<UserState> = this.store.select(selectUser);
+
   public board: BoardModel | undefined;
+
+  public user: UserState | undefined;
 
   constructor(
     private store: Store,
@@ -42,6 +47,9 @@ export class DetailBoardService {
     private router: Router,
     private notificationsService: NotificationsService,
   ) {
+    this.user$.subscribe((res) => {
+      this.user = res;
+    });
     this.status$.subscribe((res) => {
       if ([LoadingStatus.LOADING, LoadingStatus.PRE_SUCCESS].includes(res.type)) {
         if (!this.loadingNotification) {
@@ -128,32 +136,38 @@ export class DetailBoardService {
       return;
     }
     this.store.dispatch(
-      moveColumn(
-        {
-          boardId: this.board.id,
-          column,
-          columns: this.board.columns,
-          previousIndex,
-          currentIndex,
-        },
-      ),
+      moveColumn({
+        boardId: this.board.id,
+        column,
+        columns: this.board.columns,
+        previousIndex,
+        currentIndex,
+      }),
     );
   }
 
   public createTask(column: ExtendedColumnModel): void {
-    this.openModal<{ title: string }>(
+    this.openModal<{ title: string; description: string }>(
       {
         title: ["", Validators.required, "Task title"],
         description: ["", Validators.required, "Task description"],
-        userId: ["", Validators.required, "Task owner"],
       },
-      "Create column",
+      "Create task",
     )
       .afterClosed()
       .subscribe((res) => {
-        if (res) {
-          console.log(res);
-          console.log(column);
+        if (res && this.board?.id && column.tasks !== undefined && this.user) {
+          this.store.dispatch(createTask({
+            boardId: this.board?.id,
+            columnId: column.id,
+            task: {
+              title: res.title,
+              description: res.description,
+              done: false,
+              userId: this.user.id,
+              order: (column.tasks?.length || 0) + 1,
+            },
+          }));
         }
       });
   }
