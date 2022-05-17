@@ -140,6 +140,24 @@ export class DetailBoardService {
     );
   }
 
+  public createTask(column: ExtendedColumnModel): void {
+    this.openModal<{ title: string }>(
+      {
+        title: ["", Validators.required, "Task title"],
+        description: ["", Validators.required, "Task description"],
+        userId: ["", Validators.required, "Task owner"],
+      },
+      "Create column",
+    )
+      .afterClosed()
+      .subscribe((res) => {
+        if (res) {
+          console.log(res);
+          console.log(column);
+        }
+      });
+  }
+
   // eslint-disable-next-line max-len
   public openModal<T>(
     formGroup: { [key: string]: any },

@@ -27,7 +27,7 @@
       <app-board-card [taskData]="task"></app-board-card>
     </div>
   </div>
-  <div class="column__add-card btn-hover" matRipple>
+  <div class="column__add-card btn-hover" matRipple (click)="createTask.emit(columnData)">
     <mat-icon>add</mat-icon>
     <span>{{'boardObj.addTask' | transloco}}</span>
   </div>

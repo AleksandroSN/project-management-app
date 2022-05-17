@@ -78,6 +78,13 @@ export class DetailBoardPageComponent implements OnInit, OnDestroy {
     );
   }
 
+  public createTask(column: ExtendedColumnModel) {
+    this.detailBoardService.createColumn(
+      this.route.snapshot.params["id"],
+      this.detailBoardService.board?.columns?.length || 0,
+    );
+  }
+
   public getColumnData(index: number, data: ColumnModel): any {
     return {
       ...data,

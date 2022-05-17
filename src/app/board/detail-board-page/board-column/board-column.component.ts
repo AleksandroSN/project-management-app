@@ -16,6 +16,8 @@ export class BoardColumnComponent {
 
   @Output() public editColumn = new EventEmitter<ExtendedColumnModel>();
 
+  @Output() public createTask = new EventEmitter<ExtendedColumnModel>();
+
   public dropTask(event: CdkDragDrop<TaskModel[] | undefined, TaskModel[]>) {
     this.dropTaskEvent.emit(event);
   }
