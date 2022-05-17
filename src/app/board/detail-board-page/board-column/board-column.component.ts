@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { ExtendedColumnModel, TaskModel } from "@app/shared/models";
 import { CdkDragDrop } from "@angular/cdk/drag-drop";
+import { MatMenuTrigger } from "@angular/material/menu";
 
 @Component({
   selector: "app-board-column",
@@ -18,7 +19,16 @@ export class BoardColumnComponent {
 
   @Output() public createTask = new EventEmitter<ExtendedColumnModel>();
 
+  public lockLongPress: boolean = false;
+
   public dropTask(event: CdkDragDrop<TaskModel[] | undefined, TaskModel[]>) {
     this.dropTaskEvent.emit(event);
+  }
+
+  public openActionsPopup(menu: MatMenuTrigger) {
+    if (this.lockLongPress) {
+      return;
+    }
+    menu.openMenu();
   }
 }

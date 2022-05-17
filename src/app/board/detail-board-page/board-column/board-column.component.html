@@ -23,8 +23,18 @@
     [cdkDropListData]="columnData.tasks"
     class="column__list"
     (cdkDropListDropped)="dropTask($event)">
-    <div class="column__card" *ngFor="let task of columnData.tasks" cdkDrag>
+    <div
+      class="column__card"
+      *ngFor="let task of columnData.tasks"
+      cdkDrag
+      appLongPress
+      (cdkDragStarted)="lockLongPress = true;"
+      (cdkDragEnded)="lockLongPress = false;"
+      (longPress)="openActionsPopup(menuTrigger)"
+      matRipple
+    >
       <app-board-card [taskData]="task"></app-board-card>
+      <div #menuTrigger="matMenuTrigger"  [matMenuTriggerFor]="taskMenu" class="column__card__trigger"></div>
     </div>
   </div>
   <div class="column__add-card btn-hover" matRipple (click)="createTask.emit(columnData)">
@@ -32,3 +42,13 @@
     <span>{{'boardObj.addTask' | transloco}}</span>
   </div>
 </div>
+<mat-menu #taskMenu="matMenu" class="menu" yPosition="below" xPosition="before">
+  <button mat-menu-item>
+    <mat-icon>edit</mat-icon>
+    <span>{{'edit' | transloco}}</span>
+  </button>
+  <button mat-menu-item appOpenModal deleteEntity="task">
+    <mat-icon>delete</mat-icon>
+    <span>{{'delete' | transloco}}</span>
+  </button>
+</mat-menu>
