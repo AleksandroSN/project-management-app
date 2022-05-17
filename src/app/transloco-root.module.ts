@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { HttpClient } from "@angular/common/http";
 import {
   TRANSLOCO_LOADER,

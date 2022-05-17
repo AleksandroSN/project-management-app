@@ -10,5 +10,9 @@
     grid-template-columns: repeat(4, 1fr);
     column-gap: 1.2rem;
     row-gap: 1.2rem;
+
+    @include breakpoint(sm) {
+      grid-template-columns: 1fr;
+    }
   }
 }

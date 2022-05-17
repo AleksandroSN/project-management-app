@@ -17,7 +17,6 @@ export class NotificationsService {
       id: uuid(),
     };
     const currOrder: NotificationModel[] = this.orderSubject.value;
-    console.log(currOrder);
     currOrder.push({
       ...notification,
       ...params,

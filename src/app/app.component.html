@@ -3,14 +3,19 @@
     <app-notifications-list></app-notifications-list>
   </div>
 </ng-container>
-<div class="app-container">
-  <header appStickyHeader class="app-header">
-    <app-header></app-header>
-  </header>
-  <main class="app-main">
-    <router-outlet></router-outlet>
-  </main>
-  <footer class="app-footer">
-    <app-footer></app-footer>
-  </footer>
-</div>
+<mat-sidenav-container class="app-container" (backdropClick)="close()">
+  <mat-sidenav autoFocus="false" mode="over" class="app-sidenav" [(opened)]="isOpen">
+    <app-sidenav></app-sidenav>
+  </mat-sidenav>
+  <mat-sidenav-content class="app-content">
+    <header appStickyHeader class="app-header">
+      <app-header></app-header>
+    </header>
+    <main class="app-main">
+      <router-outlet></router-outlet>
+    </main>
+    <footer class="app-footer">
+      <app-footer></app-footer>
+    </footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>
