@@ -1,0 +1,16 @@
+<aside class="app-sidenav__container">
+  <div class="app-sidenav__buttons">
+    <ng-container *ngIf="isAuth$ | async; else loginLinks">
+      <app-create-board-button (click)="close()"></app-create-board-button>
+      <button mat-raised-button aria-label="Logout" (click)="logout()">
+        {{'header.logout' | transloco}}
+      </button>
+      <app-route-link linkPath="profile" linkText="Profile" (click)="close()"></app-route-link>
+    </ng-container>
+  </div>
+</aside>
+
+<ng-template #loginLinks>
+    <app-route-link linkPath="auth/signin" linkText="{{'header.login' | transloco}}" (click)="close()"></app-route-link>
+    <app-route-link linkPath="auth/signup" linkText="{{'header.signup' | transloco}}" (click)="close()"></app-route-link>
+</ng-template>
