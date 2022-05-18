@@ -16,3 +16,7 @@
     }
   }
 }
+.search__wrapper {
+  text-align: right;
+  @include contentWidth;
+}
