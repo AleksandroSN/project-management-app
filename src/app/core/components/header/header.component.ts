@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { NavigationStart, Router } from "@angular/router";
-import { AuthService, NotificationsService } from "@app/core/services";
+import { AuthService, NotificationsService, SidenavService } from "@app/core/services";
 import { selectUserAuth } from "@app/redux";
 import { TranslocoService } from "@ngneat/transloco";
 import { Store } from "@ngrx/store";
@@ -24,6 +24,7 @@ export class HeaderComponent implements OnInit {
     private authService: AuthService,
     private translocoService: TranslocoService,
     private notificationServise: NotificationsService,
+    public sidenavService: SidenavService,
   ) {
     this.isAuth$ = this.store.select(selectUserAuth);
   }

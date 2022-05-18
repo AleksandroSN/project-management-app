@@ -1,6 +1,8 @@
 import { NgModule } from "@angular/core";
 import { SharedModule } from "@app/shared";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatSidenavModule } from "@angular/material/sidenav";
+import { HeaderComponent, FooterComponent, SidenavComponent } from "./components";
 import { TranslocoModule } from "@ngneat/transloco";
 import { MatRippleModule } from "@angular/material/core";
 import { HeaderComponent, FooterComponent } from "./components";
@@ -19,13 +21,13 @@ import { NotificationItemComponent } from "./components/notification-item/notifi
 import { NotificationsListComponent } from "./components/notifications-list/notifications-list.component";
 
 @NgModule({
-  // eslint-disable-next-line max-len
   declarations: [
     HeaderComponent,
     FooterComponent,
     NotFoundComponent,
     NotificationItemComponent,
     NotificationsListComponent,
+    SidenavComponent,
   ],
   providers: [
     HttpService,
@@ -37,6 +39,8 @@ import { NotificationsListComponent } from "./components/notifications-list/noti
     ProfileService,
     NotificationsService,
   ],
+  imports: [SharedModule, MatProgressSpinnerModule, MatSidenavModule],
+  exports: [HeaderComponent, FooterComponent, NotificationsListComponent, SidenavComponent, MatSidenavModule],
   imports: [SharedModule, MatProgressSpinnerModule, TranslocoModule, MatRippleModule],
   exports: [HeaderComponent, FooterComponent, NotificationsListComponent],
 })

@@ -11,7 +11,8 @@
     "title1": "Project Management App",
     "text1": "It helps teams to solve work tasks effectively. Work in a team, manage projects and take productivity to the next level.",
     "title2": "Our team",
-    "text2": "We are a team of frontend developers as part of the Rolling Scopes school Angular course, we present you our kanban desk application."
+    "text2": "We are a team of frontend developers as part of the Rolling Scopes school Angular course, we present you our kanban desk application.",
+    "link": "To app"
   },
   "authForm": {
     "titleLog": "Login",

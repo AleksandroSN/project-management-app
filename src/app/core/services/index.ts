@@ -6,3 +6,4 @@ export * from "./modal-service";
 export * from "./profile-service";
 export * from "./notifications-service";
 export * from "./boards-service";
+export * from "./sidenav-service";
