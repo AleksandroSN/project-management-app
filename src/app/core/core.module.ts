@@ -2,10 +2,9 @@ import { NgModule } from "@angular/core";
 import { SharedModule } from "@app/shared";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSidenavModule } from "@angular/material/sidenav";
-import { HeaderComponent, FooterComponent, SidenavComponent } from "./components";
 import { TranslocoModule } from "@ngneat/transloco";
 import { MatRippleModule } from "@angular/material/core";
-import { HeaderComponent, FooterComponent } from "./components";
+import { HeaderComponent, FooterComponent, SidenavComponent } from "./components";
 import { AuthGuard } from "./guards";
 import { NotFoundComponent } from "./pages";
 import {
@@ -39,9 +38,7 @@ import { NotificationsListComponent } from "./components/notifications-list/noti
     ProfileService,
     NotificationsService,
   ],
-  imports: [SharedModule, MatProgressSpinnerModule, MatSidenavModule],
+  imports: [SharedModule, MatProgressSpinnerModule, MatSidenavModule, TranslocoModule, MatRippleModule],
   exports: [HeaderComponent, FooterComponent, NotificationsListComponent, SidenavComponent, MatSidenavModule],
-  imports: [SharedModule, MatProgressSpinnerModule, TranslocoModule, MatRippleModule],
-  exports: [HeaderComponent, FooterComponent, NotificationsListComponent],
 })
 export class CoreModule {}

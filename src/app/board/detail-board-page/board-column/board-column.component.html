@@ -7,7 +7,7 @@
     <mat-menu #menu="matMenu">
       <button (click)="editColumn.emit(columnData)" mat-menu-item>
         <mat-icon>edit</mat-icon>
-        <span>Edit</span>
+        <span>{{'edit' | transloco}}</span>
       </button>
       <button appOpenModal (callbackAfterClose)="deleteColumn.emit(columnData)" deleteEntity="column" mat-menu-item>
         <mat-icon>delete</mat-icon>
