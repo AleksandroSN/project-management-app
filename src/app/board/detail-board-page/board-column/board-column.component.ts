@@ -19,10 +19,28 @@ export class BoardColumnComponent {
 
   @Output() public createTask = new EventEmitter<ExtendedColumnModel>();
 
+  @Output() public deleteTask = new EventEmitter<{ column: ExtendedColumnModel; task: TaskModel }>();
+
+  @Output() public editTask = new EventEmitter<{ columnId: string; task: TaskModel }>();
+
   public lockLongPress: boolean = false;
 
   public dropTask(event: CdkDragDrop<TaskModel[] | undefined, TaskModel[]>) {
     this.dropTaskEvent.emit(event);
+  }
+
+  public deleteTaskFunc(column: ExtendedColumnModel, task: TaskModel): void {
+    this.deleteTask.emit({
+      column,
+      task,
+    });
+  }
+
+  public editTaskFunc(columnId: string, task: TaskModel): void {
+    this.editTask.emit({
+      columnId,
+      task,
+    });
   }
 
   public openActionsPopup(menu: MatMenuTrigger) {

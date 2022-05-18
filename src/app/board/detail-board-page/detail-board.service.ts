@@ -1,13 +1,17 @@
 import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
 import {
-  createColumn, createTask,
+  createColumn,
+  createTask,
+  deleteTask,
   deleteColumn,
   moveColumn,
   selectCurrentBoard,
-  selectCurrentBoardStatus, selectUser,
+  selectCurrentBoardStatus,
+  selectUser,
   setPendingState,
-  updateColumn, UserState,
+  updateColumn,
+  UserState, updateTask,
 } from "@app/redux";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { Validators } from "@angular/forms";
@@ -20,6 +24,7 @@ import {
   LoadingStatus,
   NotificationRef,
   StatusModel,
+  TaskModel,
 } from "@app/shared";
 import { Observable } from "rxjs";
 import { Router } from "@angular/router";
@@ -166,6 +171,46 @@ export class DetailBoardService {
               done: false,
               userId: this.user.id,
               order: (column.tasks?.length || 0) + 1,
+            },
+          }));
+        }
+      });
+  }
+
+  public deleteTask(column: ExtendedColumnModel, task: TaskModel): void {
+    if (!this.board?.columns) {
+      return;
+    }
+    this.store.dispatch(deleteTask({ boardId: this.board.id, column, task }));
+  }
+
+  public updateTask(columnId: string, task: TaskModel): void {
+    this.openModal<{
+      title: string,
+      description: string,
+    }>(
+      {
+        title: [task.title, Validators.required, "Task title"],
+        description: [task.description, Validators.required, "Task description"],
+      },
+      "Update task",
+    )
+      .afterClosed()
+      .subscribe((res) => {
+        if (res && this.board?.id) {
+          // eslint-disable-next-line max-len
+          this.store.dispatch(updateTask({
+            boardId: this.board.id,
+            columnId,
+            taskId: task.id,
+            task: {
+              title: res.title,
+              description: res.description,
+              order: task.order,
+              done: task.done,
+              userId: task.userId,
+              boardId: this.board.id,
+              columnId,
             },
           }));
         }

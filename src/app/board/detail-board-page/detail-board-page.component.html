@@ -8,6 +8,8 @@
             (editColumn)="updateColumn($event)"
             (deleteColumn)="deleteColumn($event)"
             (createTask)="createTask($event)"
+            (deleteTask)="deleteTask($event)"
+            (editTask)="editTask($event)"
             [columnData]="getColumnData(i, column)"
             (dropTaskEvent)="dropTask($event)"
           ></app-board-column>

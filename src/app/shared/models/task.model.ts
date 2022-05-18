@@ -4,6 +4,8 @@ export interface TaskBodyModel {
   done: boolean;
   description: string;
   userId: string;
+  boardId?: string;
+  columnId?: string;
 }
 
 export interface TaskModel {

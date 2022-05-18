@@ -227,7 +227,7 @@ export const currentBoardFeature = createFeature({
         code: error.status,
       },
     })),
-    on(deleteTask, (state, { boardId, columnId, taskId }) => ({
+    on(deleteTask, (state, { boardId, column, task }) => ({
       ...state,
       status: {
         type: LoadingStatus.LOADING,

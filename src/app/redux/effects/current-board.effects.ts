@@ -47,6 +47,9 @@ export class CurrentBoardEffects {
     switchMap((request: { id: string }) => this.entitiesService.boards.getBoardById(request.id).pipe(
       map((board: BoardModel) => {
         board.columns?.sort((a, b) => a.order - b.order);
+        board.columns?.forEach((column) => {
+          column.tasks?.sort((a, b) => a.order - b.order);
+        });
         return getBoardByIdSuccess({ board });
       }),
       catchError((error) => of(getBoardByIdFailure({ error }))),
@@ -147,9 +150,9 @@ export class CurrentBoardEffects {
   deleteTask$ = createEffect(() => this.actions$.pipe(
     ofType(deleteTask),
     // eslint-disable-next-line max-len
-    switchMap((request: { boardId: string, columnId: string, taskId: string }) => this.entitiesService.tasks.deleteTask(request.boardId, request.columnId, request.taskId)
+    switchMap((request: { boardId: string, column: ExtendedColumnModel, task: TaskModel }) => this.entitiesService.tasks.deleteTask(request.boardId, request.column, request.task)
       .pipe(
-        map((task: TaskModel) => deleteTaskSuccess({ task })),
+        map((task: TaskModel[]) => deleteTaskSuccess({ task: task[0] })),
         catchError((error) => of(deleteTaskFailure({ error }))),
         finalize(() => this.store.dispatch(getBoardById({ id: request.boardId }))),
       )),

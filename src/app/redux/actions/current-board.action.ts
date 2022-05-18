@@ -188,7 +188,7 @@ export const updateTaskFailure = createAction(
 
 export const deleteTask = createAction(
   `[${reduxStateName}] Delete task (Progress)`,
-  props<{ boardId: string; columnId: string; taskId: string }>(),
+  props<{ boardId: string; column: ExtendedColumnModel; task: TaskModel }>(),
 );
 
 export const deleteTaskSuccess = createAction(
