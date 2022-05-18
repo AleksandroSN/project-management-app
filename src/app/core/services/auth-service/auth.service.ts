@@ -5,7 +5,7 @@ import { userAuthorize, userLogout } from "@app/redux";
 import { TokenModel, User, UserWithId, UserWithName } from "@app/shared";
 import { Store } from "@ngrx/store";
 import { checkExpTimeToken, clearLocalStorage, LOCAL_STORAGE_KEY, LOCAL_STORAGE_KEY_AUTH } from "@utils";
-import { switchMap } from "rxjs";
+import { catchError, switchMap, throwError } from "rxjs";
 import { UserService } from "../user-service";
 import { NotificationsService } from "../notifications-service";
 
@@ -28,7 +28,6 @@ export class AuthService {
     const loginNotification = this.notificationServise.showNotification({
       type: "spinner",
       message: "Loading...",
-      duration: 10000,
     });
     this.userService
       .authorizeUser(user)
@@ -37,6 +36,10 @@ export class AuthService {
           localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(token));
           const { userId } = jwt_decode(token) as TokenModel;
           return this.userService.getUserById(userId);
+        }),
+        catchError((err) => {
+          loginNotification.close();
+          return throwError(() => err);
         }),
       )
       .subscribe((res) => {
@@ -62,12 +65,11 @@ export class AuthService {
       if (isNotExpired) {
         this.updateUserData(userId, redirectUrl);
       } else {
-        const errorNotification = this.notificationServise.showNotification({
+        this.notificationServise.showNotification({
           type: "error",
-          message: "Token expired",
+          message: "Session expired",
         });
         this.logout();
-        errorNotification.close();
       }
     }
   }

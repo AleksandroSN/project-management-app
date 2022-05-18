@@ -1,5 +1,5 @@
 <div class="welcome" *transloco="let t; read:'home' ">
-  <div class="welcome__block">
+  <div class="welcome__block flex direction-col gap-2">
     <div class="welcome__app">
       <h3 class="welcome__title">{{ t('title1') }}</h3>
       <p class="welcome__text">{{ t('text1') }}</p>
@@ -8,6 +8,7 @@
       <h3 class="welcome__title">{{ t('title2') }}</h3>
       <p class="welcome__text">{{ t('text2') }}</p>
     </div>
+    <a class="welcome__link" routerLink="/board" mat-raised-button color="primary">{{ t('link') }}</a>
   </div>
   <div class="welcome__img--wrapper">
     <img src="/assets/img/kanban-desk.svg" alt="" class="welcome__img">

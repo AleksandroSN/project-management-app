@@ -28,6 +28,8 @@ export class StickyHeaderDirective implements AfterContentInit, OnDestroy {
     this.isAuth$.pipe(takeUntil(this.destroy$)).subscribe((userAuth) => {
       if (userAuth) {
         this.rerender.addClass(this.el.nativeElement, "position-sticky");
+      } else {
+        this.rerender.removeClass(this.el.nativeElement, "position-sticky");
       }
     });
   }

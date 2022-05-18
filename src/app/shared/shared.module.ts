@@ -57,6 +57,7 @@ const MaterialsModules = [
     MaterialsModules,
     RouterModule,
     ReactiveFormsModule,
+    TranslocoModule,
     RouteLinkComponent,
     ModalComponent,
     HeaderToComponent,

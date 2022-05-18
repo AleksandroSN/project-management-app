@@ -1,11 +1,21 @@
 @import "adaptive";
 
 .footer {
+  &__container {
+    @include contentWidth();
+  }
+
   &__inner {
     display: flex;
     justify-content: space-between;
-    height: 80px;
     align-items: center;
+    padding: 10px 0;
+
+    @include breakpoint(xsm) {
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.4rem;
+    }
   }
   &__link {
     display: block;
@@ -17,7 +27,8 @@
     }
   }
   &__img {
-    width: 100%;
+    max-width: 100%;
+    height: auto;
     object-fit: contain;
   }
   &__text {
@@ -27,10 +38,21 @@
     @include breakpoint(md) {
       font-size: 14px;
     }
+
+    @include breakpoint(xsm) {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
   }
   &__git {
     color: #696969;
+    transition: color 0.3s;
     text-decoration: none;
     margin-left: 7px;
+
+    &:hover {
+      color: #000000;
+    }
   }
 }
