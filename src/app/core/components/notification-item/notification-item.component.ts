@@ -35,7 +35,7 @@ export class NotificationItemComponent implements OnInit {
   };
 
   public ngOnInit(): void {
-    if (this.notificationData.type !== "spinner") {
+    if (this.notificationData.type !== "spinner" && !this.notificationData.submit) {
       setTimeout(() => {
         this.closeNotificationEvent.emit();
       }, this.notificationData.duration);

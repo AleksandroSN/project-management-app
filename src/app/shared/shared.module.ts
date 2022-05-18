@@ -23,6 +23,7 @@ import {
   CreateBoardButtonComponent,
 } from "./components";
 import { AuthInterceptor, ErrorCatcherInterceptor } from "./interceptors";
+import { DetailBoardModalComponent } from './components/detail-board-modal/detail-board-modal.component';
 
 const MaterialsModules = [
   MatToolbarModule,
@@ -45,10 +46,11 @@ const MaterialsModules = [
     ModalComponent,
     BoardModalComponent,
     CreateBoardButtonComponent,
+    DetailBoardModalComponent,
   ],
   providers: [
     MatDatepickerModule,
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorCatcherInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: ErrorCatcherInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   imports: [CommonModule, MaterialsModules, RouterModule, ReactiveFormsModule, FormsModule, TranslocoModule],

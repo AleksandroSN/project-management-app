@@ -7,7 +7,7 @@ import { Store } from "@ngrx/store";
 import { checkExpTimeToken, clearLocalStorage, LOCAL_STORAGE_KEY, LOCAL_STORAGE_KEY_AUTH } from "@utils";
 import { catchError, switchMap, throwError } from "rxjs";
 import { UserService } from "../user-service";
-import { NotificationsService } from "../notifications-service";
+import { NotificationsService } from "@app/core/services";
 
 @Injectable()
 export class AuthService {
