@@ -6,6 +6,7 @@ import { MatCardModule } from "@angular/material/card";
 import { MatRippleModule } from "@angular/material/core";
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
+import { FormsModule } from "@angular/forms";
 import { LongPressModule, OpenModalModule } from "@app/shared/directives";
 import { DetailBoardPageComponent } from "@app/board/detail-board-page/detail-board-page.component";
 import { BoardPageComponent } from "@app/board/board-page/board-page.component";
@@ -35,6 +36,7 @@ import { SearchPipe } from "./pipes/search.pipe";
     LongPressModule,
     OpenModalModule,
     TranslocoModule,
+    FormsModule,
   ],
 })
 export class BoardModule {}

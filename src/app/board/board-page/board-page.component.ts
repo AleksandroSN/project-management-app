@@ -12,6 +12,8 @@ import { Observable } from "rxjs";
 export class BoardPageComponent implements OnInit {
   boards$!: Observable<BoardModel[] | null>;
 
+  str = "";
+
   constructor(private store: Store) {
     this.boards$ = this.store.select(selectAllBoards);
   }
