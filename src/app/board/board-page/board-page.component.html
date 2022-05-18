@@ -2,9 +2,9 @@
 <div class="boards">
   <div class="search__wrapper">
     <mat-form-field class="example-form-field" appearance="fill">
-      <mat-label>Search task</mat-label>
+      <mat-label>{{ 'boardObj.searchLabel' | transloco }}</mat-label>
       <input matInput type="text" [(ngModel)]="str">
-      <button *ngIf="str" matSuffix mat-icon-button aria-label="Clear" (click)="str=''">
+      <button matSuffix mat-icon-button aria-label="Clear" (click)="str=''" class="search__button-clear">
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>

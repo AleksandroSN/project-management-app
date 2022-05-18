@@ -3,11 +3,11 @@
   <form [formGroup]="form" class="flex direction-col gap-1">
     <mat-form-field appearance="fill">
       <mat-label>{{l('title')}}</mat-label>
-      <input formControlName="title" matInput [(ngModel)]="data.board.title">
+      <input formControlName="title" matInput [(ngModel)]="data.board.title" placeholder="{{l('title')}}">
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>{{l('description')}}</mat-label>
-      <input formControlName="description" matInput [(ngModel)]="data.board.description">
+      <input formControlName="description" matInput [(ngModel)]="data.board.description" placeholder="{{l('description')}}">
     </mat-form-field>
   </form>
 </mat-dialog-content>

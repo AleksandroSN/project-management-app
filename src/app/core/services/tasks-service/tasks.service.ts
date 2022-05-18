@@ -41,29 +41,26 @@ export class TasksService {
     );
   }
 
+  /* eslint-disable */
   public deleteTask(boardId: string, column: ExtendedColumnModel, task: TaskModel): Observable<TaskModel[]> {
     return this.httpService.chain<TaskModel[]>([
       this.httpService.delete<TaskModel>(
         `${BOARDS_ENDPOINT}/${boardId}/${COLUMNS_ENDPOINT}/${column.id}/${TASKS_ENDPOINT}/${task.id}`,
       ),
-      // eslint-disable-next-line max-len
       ...(column.tasks || [])
         .filter((filterTask: TaskModel) => filterTask.order > task.order)
-        // eslint-disable-next-line max-len
-        .map((mapTask: TaskModel) => this.updateTask(
+        .map((mapTask: TaskModel) =>
+          this.updateTask(boardId, column.id, mapTask.id, {
+          title: mapTask.title,
+          description: mapTask.description,
+          order: mapTask.order - 1,
+          done: mapTask.done,
+          userId: mapTask.userId,
           boardId,
-          column.id,
-          mapTask.id,
-          {
-            title: mapTask.title,
-            description: mapTask.description,
-            order: mapTask.order - 1,
-            done: mapTask.done,
-            userId: mapTask.userId,
-            boardId,
-            columnId: column.id,
-          },
-        )),
+          columnId: column.id,
+        }),
+        ),
     ]);
   }
+  /* eslint-enable */
 }

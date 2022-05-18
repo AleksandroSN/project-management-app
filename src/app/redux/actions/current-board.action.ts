@@ -1,3 +1,4 @@
+/* eslint-disable ngrx/prefer-inline-action-props */
 import { createAction, props } from "@ngrx/store";
 import {
   BoardModel,

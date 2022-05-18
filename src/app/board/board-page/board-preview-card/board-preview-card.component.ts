@@ -14,10 +14,6 @@ import { getAllBoards } from "@app/redux";
 export class BoardPreviewCardComponent {
   @Input() public data!: BoardModel;
 
-  title = "";
-
-  description = "";
-
   constructor(
     private boardService: BoardsService,
     private notificationsService: NotificationsService,
@@ -42,7 +38,7 @@ export class BoardPreviewCardComponent {
 
   editBoard() {
     this.modalService
-      .openBoardModal({ title: this.title, description: this.description }, false)
+      .openBoardModal({ title: this.data.title, description: this.data.description }, false)
       .pipe(switchMap((data) => this.boardService.updateBoard(this.data.id, data.board)))
       .subscribe(() => {
         this.store.dispatch(getAllBoards());

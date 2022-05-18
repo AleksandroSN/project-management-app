@@ -82,7 +82,7 @@ export class DetailBoardPageComponent implements OnInit, OnDestroy {
     this.detailBoardService.createTask(column);
   }
 
-  public deleteTask(data: { column: ExtendedColumnModel, task: TaskModel }): void {
+  public deleteTask(data: { column: ExtendedColumnModel; task: TaskModel }): void {
     this.detailBoardService.deleteTask(data.column, data.task);
   }
 

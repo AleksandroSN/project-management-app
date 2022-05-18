@@ -4,7 +4,8 @@
     "login": "Вход",
     "signup": "Регистрация",
     "logout": "Выйти",
-    "new": "Новая доска"
+    "new": "Новая доска",
+    "profile": "Профиль"
   },
   "footer": "Создано в",
   "home": {
@@ -22,6 +23,7 @@
     "labelPass": "Введите ваш пароль"
   },
   "boardObj": {
+    "searchLabel": "Поиск задания",
     "list": "Список досок",
     "addList": "Добавить список",
     "addTask": "Добавить задачу",
@@ -31,6 +33,18 @@
       "title": "Заголовок доски",
       "description": "Описание доски"
     }
+  },
+  "columnObj": {
+    "createTitle": "Создать колонку",
+    "updateTitle": "Обновить колонку",
+    "createLabel": "Название колонки",
+    "updateLabel": "Обновление колонки"
+  },
+  "taskObj": {
+    "createTitle": "Создать задачу",
+    "updateTitle": "Обновить задачу",
+    "titleLabel": "Название задачи",
+    "taskDescription": "Описание задачи"
   },
   "profileObj": {
     "title": "Редактирование профиля",

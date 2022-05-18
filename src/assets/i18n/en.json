@@ -4,7 +4,8 @@
     "login": "Login",
     "signup": "SignUp",
     "logout": "Logout",
-    "new": "New Board"
+    "new": "New Board",
+    "profile": "Profile"
   },
   "footer": "Created at",
   "home": {
@@ -22,6 +23,7 @@
     "labelPass": "Enter your password"
   },
   "boardObj": {
+    "searchLabel": "Search task",
     "list": "Boards list",
     "addList": "Add another list",
     "addTask": "Add task",
@@ -31,6 +33,18 @@
       "title": "Board title",
       "description": "Board description"
     }
+  },
+  "columnObj": {
+    "createTitle": "Create column",
+    "updateTitle": "Update column",
+    "createLabel": "Column title",
+    "updateLabel": "Update column"
+  },
+  "taskObj": {
+    "createTitle": "Create task",
+    "updateTitle": "Update task",
+    "titleLabel": "Task title",
+    "taskDescription": "Task description"
   },
   "profileObj": {
     "title": "Edit profile",

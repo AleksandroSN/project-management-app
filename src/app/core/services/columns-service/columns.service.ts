@@ -48,30 +48,22 @@ export class ColumnsService {
       if (currentIndex < previousIndex) {
         filtered.reverse();
       }
+      // eslint-disable-next-line arrow-body-style
       return filtered.map((mapCol: ColumnModel) => {
-        return this.updateColumn(
-          boardId,
-          mapCol.id,
-          { title: mapCol.title, order: mapCol.order + (currentIndex < previousIndex ? 1 : -1) },
-        );
+        return this.updateColumn(boardId, mapCol.id, {
+          title: mapCol.title,
+          order: mapCol.order + (currentIndex < previousIndex ? 1 : -1),
+        });
       });
     };
     return this.httpService.chain<ColumnModel[]>([
-      this.updateColumn(
-        boardId,
-        column.id,
-        { title: column.title, order: columns.length + 1 },
-      ),
+      this.updateColumn(boardId, column.id, { title: column.title, order: columns.length + 1 }),
       ...between(),
-      this.updateColumn(
-        boardId,
-        column.id,
-        { title: column.title, order: currentIndex + 1 },
-      ),
+      this.updateColumn(boardId, column.id, { title: column.title, order: currentIndex + 1 }),
     ]);
   }
 
-  // eslint-disable-next-line max-len
+  /* eslint-disable */
   public deleteColumn(
     boardId: string,
     column: ExtendedColumnModel,
@@ -79,11 +71,10 @@ export class ColumnsService {
   ): Observable<ColumnModel[]> {
     return this.httpService.chain<ColumnModel[]>([
       this.httpService.delete<ColumnModel>(`${BOARDS_ENDPOINT}/${boardId}/${COLUMNS_ENDPOINT}/${column.id}`),
-      // eslint-disable-next-line max-len
       ...columns
         .filter((filterCol: ColumnModel) => filterCol.order > column.order)
-        // eslint-disable-next-line max-len
-        .map((mapCol: ColumnModel) => this.updateColumn(boardId, mapCol.id, { title: mapCol.title, order: mapCol.order - 1 })),
+        .map((mapCol: ColumnModel) => this.updateColumn(boardId, mapCol.id, { title: mapCol.title, order: mapCol.order - 1 }),),
     ]);
   }
+  /* eslint-enable */
 }
