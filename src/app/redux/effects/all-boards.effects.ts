@@ -2,7 +2,7 @@
 import { Injectable } from "@angular/core";
 import { BoardsService } from "@app/core/services";
 import { createEffect, ofType, Actions } from "@ngrx/effects";
-import { map, switchMap } from "rxjs";
+import { from, map, switchMap, concatMap, toArray } from "rxjs";
 import { getAllBoards, getAllBoardsSuccess } from "../actions";
 
 @Injectable()
@@ -11,7 +11,12 @@ export class AllBoardsEffects {
     return this.actions$.pipe(
       ofType(getAllBoards),
       switchMap(() => {
-        return this.boardsService.getAllBoards().pipe(map((boards) => getAllBoardsSuccess({ boards })));
+        return this.boardsService.getAllBoards().pipe(
+          switchMap((items) => from(items)),
+          concatMap((item) => this.boardsService.getBoardById(item.id)),
+          toArray(),
+          map((boards) => getAllBoardsSuccess({ boards })),
+        );
       }),
     );
   });
