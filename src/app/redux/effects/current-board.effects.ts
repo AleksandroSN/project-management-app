@@ -1,7 +1,8 @@
+/* eslint-disable ngrx/no-dispatch-in-effects */
+/* eslint-disable arrow-body-style */
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
 import {
-  CurrentBoardState,
   createColumn,
   createColumnFailure,
   createColumnSuccess,
@@ -19,15 +20,24 @@ import {
   updateColumnSuccess,
   updateTask,
   updateTaskFailure,
-  updateTaskSuccess, moveColumn, moveColumnSuccess, moveColumnFailure,
+  updateTaskSuccess,
+  moveColumn,
+  moveColumnSuccess,
+  moveColumnFailure,
 } from "@app/redux";
 import {
   getBoardById,
   getBoardByIdFailure,
   getBoardByIdSuccess,
 } from "@app/redux/actions/current-board.action";
-// eslint-disable-next-line max-len
-import { BoardModel, ColumnBodyModel, ColumnModel, ExtendedColumnModel, TaskBodyModel, TaskModel } from "@app/shared";
+import {
+  BoardModel,
+  ColumnBodyModel,
+  ColumnModel,
+  ExtendedColumnModel,
+  TaskBodyModel,
+  TaskModel,
+} from "@app/shared";
 import { Injectable } from "@angular/core";
 import { switchMap, map, catchError, finalize } from "rxjs/operators";
 import { of } from "rxjs";
@@ -35,126 +45,136 @@ import { EntitiesService } from "@app/core/services/entities-service/entities.se
 
 @Injectable()
 export class CurrentBoardEffects {
-  constructor(
-    private actions$: Actions,
-    private store: Store<CurrentBoardState>,
-    private entitiesService: EntitiesService,
-  ) {
-  }
+  constructor(private actions$: Actions, private store: Store, private entitiesService: EntitiesService) {}
 
-  getBoardById$ = createEffect(() => this.actions$.pipe(
-    ofType(getBoardById),
-    switchMap((request: { id: string }) => this.entitiesService.boards.getBoardById(request.id).pipe(
-      map((board: BoardModel) => {
-        board.columns?.sort((a, b) => a.order - b.order);
-        board.columns?.forEach((column) => {
-          column.tasks?.sort((a, b) => a.order - b.order);
-        });
-        return getBoardByIdSuccess({ board });
+  getBoardById$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getBoardById),
+      switchMap((request: { id: string }) => {
+        return this.entitiesService.boards.getBoardById(request.id).pipe(
+          map((board: BoardModel) => {
+            board.columns?.sort((a, b) => a.order - b.order);
+            board.columns?.forEach((column) => {
+              column.tasks?.sort((a, b) => a.order - b.order);
+            });
+            return getBoardByIdSuccess({ board });
+          }),
+          catchError((error) => of(getBoardByIdFailure({ error }))),
+        );
       }),
-      catchError((error) => of(getBoardByIdFailure({ error }))),
-    )),
-  ));
+    );
+  });
 
-  createColumn$ = createEffect(() => this.actions$.pipe(
-    ofType(createColumn),
-    // eslint-disable-next-line max-len
-    switchMap((request: {
-      boardId: string,
-      column: ColumnBodyModel
-    }) => this.entitiesService.columns.createColumn(
-      request.boardId,
-      request.column,
-    )
-      .pipe(
-        map((column: ColumnModel) => createColumnSuccess({ column })),
-        catchError((error) => of(createColumnFailure({ error }))),
-        finalize(() => this.store.dispatch(getBoardById({ id: request.boardId }))),
-      )),
-  ));
+  createColumn$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(createColumn),
+      switchMap((request: { boardId: string; column: ColumnBodyModel }) => {
+        return this.entitiesService.columns.createColumn(request.boardId, request.column).pipe(
+          map((column: ColumnModel) => createColumnSuccess({ column })),
+          catchError((error) => of(createColumnFailure({ error }))),
+          finalize(() => this.store.dispatch(getBoardById({ id: request.boardId }))),
+        );
+      }),
+    );
+  });
 
-  moveColumn$ = createEffect(() => this.actions$.pipe(
-    ofType(moveColumn),
-    switchMap((request: {
-      boardId: string,
-      column: ColumnModel,
-      columns: ColumnModel[],
-      previousIndex: number,
-      currentIndex: number;
-    }) => this.entitiesService.columns.moveColumn(
-      request.boardId,
-      request.column,
-      request.columns,
-      request.previousIndex,
-      request.currentIndex,
-    )
-      .pipe(
-        map((column: ColumnModel[]) => moveColumnSuccess({ column: column[column.length - 1] })),
-        catchError((error) => of(moveColumnFailure({ error }))),
-        finalize(() => this.store.dispatch(getBoardById({ id: request.boardId }))),
-      )),
-  ));
+  moveColumn$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(moveColumn),
+      switchMap(
+        (request: {
+          boardId: string;
+          column: ColumnModel;
+          columns: ColumnModel[];
+          previousIndex: number;
+          currentIndex: number;
+        }) => {
+          return this.entitiesService.columns
+            .moveColumn(
+              request.boardId,
+              request.column,
+              request.columns,
+              request.previousIndex,
+              request.currentIndex,
+            )
+            .pipe(
+              map((column: ColumnModel[]) => moveColumnSuccess({ column: column[column.length - 1] })),
+              catchError((error) => of(moveColumnFailure({ error }))),
+              finalize(() => this.store.dispatch(getBoardById({ id: request.boardId }))),
+            );
+        },
+      ),
+    );
+  });
 
-  updateColumn$ = createEffect(() => this.actions$.pipe(
-    ofType(updateColumn),
-    // eslint-disable-next-line max-len
-    switchMap((request: {
-      boardId: string,
-      columnId: string,
-      column: ColumnBodyModel,
-    }) => this.entitiesService.columns.updateColumn(
-      request.boardId,
-      request.columnId,
-      request.column,
-    )
-      .pipe(
-        map((column: ColumnModel) => updateColumnSuccess({ column })),
-        catchError((error) => of(updateColumnFailure({ error }))),
-        finalize(() => this.store.dispatch(getBoardById({ id: request.boardId }))),
-      )),
-  ));
+  updateColumn$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(updateColumn),
+      switchMap((request: { boardId: string; columnId: string; column: ColumnBodyModel }) => {
+        return this.entitiesService.columns
+          .updateColumn(request.boardId, request.columnId, request.column)
+          .pipe(
+            map((column: ColumnModel) => updateColumnSuccess({ column })),
+            catchError((error) => of(updateColumnFailure({ error }))),
+            finalize(() => this.store.dispatch(getBoardById({ id: request.boardId }))),
+          );
+      }),
+    );
+  });
 
-  deleteColumn$ = createEffect(() => this.actions$.pipe(
-    ofType(deleteColumn),
-    // eslint-disable-next-line max-len
-    switchMap((request: { boardId: string, column: ExtendedColumnModel, columns: ColumnModel[] }) => this.entitiesService.columns.deleteColumn(request.boardId, request.column, request.columns)
-      .pipe(
-        map((column) => deleteColumnSuccess({ column: column[0] })),
-        catchError((error) => of(deleteColumnFailure({ error }))),
-        finalize(() => this.store.dispatch(getBoardById({ id: request.boardId }))),
-      )),
-  ));
+  deleteColumn$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(deleteColumn),
+      switchMap((request: { boardId: string; column: ExtendedColumnModel; columns: ColumnModel[] }) => {
+        return this.entitiesService.columns
+          .deleteColumn(request.boardId, request.column, request.columns)
+          .pipe(
+            map((column) => deleteColumnSuccess({ column: column[0] })),
+            catchError((error) => of(deleteColumnFailure({ error }))),
+            finalize(() => this.store.dispatch(getBoardById({ id: request.boardId }))),
+          );
+      }),
+    );
+  });
 
-  createTask$ = createEffect(() => this.actions$.pipe(
-    ofType(createTask),
-    // eslint-disable-next-line max-len
-    switchMap((request: { boardId: string, columnId: string, task: TaskBodyModel }) => this.entitiesService.tasks.createTask(request.boardId, request.columnId, request.task)
-      .pipe(
-        map((task: TaskModel) => createTaskSuccess({ task })),
-        catchError((error) => of(createTaskFailure({ error }))),
-        finalize(() => this.store.dispatch(getBoardById({ id: request.boardId }))),
-      )),
-  ));
+  createTask$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(createTask),
+      switchMap((request: { boardId: string; columnId: string; task: TaskBodyModel }) => {
+        return this.entitiesService.tasks.createTask(request.boardId, request.columnId, request.task).pipe(
+          map((task: TaskModel) => createTaskSuccess({ task })),
+          catchError((error) => of(createTaskFailure({ error }))),
+          finalize(() => this.store.dispatch(getBoardById({ id: request.boardId }))),
+        );
+      }),
+    );
+  });
 
-  updateTask$ = createEffect(() => this.actions$.pipe(
-    ofType(updateTask),
-    // eslint-disable-next-line max-len
-    switchMap((request: { boardId: string, columnId: string, taskId: string, task: TaskBodyModel }) => this.entitiesService.tasks.updateTask(request.boardId, request.columnId, request.taskId, request.task)
-      .pipe(
-        map((task: TaskModel) => updateTaskSuccess({ task })),
-        catchError((error) => of(updateTaskFailure({ error }))),
-        finalize(() => this.store.dispatch(getBoardById({ id: request.boardId }))),
-      )),
-  ));
+  updateTask$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(updateTask),
+      switchMap((request: { boardId: string; columnId: string; taskId: string; task: TaskBodyModel }) => {
+        return this.entitiesService.tasks
+          .updateTask(request.boardId, request.columnId, request.taskId, request.task)
+          .pipe(
+            map((task: TaskModel) => updateTaskSuccess({ task })),
+            catchError((error) => of(updateTaskFailure({ error }))),
+            finalize(() => this.store.dispatch(getBoardById({ id: request.boardId }))),
+          );
+      }),
+    );
+  });
 
-  deleteTask$ = createEffect(() => this.actions$.pipe(
-    ofType(deleteTask),
-    // eslint-disable-next-line max-len
-    switchMap((request: { boardId: string, column: ExtendedColumnModel, task: TaskModel }) => this.entitiesService.tasks.deleteTask(request.boardId, request.column, request.task)
-      .pipe(
-        map((task: TaskModel[]) => deleteTaskSuccess({ task: task[0] })),
-        catchError((error) => of(deleteTaskFailure({ error }))),
-        finalize(() => this.store.dispatch(getBoardById({ id: request.boardId }))),
-      )),
-  ));
+  deleteTask$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(deleteTask),
+      switchMap((request: { boardId: string; column: ExtendedColumnModel; task: TaskModel }) => {
+        return this.entitiesService.tasks.deleteTask(request.boardId, request.column, request.task).pipe(
+          map((task: TaskModel[]) => deleteTaskSuccess({ task: task[0] })),
+          catchError((error) => of(deleteTaskFailure({ error }))),
+          finalize(() => this.store.dispatch(getBoardById({ id: request.boardId }))),
+        );
+      }),
+    );
+  });
 }

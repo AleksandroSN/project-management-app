@@ -1,16 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { DetailBoardModalComponent } from './detail-board-modal.component';
+import { DetailBoardModalComponent } from "./detail-board-modal.component";
 
-describe('DetailBoardModalComponent', () => {
+describe("DetailBoardModalComponent", () => {
   let component: DetailBoardModalComponent;
   let fixture: ComponentFixture<DetailBoardModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DetailBoardModalComponent ]
-    })
-    .compileComponents();
+      declarations: [DetailBoardModalComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('DetailBoardModalComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

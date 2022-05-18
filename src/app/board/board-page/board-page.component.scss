@@ -16,7 +16,9 @@
     }
   }
 }
-.search__wrapper {
-  text-align: right;
-  @include contentWidth;
+.search {
+  &__wrapper {
+    text-align: right;
+    @include contentWidth;
+  }
 }

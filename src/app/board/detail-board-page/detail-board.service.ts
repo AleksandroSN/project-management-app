@@ -11,7 +11,8 @@ import {
   selectUser,
   setPendingState,
   updateColumn,
-  UserState, updateTask,
+  UserState,
+  updateTask,
 } from "@app/redux";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { Validators } from "@angular/forms";
@@ -162,17 +163,19 @@ export class DetailBoardService {
       .afterClosed()
       .subscribe((res) => {
         if (res && this.board?.id && column.tasks !== undefined && this.user) {
-          this.store.dispatch(createTask({
-            boardId: this.board?.id,
-            columnId: column.id,
-            task: {
-              title: res.title,
-              description: res.description,
-              done: false,
-              userId: this.user.id,
-              order: (column.tasks?.length || 0) + 1,
-            },
-          }));
+          this.store.dispatch(
+            createTask({
+              boardId: this.board?.id,
+              columnId: column.id,
+              task: {
+                title: res.title,
+                description: res.description,
+                done: false,
+                userId: this.user.id,
+                order: (column.tasks?.length || 0) + 1,
+              },
+            }),
+          );
         }
       });
   }
@@ -186,8 +189,8 @@ export class DetailBoardService {
 
   public updateTask(columnId: string, task: TaskModel): void {
     this.openModal<{
-      title: string,
-      description: string,
+      title: string;
+      description: string;
     }>(
       {
         title: [task.title, Validators.required, "Task title"],
@@ -199,20 +202,22 @@ export class DetailBoardService {
       .subscribe((res) => {
         if (res && this.board?.id) {
           // eslint-disable-next-line max-len
-          this.store.dispatch(updateTask({
-            boardId: this.board.id,
-            columnId,
-            taskId: task.id,
-            task: {
-              title: res.title,
-              description: res.description,
-              order: task.order,
-              done: task.done,
-              userId: task.userId,
+          this.store.dispatch(
+            updateTask({
               boardId: this.board.id,
               columnId,
-            },
-          }));
+              taskId: task.id,
+              task: {
+                title: res.title,
+                description: res.description,
+                order: task.order,
+                done: task.done,
+                userId: task.userId,
+                boardId: this.board.id,
+                columnId,
+              },
+            }),
+          );
         }
       });
   }

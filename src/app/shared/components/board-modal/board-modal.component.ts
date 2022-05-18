@@ -23,8 +23,8 @@ export class BoardModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      title: ["", [Validators.required, Validators.minLength(5)]],
-      description: ["", [Validators.required, Validators.minLength(5)]],
+      title: ["", [Validators.required, Validators.minLength(3)]],
+      description: ["", [Validators.required, Validators.minLength(3)]],
     });
   }
 
