@@ -36,6 +36,11 @@
     vertical-align: top;
     padding: 1rem 10px;
     background: rgb(239, 239, 239);
+    &-loading {
+      min-height: 30vh;
+      border: none;
+      cursor: default;
+    }
   }
   &__add-column {
     &__inner {
@@ -50,6 +55,11 @@
       justify-content: center;
       padding: 1rem;
       cursor: pointer;
+      &-loading {
+        cursor: default;
+        min-height: 45px;
+        border: none;
+      }
       mat-icon {
         transform: scale(0.8);
       }
@@ -79,4 +89,22 @@
 .board__columns.cdk-drop-list-dragging .board__column:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
+
+.skeleton-loading {
+  background: #e7e7e7 !important;
+  border-radius: 5px !important;
+  animation: 1.5s shine linear infinite !important;
+  @keyframes shine {
+    from {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.3;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
 

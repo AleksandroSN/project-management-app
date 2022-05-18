@@ -1,47 +1,48 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from "@angular/cdk/drag-drop";
-import { BoardModel, ColumnModel, LoadingStatus, TaskModel } from "@app/shared/models";
-import { NotificationsService } from "@app/core/services/notifications-service/notifications.service";
+import { ColumnModel, ExtendedColumnModel, TaskModel } from "@app/shared/models";
 import { Store } from "@ngrx/store";
-import { getBoardById } from "@app/redux/actions/current-board.action";
-import { selectCurrentBoard, selectCurrentBoardStatus } from "@app/redux/selectors/current-board.selectors";
-import { Observable } from "rxjs";
-import { NotificationRef } from "@app/shared/models/notification.model";
+import { destroyCurrentBoard, getBoardById } from "@app/redux/actions/current-board.action";
+import { ActivatedRoute } from "@angular/router";
+import { DetailBoardService } from "@app/board/detail-board-page/detail-board.service";
 
 @Component({
   selector: "app-detail-board-page",
   templateUrl: "./detail-board-page.component.html",
   styleUrls: ["./detail-board-page.component.scss"],
 })
-export class DetailBoardPageComponent implements OnInit {
-  public status$: Observable<LoadingStatus | null> = this.store.select(selectCurrentBoardStatus);
-
-  public board$: Observable<BoardModel | undefined> = this.store.select(selectCurrentBoard);
-
-  public board: BoardModel | undefined;
-
-  public loadingNotification!: NotificationRef | null;
-
-  constructor(private notificationsService: NotificationsService, private store: Store) {}
+export class DetailBoardPageComponent implements OnInit, OnDestroy {
+  constructor(
+    private store: Store,
+    private route: ActivatedRoute,
+    public detailBoardService: DetailBoardService,
+  ) {}
 
   public ngOnInit(): void {
-    this.status$.subscribe((res) => {
-      if (res === LoadingStatus.LOADING) {
-        if (!this.loadingNotification) {
-          this.loadingNotification = this.notificationsService.showNotification({
-            type: "spinner",
-            message: "Board synchronization",
-          });
-        }
-      } else if (this.loadingNotification) {
-        this.loadingNotification.close();
-        this.loadingNotification = null;
-      }
-    });
-    this.store.dispatch(getBoardById({ id: "9a111e19-24ec-43e1-b8c4-13776842b8d5" }));
-    this.board$.subscribe((board) => {
-      this.board = board;
-    });
+    this.store.dispatch(getBoardById({ id: this.route.snapshot.params["id"] }));
+  }
+
+  public createColumn(): void {
+    // eslint-disable-next-line max-len
+    this.detailBoardService.createColumn(
+      this.route.snapshot.params["id"],
+      this.detailBoardService.board?.columns?.length || 0,
+    );
+  }
+
+  public deleteColumn(column: ExtendedColumnModel): void {
+    if (this.detailBoardService.board) {
+      this.detailBoardService.deleteColumn(this.detailBoardService.board?.id, column);
+    }
+  }
+
+  public updateColumn(column: ExtendedColumnModel): void {
+    this.detailBoardService.updateColumn(this.route.snapshot.params["id"], column);
+  }
+
+  public ngOnDestroy(): void {
+    // @ts-ignore
+    this.store.dispatch(destroyCurrentBoard());
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -59,22 +60,41 @@ export class DetailBoardPageComponent implements OnInit {
         event.currentIndex,
       );
     }
-    this.store.dispatch(getBoardById({ id: "9a111e19-24ec-43e1-b8c4-13776842b8d5" }));
+    // this.store.dispatch(getBoardById({ id: this.route.snapshot.params["id"] }));
   }
 
   public dropColumn(event: CdkDragDrop<ColumnModel[] | undefined>) {
-    if (!this.board?.columns) {
+    if (!this.detailBoardService.board?.columns) {
       return;
     }
-    moveItemInArray(this.board.columns, event.previousIndex, event.currentIndex);
-    this.store.dispatch(getBoardById({ id: "9a111e19-24ec-43e1-b8c4-13776842b8d5" }));
+    moveItemInArray(this.detailBoardService.board.columns, event.previousIndex, event.currentIndex);
+    if (event.previousIndex === event.currentIndex) {
+      return;
+    }
+    this.detailBoardService.moveColumn(
+      this.detailBoardService.board.columns[event.currentIndex],
+      event.previousIndex,
+      event.currentIndex,
+    );
+  }
+
+  public createTask(column: ExtendedColumnModel): void {
+    this.detailBoardService.createTask(column);
+  }
+
+  public deleteTask(data: { column: ExtendedColumnModel, task: TaskModel }): void {
+    this.detailBoardService.deleteTask(data.column, data.task);
+  }
+
+  public editTask(data: { columnId: string; task: TaskModel }): void {
+    this.detailBoardService.updateTask(data.columnId, data.task);
   }
 
   public getColumnData(index: number, data: ColumnModel): any {
     return {
       ...data,
-      id: index,
-      otherColumns: [...Array((this.board?.columns || []).length).keys()]
+      indexId: index,
+      otherColumns: [...Array((this.detailBoardService.board?.columns || []).length).keys()]
         .filter((item) => item !== index)
         .map((item) => `column-${item}`),
     };

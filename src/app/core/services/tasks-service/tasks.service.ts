@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpService } from "@app/core/services";
 import { Observable } from "rxjs";
-import { TaskBodyModel, TaskModel } from "@app/shared";
+import { ExtendedColumnModel, TaskBodyModel, TaskModel } from "@app/shared";
 import { BOARDS_ENDPOINT, COLUMNS_ENDPOINT, TASKS_ENDPOINT } from "@utils";
 
 @Injectable({
@@ -41,9 +41,29 @@ export class TasksService {
     );
   }
 
-  public deleteTask(boardId: string, columnId: string, taskId: string): Observable<TaskModel> {
-    return this.httpService.delete<TaskModel>(
-      `${BOARDS_ENDPOINT}/${boardId}/${COLUMNS_ENDPOINT}/${columnId}/${TASKS_ENDPOINT}/${taskId}`,
-    );
+  public deleteTask(boardId: string, column: ExtendedColumnModel, task: TaskModel): Observable<TaskModel[]> {
+    return this.httpService.chain<TaskModel[]>([
+      this.httpService.delete<TaskModel>(
+        `${BOARDS_ENDPOINT}/${boardId}/${COLUMNS_ENDPOINT}/${column.id}/${TASKS_ENDPOINT}/${task.id}`,
+      ),
+      // eslint-disable-next-line max-len
+      ...(column.tasks || [])
+        .filter((filterTask: TaskModel) => filterTask.order > task.order)
+        // eslint-disable-next-line max-len
+        .map((mapTask: TaskModel) => this.updateTask(
+          boardId,
+          column.id,
+          mapTask.id,
+          {
+            title: mapTask.title,
+            description: mapTask.description,
+            order: mapTask.order - 1,
+            done: mapTask.done,
+            userId: mapTask.userId,
+            boardId,
+            columnId: column.id,
+          },
+        )),
+    ]);
   }
 }

@@ -1,4 +1,4 @@
-import { TaskModel } from "./task.model";
+import { TaskModel } from "@app/shared";
 
 export interface ColumnBodyModel {
   title: string;
@@ -14,4 +14,5 @@ export interface ColumnModel {
 
 export interface ExtendedColumnModel extends ColumnModel {
   otherColumns: string[];
+  indexId: number;
 }
