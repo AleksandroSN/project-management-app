@@ -49,7 +49,6 @@ export class ColumnsService {
         filtered.reverse();
       }
       return filtered.map((mapCol: ColumnModel) => {
-        console.log(mapCol);
         return this.updateColumn(
           boardId,
           mapCol.id,
