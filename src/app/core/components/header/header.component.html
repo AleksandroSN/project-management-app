@@ -8,6 +8,9 @@
   <div class="header__links">
     <ng-container *ngIf="isAuth$ | async; else loginLinks">
       <div class="header__links-auth">
+        <button mat-raised-button aria-label="Logout" routerLink="/board">
+          <mat-icon style="transform: translateY(-1px)">dashboard</mat-icon>
+        </button>
         <app-create-board-button></app-create-board-button>
         <button mat-raised-button aria-label="Logout" (click)="logout()">
           {{'header.logout' | transloco}}
