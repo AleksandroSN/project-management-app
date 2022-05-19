@@ -100,9 +100,9 @@ export class DetailBoardService {
   public createColumn(boardId: string, boardLength: number): void {
     this.openModal<{ title: string }>(
       {
-        title: ["", Validators.required, "Column title"],
+        title: ["", Validators.required, "columnObj.createLabel"],
       },
-      "Create column",
+      "columnObj.createTitle",
     )
       .afterClosed()
       .subscribe((res) => {
@@ -122,9 +122,9 @@ export class DetailBoardService {
   public updateColumn(boardId: string, column: ColumnModel): void {
     this.openModal<{ title: string }>(
       {
-        title: [column.title, Validators.required, "Column title"],
+        title: [column.title, Validators.required, "columnObj.createLabel"],
       },
-      "Update column",
+      "columnObj.updateTitle",
     )
       .afterClosed()
       .subscribe((res) => {
@@ -155,10 +155,10 @@ export class DetailBoardService {
   public createTask(column: ExtendedColumnModel): void {
     this.openModal<{ title: string; description: string }>(
       {
-        title: ["", Validators.required, "Task title"],
-        description: ["", Validators.required, "Task description"],
+        title: ["", Validators.required, "taskObj.titleLabel"],
+        description: ["", Validators.required, "taskObj.taskDescription"],
       },
-      "Create task",
+      "taskObj.createTitle",
     )
       .afterClosed()
       .subscribe((res) => {
@@ -193,10 +193,10 @@ export class DetailBoardService {
       description: string;
     }>(
       {
-        title: [task.title, Validators.required, "Task title"],
-        description: [task.description, Validators.required, "Task description"],
+        title: [task.title, Validators.required, "taskObj.titleLabel"],
+        description: [task.description, Validators.required, "taskObj.taskDescription"],
       },
-      "Update task",
+      "taskObj.updateTitle",
     )
       .afterClosed()
       .subscribe((res) => {

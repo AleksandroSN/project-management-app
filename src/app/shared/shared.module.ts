@@ -9,7 +9,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatDatepickerModule } from "@angular/material/datepicker";
-import { MatNativeDateModule } from "@angular/material/core";
+import { MatNativeDateModule, MatRippleModule } from "@angular/material/core";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatDialogModule } from "@angular/material/dialog";
 import { RouterModule } from "@angular/router";
@@ -53,7 +53,7 @@ const MaterialsModules = [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorCatcherInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
-  imports: [CommonModule, MaterialsModules, RouterModule, ReactiveFormsModule, FormsModule, TranslocoModule],
+    imports: [CommonModule, MaterialsModules, RouterModule, ReactiveFormsModule, FormsModule, TranslocoModule, MatRippleModule],
   exports: [
     CommonModule,
     MaterialsModules,

@@ -1,13 +1,13 @@
-<h2 mat-dialog-title>{{data.title}}</h2>
+<h2 mat-dialog-title>{{data.title | transloco}}</h2>
 <mat-dialog-content>
   <form class="modal-form" [formGroup]="form">
     <mat-form-field *ngFor="let field of fields" appearance="fill">
-      <mat-label>{{ field.name }}</mat-label>
+      <mat-label>{{ field.name | transloco }}</mat-label>
       <input [formControlName]="field.field" matInput>
     </mat-form-field>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button color="warn" mat-button (click)="close()">Cancel</button>
-  <button color="primary" mat-button [mat-dialog-close]="form.value" [disabled]="form.invalid">Submit</button>
+  <button color="warn" mat-button (click)="close()">{{ "cancel" | transloco }}</button>
+  <button color="primary" mat-button [mat-dialog-close]="form.value" [disabled]="form.invalid">{{ "submit" | transloco }}</button>
 </mat-dialog-actions>
