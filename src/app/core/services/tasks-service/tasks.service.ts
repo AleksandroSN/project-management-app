@@ -62,5 +62,139 @@ export class TasksService {
         ),
     ]);
   }
-  /* eslint-enable */
+
+  public moveTask(
+    boardId: string,
+    previousColumn: { data: TaskModel[]; id: string },
+    nextColumn: { data: TaskModel[]; id: string | null } | undefined,
+    previousIndex: number,
+    currentIndex: number,
+    task: TaskModel,
+  ): Observable<TaskModel[]> {
+    const oneColumn = (): Observable<TaskModel[]> => {
+      console.log("one column");
+      const minOrder = previousIndex < currentIndex ? previousIndex : currentIndex - 1;
+      const maxOrder = previousIndex > currentIndex ? previousIndex : currentIndex + 1;
+      const between = (): Observable<TaskModel>[] => {
+        const filtered = previousColumn.data.filter(
+          (filterTask: TaskModel) => filterTask.order > minOrder + 1 && filterTask.order < maxOrder + 1,
+        );
+        if (currentIndex < previousIndex) {
+          filtered.reverse();
+        }
+        // eslint-disable-next-line arrow-body-style
+        return filtered.map((mapTask: TaskModel) => {
+          return this.updateTask(boardId, previousColumn.id, task.id, {
+            title: mapTask.title,
+            description: mapTask.description,
+            order: mapTask.order - 1,
+            done: mapTask.done,
+            userId: mapTask.userId,
+            boardId,
+            columnId: previousColumn.id,
+          });
+        });
+      };
+      return this.httpService.chain<TaskModel[]>([
+        this.updateTask(
+          boardId,
+          previousColumn.id,
+          task.id,
+          {
+            title: task.title,
+            description: task.description,
+            order: previousColumn.data.length + 1,
+            done: task.done,
+            userId: task.userId,
+            boardId,
+            columnId: previousColumn.id,
+          }
+        ),
+        ...between(),
+        this.updateTask(
+          boardId,
+          previousColumn.id,
+          task.id,
+          {
+            title: task.title,
+            description: task.description,
+            order: currentIndex + 1,
+            done: task.done,
+            userId: task.userId,
+            boardId,
+            columnId: previousColumn.id,
+          }
+        ),
+      ]);
+    }
+    const twoColumns = (nextColumn: { data: TaskModel[], id: string }): Observable<TaskModel[]> => {
+      console.log("different columns");
+      return this.httpService.chain<TaskModel[]>([
+        ...nextColumn.data
+          .filter((filterTask: TaskModel) => filterTask.order >= currentIndex + 1 && filterTask.id !== task.id)
+          .reverse()
+          .map((mapTask: TaskModel) =>
+            this.updateTask(
+              boardId,
+              nextColumn.id,
+              mapTask.id,
+              {
+                title: mapTask.title,
+                description: mapTask.description,
+                order: mapTask.order + 1,
+                done: mapTask.done,
+                userId: mapTask.userId,
+                boardId,
+                columnId: nextColumn.id,
+              }
+            ),
+          ),
+        this.updateTask(
+          boardId,
+          previousColumn.id,
+          task.id,
+          {
+            title: task.title,
+            description: task.description,
+            order: currentIndex + 1,
+            done: task.done,
+            userId: task.userId,
+            boardId,
+            columnId: nextColumn.id,
+          }
+        ),
+      ...previousColumn.data
+        .filter((filterTask: TaskModel) => filterTask.order > previousIndex + 1 && filterTask.id !== task.id)
+        .map((mapTask: TaskModel) =>
+          this.updateTask(
+            boardId,
+            previousColumn.id,
+            mapTask.id,
+            {
+              title: mapTask.title,
+              description: mapTask.description,
+              order: mapTask.order - 1,
+              done: mapTask.done,
+              userId: mapTask.userId,
+              boardId,
+              columnId: previousColumn.id,
+            }
+          ),
+        ),
+      ]);
+    };
+    if (nextColumn && previousColumn.id === nextColumn.id) {
+      return oneColumn();
+    } else if (nextColumn?.id && nextColumn?.data) {
+      const nextColumnObject = {
+        data: nextColumn.data,
+        id: nextColumn.id,
+      }
+      console.log("prev: ", previousColumn);
+      console.log("next: ", nextColumnObject);
+      console.log("task: ", task);
+      return twoColumns(nextColumnObject);
+    }
+    return oneColumn();
+  }
 }

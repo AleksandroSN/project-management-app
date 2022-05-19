@@ -18,6 +18,7 @@
   </div>
   <div
     cdkDropList
+    [attr.data-id]="columnData.id"
     [id]="'column-' + columnData.indexId"
     [cdkDropListConnectedTo]="columnData.otherColumns"
     [cdkDropListData]="columnData.tasks"

@@ -8,6 +8,7 @@ import {
   TaskBodyModel,
   TaskModel,
 } from "@app/shared";
+import { CdkDropList } from "@angular/cdk/drag-drop";
 
 const reduxStateName = "Current Board State";
 
@@ -199,6 +200,33 @@ export const deleteTaskSuccess = createAction(
 
 export const deleteTaskFailure = createAction(
   `[${reduxStateName}] Delete task (Failure)`,
+  props<{ error: any }>(),
+);
+
+// ===============
+
+// Move Task
+// ===============
+
+export const moveTask = createAction(
+  `[${reduxStateName}] Move task (Progress)`,
+  props<{
+    boardId: string;
+    previousColumn: { data: TaskModel[]; id: string };
+    nextColumn: { data: TaskModel[]; id: string | null } | undefined;
+    previousIndex: number;
+    currentIndex: number;
+    task: TaskModel;
+  }>(),
+);
+
+export const moveTaskSuccess = createAction(
+  `[${reduxStateName}] Move task (Success)`,
+  props<{ task: TaskModel }>(),
+);
+
+export const moveTaskFailure = createAction(
+  `[${reduxStateName}] Move task (Failure)`,
   props<{ error: any }>(),
 );
 

@@ -27,6 +27,9 @@ import {
   moveColumn,
   moveColumnSuccess,
   moveColumnFailure,
+  moveTask,
+  moveTaskSuccess,
+  moveTaskFailure,
 } from "@app/redux/actions/current-board.action";
 import { CurrentBoardState } from "@app/redux";
 import { CURRENT_BOARD_KEY } from "@utils";
@@ -324,6 +327,40 @@ export const currentBoardFeature = createFeature({
     ),
     on(
       deleteTaskFailure,
+      (state, { error }): CurrentBoardState => ({
+        ...state,
+        status: {
+          type: LoadingStatus.ERROR,
+          info: error.error.message,
+          code: error.status,
+        },
+      }),
+    ),
+    on(
+      moveTask,
+      // eslint-disable-next-line max-len
+      (state, { boardId, previousColumn, nextColumn, previousIndex, currentIndex, task }): CurrentBoardState => ({
+        ...state,
+        status: {
+          type: LoadingStatus.LOADING,
+          info: null,
+          code: null,
+        },
+      }),
+    ),
+    on(
+      moveTaskSuccess,
+      (state, { task }): CurrentBoardState => ({
+        ...state,
+        status: {
+          type: LoadingStatus.PRE_SUCCESS,
+          info: null,
+          code: null,
+        },
+      }),
+    ),
+    on(
+      moveTaskFailure,
       (state, { error }): CurrentBoardState => ({
         ...state,
         status: {
