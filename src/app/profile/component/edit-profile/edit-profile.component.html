@@ -1,0 +1,49 @@
+<ng-container *ngIf="(user$ | async) as user">
+  <form class="profile__form" (ngSubmit)="onSubmit()" [formGroup]="form" *transloco="let t; read:'profileObj' ">
+    <p class="profile__title">{{ t('title') }}</p>
+    <mat-form-field appearance="fill">
+      <mat-label>{{user.name || t('name')}}</mat-label>
+      <input type="text" matInput formControlName="name" placeholder="{{ t('newName') }}" required>
+      <mat-error *ngIf="controls.name.invalid && (controls.name.dirty || controls.name.touched)">
+        <span *ngIf="controls.name.invalid">
+          {{'validation.length5' | transloco}}
+        </span>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>{{user.login || t('login')}}</mat-label>
+      <input type="text" matInput formControlName="login" placeholder="{{ t('newLogin') }}" required>
+      <mat-error *ngIf="controls.login.invalid && (controls.login.dirty || controls.login.touched)">
+        <span *ngIf="controls.login.invalid">
+          {{'validation.length5' | transloco}}
+        </span>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>{{ t('pass') }}</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
+      <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-error *ngIf="controls.password.invalid && (controls.password.dirty || controls.password.touched)">
+        {{'validation.strong' | transloco}}
+        <span *ngIf="controls.password.errors?.['minLength']">{{'validation.length8' | transloco}}</span>
+        <span *ngIf="controls.password.errors?.['upperAndLowerCase']">{{'validation.case' | transloco}}</span>
+        <span *ngIf="controls.password.errors?.['numbersAndLetters']">{{'validation.number' | transloco}}</span>
+        <span *ngIf="controls.password.errors?.['specialChar']">{{'validation.special' | transloco}}</span>
+      </mat-error>
+    </mat-form-field>
+    <div class="profile__buttons">
+      <button
+        appOpenModal
+        (callbackAfterClose)="profileServise.deleteProfile(userID)"
+        deleteEntity="profile"
+        class="profile__cancel"
+        mat-raised-button color="warn"
+        type="button">{{'delete' | transloco}}</button>
+      <button [disabled]="form.invalid" class="profile__submit" mat-raised-button color="primary"
+        type="submit">{{'update' | transloco}}</button>
+    </div>
+  </form>
+</ng-container>

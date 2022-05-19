@@ -1,0 +1,38 @@
+@import "adaptive";
+
+html,
+body {
+  height: 100vh;
+}
+body {
+  background: rgba(0, 0, 0, 0.025);
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.flex {
+  display: flex;
+}
+
+.decoration-none {
+  text-decoration: none;
+}
+.direction-col {
+  flex-direction: column;
+}
+
+.decoration-none {
+  text-decoration: none;
+}
+
+.gap-1 {
+  gap: 1rem;
+}
+
+.gap-2 {
+  gap: 2rem;
+}
+
+.w-100 {
+  width: 100%;
+}

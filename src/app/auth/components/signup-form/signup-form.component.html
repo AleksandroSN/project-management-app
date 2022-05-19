@@ -1,0 +1,46 @@
+<ng-container *ngIf="form">
+  <form class="signup__form" (ngSubmit)="onSubmit()" [formGroup]="form" *transloco="let t; read:'authForm' ">
+    <p class="signup__title">{{ t('titleSign') }}</p>
+    <mat-form-field appearance="fill">
+      <mat-label>{{ t('labelName') }}</mat-label>
+      <input type="text" matInput formControlName="name" placeholder="Username" required>
+      <mat-error *ngIf="controls.name.invalid && (controls.name.dirty || controls.name.touched)">
+        <span *ngIf="controls.name.errors?.['required']">
+          {{'validation.name' | transloco}}
+        </span>
+        <span *ngIf="controls.name.invalid">
+          {{'validation.length5' | transloco}}
+        </span>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>{{ t('labelLog') }}</mat-label>
+      <input type="text" matInput formControlName="login" placeholder="Login" required>
+      <mat-error *ngIf="controls.login.invalid && (controls.login.dirty || controls.login.touched)">
+        <span *ngIf="controls.login.errors?.['required']">
+          {{'validation.login' | transloco}}
+        </span>
+        <span *ngIf="controls.login.invalid">
+          {{'validation.length5' | transloco}}
+        </span>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>{{ t('labelPass') }}</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
+      <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-error *ngIf="controls.password.invalid && (controls.password.dirty || controls.password.touched)">
+        {{'validation.strong' | transloco}}
+        <span *ngIf="controls.password.errors?.['minLength']">{{'validation.length8' | transloco}}</span>
+        <span *ngIf="controls.password.errors?.['upperAndLowerCase']">{{'validation.case' | transloco}}</span>
+        <span *ngIf="controls.password.errors?.['numbersAndLetters']">{{'validation.number' | transloco}}</span>
+        <span *ngIf="controls.password.errors?.['specialChar']">{{'validation.special' | transloco}}</span>
+      </mat-error>
+    </mat-form-field>
+    <button [disabled]="form.invalid" class="signup__submit" mat-raised-button color="primary"
+      type="submit">{{ t('titleSign') }}</button>
+  </form>
+</ng-container>

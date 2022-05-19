@@ -1,0 +1,45 @@
+.notification {
+  min-height: 36px;
+  border-radius: 5px;
+  padding: 1rem;
+  backdrop-filter: blur(5px);
+  margin-top: 0.5rem;
+  box-shadow: 0 5px 11px -5px rgba(34, 60, 80, 0.6);
+  color: white;
+  display: grid;
+  grid-template-columns: 2rem auto 2.2rem;
+  &>div {
+    display: flex;
+    align-items: center;
+  }
+  &__info {
+    margin-top: 2px;
+  }
+  &__icon>div {
+    display: flex;
+    align-items: center;
+  }
+  &__submit {
+    display: flex;
+    align-items: center;
+    button {
+      border: none;
+      outline: none;
+      background-color: rgba(0, 0, 0, 0.1);
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 4px;
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+    }
+  }
+  ::ng-deep {
+    .mat-progress-spinner circle, .mat-spinner circle {
+      stroke: white;
+    }
+  }
+}
+

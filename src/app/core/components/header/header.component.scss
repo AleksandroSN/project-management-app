@@ -1,0 +1,47 @@
+@import "adaptive.scss";
+
+.header {
+  height: 60px;
+  transition: height 0.3s, background-color 0.4s;
+
+  &--sticky {
+    height: 50px;
+  }
+  &__burger {
+    display: none;
+
+    @media screen and (max-width: 768px) {
+      display: block;
+    }
+  }
+
+  &__home-link {
+    @include breakpoint(xsm) {
+      font-size: 0.9rem;
+    }
+  }
+
+  &__links {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-left: auto;
+
+    &-auth {
+      display: flex;
+      gap: 1rem;
+
+      @include breakpoint(sm) {
+        display: none;
+      }
+    }
+  }
+
+  &__toggle {
+    margin-left: auto;
+  }
+
+  &__home-link {
+    color: #fff;
+  }
+}

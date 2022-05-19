@@ -1,0 +1,30 @@
+<mat-toolbar class="header" [ngClass]="{'header--sticky': isAuth$ | async}" color="primary">
+  <button mat-icon-button aria-label="Burger menu" class="header__burger" (click)="sidenavService.toggleSidenav()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <app-route-link linkPath="/">
+    <span class="header__home-link">Project Management App</span>
+  </app-route-link>
+  <div class="header__links">
+    <ng-container *ngIf="isAuth$ | async; else loginLinks">
+      <div class="header__links-auth">
+        <button mat-raised-button aria-label="Logout" routerLink="/board">
+          <mat-icon style="transform: translateY(-1px)">dashboard</mat-icon>
+        </button>
+        <app-create-board-button></app-create-board-button>
+        <button mat-raised-button aria-label="Logout" (click)="logout()">
+          {{'header.logout' | transloco}}
+        </button>
+        <app-route-link linkPath="profile" linkText="{{'header.profile' | transloco}}"></app-route-link>
+      </div>
+    </ng-container>
+    <mat-slide-toggle class="header__toggle" (change)="toggleLang()">{{'lang' | transloco}}</mat-slide-toggle>
+  </div>
+</mat-toolbar>
+
+<ng-template #loginLinks>
+  <div class="header__links-auth">
+    <app-route-link linkPath="auth/signin" linkText="{{'header.login' | transloco}}"></app-route-link>
+    <app-route-link linkPath="auth/signup" linkText="{{'header.signup' | transloco}}"></app-route-link>
+  </div>
+</ng-template>

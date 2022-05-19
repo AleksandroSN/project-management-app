@@ -1,0 +1,14 @@
+<div class="notification" [style.background-color]="themes[notificationData.type].color">
+  <div class="notification__icon">
+    <div [ngSwitch]="notificationData.type">
+      <mat-spinner color="warn" *ngSwitchCase="'spinner'" diameter="20"></mat-spinner>
+      <mat-icon *ngSwitchDefault>{{ themes[notificationData.type].icon }}</mat-icon>
+    </div>
+  </div>
+  <div class="notification__info">
+    {{ notificationData.message }}
+  </div>
+  <div *ngIf="notificationData.submit" class="notification__submit">
+    <button matRipple (click)="closeNotificationEvent.emit()">ok</button>
+  </div>
+</div>
