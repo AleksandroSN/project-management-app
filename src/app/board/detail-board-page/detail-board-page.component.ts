@@ -47,7 +47,12 @@ export class DetailBoardPageComponent implements OnInit, OnDestroy {
 
   // eslint-disable-next-line class-methods-use-this
   public dropTask(event: CdkDragDrop<TaskModel[] | undefined, TaskModel[]>): void {
+    const prevColId = event.previousContainer.element.nativeElement.getAttribute("data-id");
+    const nextColId = event.container.element.nativeElement.getAttribute("data-id");
     if (!event.container?.data) {
+      return;
+    }
+    if (prevColId === nextColId && event.previousIndex === event.currentIndex) {
       return;
     }
     if (event.previousContainer === event.container) {
@@ -60,7 +65,21 @@ export class DetailBoardPageComponent implements OnInit, OnDestroy {
         event.currentIndex,
       );
     }
-    // this.store.dispatch(getBoardById({ id: this.route.snapshot.params["id"] }));
+    if (prevColId) {
+      this.detailBoardService.moveTask(
+        {
+          data: event.previousContainer.data,
+          id: prevColId,
+        },
+        {
+          data: event.container.data,
+          id: nextColId,
+        },
+        event.previousIndex,
+        event.currentIndex,
+        event.container.data[event.currentIndex],
+      );
+    }
   }
 
   public dropColumn(event: CdkDragDrop<ColumnModel[] | undefined>) {

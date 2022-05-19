@@ -13,6 +13,7 @@ import {
   updateColumn,
   UserState,
   updateTask,
+  moveTask,
 } from "@app/redux";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { Validators } from "@angular/forms";
@@ -220,6 +221,28 @@ export class DetailBoardService {
           );
         }
       });
+  }
+
+  public moveTask(
+    previousColumn: { data: TaskModel[]; id: string },
+    nextColumn: { data: TaskModel[]; id: string | null } | undefined,
+    previousIndex: number,
+    currentIndex: number,
+    task: TaskModel,
+  ): void {
+    if (!this.board) {
+      return;
+    }
+    this.store.dispatch(
+      moveTask({
+        boardId: this.board.id,
+        previousColumn,
+        nextColumn,
+        previousIndex,
+        currentIndex,
+        task,
+      }),
+    );
   }
 
   // eslint-disable-next-line max-len

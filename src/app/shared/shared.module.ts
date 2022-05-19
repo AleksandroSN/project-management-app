@@ -53,7 +53,15 @@ const MaterialsModules = [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorCatcherInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
-    imports: [CommonModule, MaterialsModules, RouterModule, ReactiveFormsModule, FormsModule, TranslocoModule, MatRippleModule],
+  imports: [
+    CommonModule,
+    MaterialsModules,
+    RouterModule,
+    ReactiveFormsModule,
+    FormsModule,
+    TranslocoModule,
+    MatRippleModule,
+  ],
   exports: [
     CommonModule,
     MaterialsModules,
