@@ -49,8 +49,6 @@ export class DetailBoardPageComponent implements OnInit, OnDestroy {
   public dropTask(event: CdkDragDrop<TaskModel[] | undefined, TaskModel[]>): void {
     const prevColId = event.previousContainer.element.nativeElement.getAttribute("data-id");
     const nextColId = event.container.element.nativeElement.getAttribute("data-id");
-    console.log(prevColId);
-    console.log(nextColId);
     if (!event.container?.data) {
       return;
     }

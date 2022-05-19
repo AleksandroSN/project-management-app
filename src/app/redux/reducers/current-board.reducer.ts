@@ -339,7 +339,10 @@ export const currentBoardFeature = createFeature({
     on(
       moveTask,
       // eslint-disable-next-line max-len
-      (state, { boardId, previousColumn, nextColumn, previousIndex, currentIndex, task }): CurrentBoardState => ({
+      (
+        state,
+        { boardId, previousColumn, nextColumn, previousIndex, currentIndex, task },
+      ): CurrentBoardState => ({
         ...state,
         status: {
           type: LoadingStatus.LOADING,

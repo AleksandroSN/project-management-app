@@ -24,7 +24,9 @@ import {
   moveColumn,
   moveColumnSuccess,
   moveColumnFailure,
-  moveTask, moveTaskSuccess, moveTaskFailure,
+  moveTask,
+  moveTaskSuccess,
+  moveTaskFailure,
 } from "@app/redux";
 import {
   getBoardById,
@@ -182,27 +184,31 @@ export class CurrentBoardEffects {
   moveTask$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(moveTask),
-      switchMap((request: {
-        boardId: string;
-        previousColumn: { data: TaskModel[]; id: string };
-        nextColumn: { data: TaskModel[]; id: string | null } | undefined;
-        previousIndex: number;
-        currentIndex: number;
-        task: TaskModel;
-      }) => {
-        return this.entitiesService.tasks.moveTask(
-          request.boardId,
-          request.previousColumn,
-          request.nextColumn,
-          request.previousIndex,
-          request.currentIndex,
-          request.task,
-        ).pipe(
-          map((task: TaskModel[]) => moveTaskSuccess({ task: task[0] })),
-          catchError((error) => of(moveTaskFailure({ error }))),
-          finalize(() => this.store.dispatch(getBoardById({ id: request.boardId }))),
-        );
-      }),
+      switchMap(
+        (request: {
+          boardId: string;
+          previousColumn: { data: TaskModel[]; id: string };
+          nextColumn: { data: TaskModel[]; id: string | null } | undefined;
+          previousIndex: number;
+          currentIndex: number;
+          task: TaskModel;
+        }) => {
+          return this.entitiesService.tasks
+            .moveTask(
+              request.boardId,
+              request.previousColumn,
+              request.nextColumn,
+              request.previousIndex,
+              request.currentIndex,
+              request.task,
+            )
+            .pipe(
+              map((task: TaskModel[]) => moveTaskSuccess({ task: task[0] })),
+              catchError((error) => of(moveTaskFailure({ error }))),
+              finalize(() => this.store.dispatch(getBoardById({ id: request.boardId }))),
+            );
+        },
+      ),
     );
   });
 }

@@ -8,7 +8,6 @@ import {
   TaskBodyModel,
   TaskModel,
 } from "@app/shared";
-import { CdkDropList } from "@angular/cdk/drag-drop";
 
 const reduxStateName = "Current Board State";
 

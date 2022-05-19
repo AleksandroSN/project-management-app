@@ -72,7 +72,6 @@ export class TasksService {
     task: TaskModel,
   ): Observable<TaskModel[]> {
     const oneColumn = (): Observable<TaskModel[]> => {
-      console.log("one column");
       const minOrder = previousIndex < currentIndex ? previousIndex : currentIndex - 1;
       const maxOrder = previousIndex > currentIndex ? previousIndex : currentIndex + 1;
       const between = (): Observable<TaskModel>[] => {
@@ -128,7 +127,6 @@ export class TasksService {
       ]);
     }
     const twoColumns = (nextColumn: { data: TaskModel[], id: string }): Observable<TaskModel[]> => {
-      console.log("different columns");
       return this.httpService.chain<TaskModel[]>([
         ...nextColumn.data
           .filter((filterTask: TaskModel) => filterTask.order >= currentIndex + 1 && filterTask.id !== task.id)
@@ -190,9 +188,6 @@ export class TasksService {
         data: nextColumn.data,
         id: nextColumn.id,
       }
-      console.log("prev: ", previousColumn);
-      console.log("next: ", nextColumnObject);
-      console.log("task: ", task);
       return twoColumns(nextColumnObject);
     }
     return oneColumn();

@@ -12,7 +12,8 @@ import {
   setPendingState,
   updateColumn,
   UserState,
-  updateTask, moveTask,
+  updateTask,
+  moveTask,
 } from "@app/redux";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { Validators } from "@angular/forms";
@@ -232,14 +233,16 @@ export class DetailBoardService {
     if (!this.board) {
       return;
     }
-    this.store.dispatch(moveTask({
-      boardId: this.board.id,
-      previousColumn,
-      nextColumn,
-      previousIndex,
-      currentIndex,
-      task,
-    }));
+    this.store.dispatch(
+      moveTask({
+        boardId: this.board.id,
+        previousColumn,
+        nextColumn,
+        previousIndex,
+        currentIndex,
+        task,
+      }),
+    );
   }
 
   // eslint-disable-next-line max-len
